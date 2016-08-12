@@ -35,11 +35,15 @@ app.undergroundService = function(name, services){
                 var undergroundStatus = name[i].lineStatuses[0].statusSeverityDescription;
 
                 var addLineID = $('#tfl').attr('id', undergroundID);
-                var addLineService = '<div class="status">' + undergroundStatus + '</div>';
-                var addLineName = '<h3>' + undergroundName + '</h3>';
+                var addLine = '<h6>' + undergroundName + undergroundStatus + '</h6>';
+                //var addLineService = '<div class="status">' + undergroundStatus + '</div>';
                 
-                $('#lines').append(addLineName);
-                $(addLineID).append(addLineService);
+                $(addLineID).append(addLine);
+
+                if (undergroundStatus !== 'Good Service'){
+                     console.log(undergroundStatus);
+                    //return false;
+                }
 
                 //'<li>'+ serviceName + '</li>';
                 //var task = '<li>' + serviceStatus + '</li>'
