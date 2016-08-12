@@ -1,0 +1,35 @@
+Pedro Meeting: TFL
+
+To Do’s
+
+Rename the id’s to be more systematic, in your looping, you need two things: first the name of the line by, and the response. So in the HTML, you will bind the name of the line with a DOM element with service status. 
+
+
+Currently, how the JavaScript is set up, the serviceStatus function will serve the last tube line, not every tube line’s status, as it’s looping through an array and getting the object once on completion.
+
+When Pedro created his version of the TFL widget, he:
+
+— Created IDs in the HTML which have a naming convention that follows the API. Eg. js-tfl-[name of the tube line], with the name is based on the API. 
+— On his main.js file, when he renders the data, he creates a method called ‘render tfl’, which have a tube line object, which is the tube line itself 
+— You are changing the ID dynamically by the name of the line, so you need to do a string concatenation that breaks the name of the string at the name of the variable, and then close and add the closing string #02:52:55-6# You know what, you don’t need the closing string
+
+
+
+ #02:48:18-4# end of guy’s lesson 
+pedro #02:48:58-0# 
+#02:49:03-1# service status will serve the last tube line, not every line’s status, plus it’s looping through an array.. 
+
+let me show you how I did it (!!)
+
+#02:49:26-2# On my HTML page, I create id’s which have a naming convention. So, js-tfl-[name of the tube line], but the name is based on the api
+#02:49:53-0# why this important, let me show you why: here, on main.js, when I render, I create a method called ‘render tfl’, which have a line object, which is the line itself 
+#02:50:27-1# so I’m injecting, so I can have.. I explain 
+#02:51:04-0# $('#js-tfl' + nameofLine + ‘’ [closing string] ); 
+#02:52:00-4#  so it’s a string concatenation, so what is inside the jQuery selector, the dollar one, needs to be a string, which is referring to a CSS selector. In this case, an ID. You are changing the ID dynamically by the name of the line, so you need to do a string concatenation that breaks the name of the string at the name of the variable, and then close and add the closing string #02:52:55-6# You know what, you don’t need the closing string 
+#02:53:12-3# rename the id’s to be more systematic, in your looping, you need two things: first the name of the line by, and the response. So in the HTML, you will bind the name of the line with a DOM element with service status.  #02:54:05-4# and your problem was that you’re just showing the last line
+#02:54:05-4# me: so to make an ‘all good service’ is that using the app.tubeService?
+#02:55:18-7# Remove the stuff out of the Ajax request, make a new function.  #02:55:37-2# Whatever path you’re doing, try to make functions to do one thing and one thing only 
+#02:55:55-4# before you the render, you need to check to see if you have good service, show the overlay 
+#02:56:54-4# first to loop everything, you’re doing that now. 
+#02:57:37-4# Check if you all good service (or service is closed)
+#02:57:58-8# Check if one or more are not good service. If yes, render the name of the line and the disruption message. The logic for the latter is the same, however you are changing the way you show the message.
