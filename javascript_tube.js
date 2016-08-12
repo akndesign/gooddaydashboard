@@ -5,7 +5,7 @@ var serviceName;
 var currentTime;
 
 app.getUnderground = function(){
-    var weatherUrl = 'https://api.tfl.gov.uk/line/mode/tube/status?';
+    var weatherUrl = 'https://api.tfl.gov.uk/line/mode/tube,tram/status?';
     var app_id = 'app_id=2a49b2c6';
     var apiKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
@@ -30,16 +30,16 @@ app.getUnderground = function(){
 app.undergroundService = function(name, services){
             
             for (var i=0; i < name.length; i++) {
-                var serviceID = name[i].id;
-                var serviceName = name[i].name;
-                var serviceStatus = name[i].lineStatuses[0].reason;
+                var undergroundID = name[i].id;
+                var undergroundName = name[i].name;
+                var undergroundStatus = name[i].lineStatuses[0].statusSeverityDescription;
 
-                var changeTubeID = $('#tfl').attr('id', "js-tfl-" + serviceID);
-                var task = '<div class="status">' + serviceStatus + '</div>';
-                var Name = '<h3>' + serviceName + '</h3>';
+                var addLineID = $('#tfl').attr('id', undergroundID);
+                var addLineService = '<div class="status">' + undergroundStatus + '</div>';
+                var addLineName = '<h3>' + undergroundName + '</h3>';
                 
-                $('#lines').append(name);
-                $(changeTubeID).append(task);
+                $('#lines').append(addLineName);
+                $(addLineID).append(addLineService);
 
                 //'<li>'+ serviceName + '</li>';
                 //var task = '<li>' + serviceStatus + '</li>'
