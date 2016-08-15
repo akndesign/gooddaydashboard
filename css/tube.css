@@ -1,5 +1,9 @@
-* {
-     box-sizing: border-box;
+*,
+*:after,
+*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .clearfix:before,
@@ -12,10 +16,7 @@
 }
 
 .is-hidden {
-     display: none;
-}
-.is-visible {
-     display: block;
+     display: none!important;
 }
 
 body {
@@ -25,30 +26,97 @@ body {
     text-align: center
 }
 
-ul {
-    list-style-type: none;
-    -moz-box-shadow: 1px 1px 4px #888;
-    -webkit-box-shadow: 1px 1px 4px #888;
-    box-shadow: 1px 1px 4px #ccc
+.widget-window {
+    float: none;
+    padding: 0;
+    margin: 5em auto;
+    text-align: center;
+    position: relative;
+    clear: both;
+    width: 100%;
+    height:100%;
 }
 
-a {
-    color: #246cce;
-    text-decoration: none
+.service-board {
+    float: none;
+    padding: 0;
+    margin: 5em auto;
+    text-align: center;
+    position: relative;
+    clear: both;
+    width: 100%;
+    height:100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin: auto;
+    padding-top: 5em;
+    background-color:rgba(0, 0, 0, 0.85);
+    z-index:1;
+    color:white;
+}
+
+#good-service,
+#service-closed,
+#interruptions {
+    font-size: 5em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#lines {
+    display: inline-block;
+    padding: 0;
+    border-radius: 6px;
+    -moz-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
+    -webkit-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
+    box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    height: 100%;
 }
 
 #lines li {
+    list-style-type: none;
     float: left;
     width: 100%;
 }
 
-#service-board {
-    float: none;
-    padding: 0;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    clear: both
+#lines li:hover,
+#lines li:active,
+#lines li.active,
+#lines li:focus,
+#lines li:active:focus,
+#lines li.active:focus {
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  /*background-color: rgba(0, 0, 0, 0.3);*/
+}
+
+.top-li {
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+}
+
+.bottom-li{
+    border-bottom-left-radius:6px;
+    border-bottom-right-radius:6px;
+}
+
+.bakerloo:hover,
+.central:hover, 
+.circle:hover,
+.district:hover .text {
+    color: white;
+}
+
+.bakerloo .text {
+    visibility: none;
 }
 
 .bakerloo {
@@ -103,7 +171,7 @@ a {
 
 .waterlooandcity {
     color: #113b92;
-    background: #70c3ce
+    background: #70c3ce;
 }
 
 .dlr {

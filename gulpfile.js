@@ -22,7 +22,6 @@ gulp.task ('html', function(){
 
 gulp.task ('watch', function(){
  	gulp.watch(['./*.html'], ['html']);
- 	gulp.watch(['./js/*.js'], ['jshint']);
 });
 
 gulp.task('default', ['connect', 'watch']);

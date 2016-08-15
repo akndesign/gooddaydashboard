@@ -1,79 +1,93 @@
 var app = {};
 
-var serviceStatus;
-var serviceName;
+var undergroundName;
+var undergroundStatus;
 var currentTime;
 
 app.getUnderground = function(){
-    var weatherUrl = 'https://api.tfl.gov.uk/line/mode/tube,tram/status?';
+   
+   /* var tflUrl = 'https://api.tfl.gov.uk/line/mode/tube/status?';
     var app_id = 'app_id=2a49b2c6';
     var apiKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
     $.ajax({
-        url: weatherUrl + app_id + apiKey,
+        url: tflUrl + app_id + apiKey,
         method: "GET",
         success: function(response){
             app.undergroundService(response);
-            //app.undergroundLine(response);
+            app.statusOverlay(response);
         }
     });
-};
-
-/*app.undergroundLine = function(name){
-    for (var i=0; i < name.length; i++) {
-            var serviceName = name[i].name;
-            console.log(serviceName);
-           //$('#status').text(serviceName); 
-       }
 };*/
 
-app.undergroundService = function(name, services){
-            
+ //Dummy Data JSON Request
+    $.getJSON('js/dummy-json/goodservice.json', function( response ) {
+         app.undergroundService(response);
+         app.undergroundNotifications(response);
+        });
+};
+
+app.undergroundService = function(name){ 
+
             for (var i=0; i < name.length; i++) {
+                
                 var undergroundID = name[i].id;
                 var undergroundName = name[i].name;
                 var undergroundStatus = name[i].lineStatuses[0].statusSeverityDescription;
 
                 var addLineID = $('#tfl').attr('id', undergroundID);
-                var addLine = '<h6>' + undergroundName + undergroundStatus + '</h6>';
-                //var addLineService = '<div class="status">' + undergroundStatus + '</div>';
-                
-                $(addLineID).append(addLine);
-
-                if (undergroundStatus !== 'Good Service'){
-                     console.log(undergroundStatus);
-                    //return false;
-                }
-
-                //'<li>'+ serviceName + '</li>';
-                //var task = '<li>' + serviceStatus + '</li>'
-
-                /*var serviceStatus = name[i].lineStatuses[0].statusSeverityDescription;
-
-                if (serviceStatus === 'Good Service'){
-                    $('#js-tfl' + serviceName).append(serviceStatus);
-                    console.log(serviceStatus);
-                }
-                
-                if (serviceStatus !== 'Good Service'){
-                    console.log('Interruption' + serviceStatus);
-                    //$('#js-tfl'+ serviceName).append(serviceStatus);
-                }*/
+                var addLine = '<h6>' + undergroundName + ' '+ undergroundStatus + '</h6>';
+                $(addLineID).append(addLine);             
             }
-            //$('#js-tfl' + nameofLine );
-            //console.log(serviceName);
-            //$('#status').text(serviceName); 
 };
 
-app.timeofDay = function(){
-    var currentTime = new Date();
-    $("#time").text(currentTime);
+
+app.undergroundNotifications = function(service) {
+
+    for (var i = 0; i < service.length; i++) {
+
+        var undergroundName = service[i].name + ', ';
+        var undergroundStatus = service[i].lineStatuses[0].statusSeverityDescription;
+        //var makeList = JSON.parse(stringify); 
+
+    
+        var overlay = $('.toggle').hover(function() {
+                $('#service-notifications').fadeOut('fast');
+            }, function() {
+                $('#service-notifications').fadeIn('fast');
+        });      
+        //if (undergroundStatus === 'Minor Delays' || 'Severe Delays' || 'Part Closure' || 'Part Suspended' || 'Suspended')  {
+
+        if (undergroundStatus === 'Good Service'){
+                    console.log('Good Service');
+                    $('#good-service').text('Good Service'); 
+        }
+
+        else if (undergroundStatus === 'Service Closed'){
+                    console.log('Service Closed');
+                    $('.status-title').text('Service Closed on the ');
+                    //$('#interruptions').addClass('is-hidden');
+                    $('#service-closed').append(undergroundName);                   
+                
+        } else if (undergroundStatus !== 'Good Service' && 'Service Closed' ) {
+                    console.log(undergroundStatus); 
+                    $('#good-service').addClass('is-hidden');
+                    $('.title').text('Interruptions on the ');
+                    $('#interruptions').append(undergroundName);   
+
+        } 
+            //$('#interruptions').addClass('is-hidden');
+        } 
+}; 
+
+app.statusLength = function(service){
+
 };
 
 app.init = function() {
-    $(document).ready(app.timeofDay);
     $(document).ready(app.getUnderground);
-    
+    $(document).ready(app.undergroundService);
+    $(document).ready(app.undergroundNotifications);
 };
 
 $(document).ready(app.init);

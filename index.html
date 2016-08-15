@@ -1,87 +1,56 @@
-<!DOCTYPE html PUBLIC>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Tube Service</title>
-    <meta http-equiv="refresh" content="60">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Underground Status</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
     <link rel="stylesheet" href="css/tube.css">
-</head>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/flat-ui.css" >
+    <link rel="shortcut icon" href="img/favicon.ico">
 
-<body style="font-size: 1.86579em; display: block;">
-    <div id="service-board" class="panel content">
-        <h2>Service updates</h2>
-        <div class="service-board-tabs">
-            <p id="time"></p>
-            </div>
-        <ul id="lines">
-            <li id='tfl' class="bakerloo">
-                <h3>Bakerloo</h3>
-                
-            </li>
-            <li id='tfl' class="central">
-                <h3>Central</h3>
-                
-            </li>
-            <li id='tfl' class="circle">
-                <h3>Circle</h3>
-                
-            </li>
-            <li id='tfl' class="district">
-                <h3>District</h3>
-                
-            </li>
-            <li id='tfl' class="hammersmithandcity">
-                <h3>H'smith &amp; City</h3>
-                
-            </li>
-            <li id='tfl' class="jubilee">
-                <h3>Jubilee</h3>
-                
-            </li>
-            <li id='tfl' class="metropolitan">
-                <h3>Metropolitan</h3>
-            </li>
-            <li id='tfl' class="northern">
-                <h3>Northern</h3>
-                
-            </li>
-            <li id='tfl' class="piccadilly">
-                <h3>Piccadilly</h3>
-                
-            </li>
-            <li id='tfl' class="tram">
-                <h3>Tram</h3>
-                
-            </li>
-            <li id='tfl' class="victoria">
-                <h3>Victoria</h3>
-                
-            </li>
-            <li id='tfl' class="waterlooandcity">
-                <h3>Waterloo &amp; City</h3>
-            </li>
-
-            <!--<li id='tfl' class="overground">
-                <h3><a href="https://tfl.gov.uk/tube-dlr-overground/status/#line-raillo-overground">Overground</a></h3>
-                <div class="status">
-                    <h4><a href="https://tfl.gov.uk/tube-dlr-overground/status/#line-raillo-overground">Part Suspended</a></h4></div>
-            </li>
-            <li id='tfl' class="tflrail">
-                <h3><a href="https://tfl.gov.uk/tube-dlr-overground/status/#line-tfl-rail">TfL Rail</a></h3>
-                <div class="status">Good Service</div>
-            </li>
-            <li id='tfl' class="dlr">
-                <h3><a href="https://tfl.gov.uk/tube-dlr-overground/status/#line-dlr-dlr">DLR</a></h3>
-                <div class="status">Good Service</div>
-            </li>
-            <li id='tfl' class="">
-                <h3><a href="https://tfl.gov.uk/tube-dlr-overground/status/#line-lul-">Tram</a></h3>
-                <div class="status">
-                    <h4><a href="https://tfl.gov.uk/tube-dlr-overground/status/#line-lul-">Part Closure</a></h4></div>
-            </li>
-            -->
-        </ul>
-    </div>
+     <script src="https://use.typekit.net/qnk1ava.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/javascript_tube.js" type="text/javascript" charset="utf-8"></script>
-</body>
+    <script src="js/javascript_tube.js" type="text/javascript" charset="utf-8"></script> 
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+ <body>
+    <div class="widget-window">
+    <div class="service-board toggle">
+        <div id="service-notifications" class="overlay">
+            <li id="good-service"></span></li>
+            <li id="interruptions"><span class="title"></span></li>
+            <li id="service-closed"><span class="status-title"></li>
+        </div>
+        <div id="lines">  
+            <li id='tfl' class="top-li bakerloo text"></li>
+            <li id='tfl' class="central text"></li>
+            <li id='tfl' class="circle text"></li>
+            <li id='tfl' class="district"></li>
+            <li id='tfl' class="hammersmithandcity"></li>
+            <li id='tfl' class="jubilee"></li>
+            <li id='tfl' class="metropolitan"></li>
+            <li id='tfl' class="northern"></li>
+            <li id='tfl' class="piccadilly"></li>
+            <li id='tfl' class="tram"></li>
+            <li id='tfl' class="victoria"></li>
+            <li id='tfl' class="bottom-li waterlooandcity"></li>
+    </div>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/vendor/video.js"></script>
+    <script src="js/flat-ui.min.js"></script>
+    
+    <script>
+    </script>
+
+  </body>
 </html>
