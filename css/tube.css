@@ -27,26 +27,32 @@ body {
 }
 
 .widget-window {
-    float: none;
-    padding: 0;
-    margin: 5em auto;
-    text-align: center;
-    position: relative;
-    clear: both;
-    width: 100%;
-    height:100%;
+    width:100%;
+    margin:0 auto;
+    border: 2px solid red;
 }
 
 .service-board {
-    float: none;
+    float: left;
     padding: 0;
-    margin: 5em auto;
+    margin: 5em;
     text-align: center;
     position: relative;
     clear: both;
-    width: 100%;
+    width: 500px;
     height:100%;
 }
+
+.asteriod,
+.weather {
+    border: 2px solid blue;
+    margin: 5em 0;
+}
+
+.asteriod{
+    font-size: 2em;
+}
+
 
 .overlay {
     position: absolute;
@@ -59,14 +65,41 @@ body {
     background-color:rgba(0, 0, 0, 0.85);
     z-index:1;
     color:white;
+    border-radius: 10px;
+    -moz-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
+    -webkit-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
+    box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
 #good-service,
-#service-closed,
 #interruptions {
-    font-size: 5em;
     display: inline-block;
     vertical-align: middle;
+}
+
+#good-service {
+    line-height: 80px;
+    font-size: 8em;
+    padding-top: 25px;
+}
+
+#good-title {
+    white-space: nowrap; 
+    font-size: 100px;
+    line-height:115px;
+
+}
+
+#interruptions {
+    font-size: 2em;
+    list-style-type: none;
+    line-height: 1.4em;
+}
+
+#service-closed {
+    font-size: 2em;
+    list-style-type: none;
+    line-height: 1.4;
 }
 
 #lines {
@@ -78,12 +111,15 @@ body {
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
     z-index: 1;
     height: 100%;
+    color:;
 }
 
 #lines li {
     list-style-type: none;
     float: left;
     width: 100%;
+    transition: .12s ease-in-out;
+
 }
 
 #lines li:hover,
@@ -92,10 +128,24 @@ body {
 #lines li:focus,
 #lines li:active:focus,
 #lines li.active:focus {
-  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  /*background-color: rgba(0, 0, 0, 0.3);*/
+    -webkit-transform: scale(1.04);
+    transform: scale(1.04);
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
+    -moz-border-radius-bottomright: 6px;
+    -moz-border-radius-bottomleft: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    box-shadow: 0 1px 25px rgba(0,0,0,.1);
+    z-index: 9;
+    /*transition: .12s ease-in-out;*/
+}
+
+.bakerloo:hover,
+.central:hover, 
+.circle:hover,
+.district:hover {
+    color: white;
 }
 
 .top-li {
@@ -108,24 +158,17 @@ body {
     border-bottom-right-radius:6px;
 }
 
-.bakerloo:hover,
-.central:hover, 
-.circle:hover,
-.district:hover .text {
-    color: white;
-}
-
 .bakerloo .text {
     visibility: none;
 }
 
 .bakerloo {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #ae6118
 }
 
 .central {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #e41f1f
 }
 
@@ -135,61 +178,61 @@ body {
 }
 
 .district {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #00a575
 }
 
 .hammersmithandcity {
-    color: #113b92;
+    color: rgba(250,250,250,.8);
     background: #e899a8
 }
 
 .jubilee {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #8f989e
 }
 
 .metropolitan {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #893267
 }
 
 .northern {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #000
 }
 
 .piccadilly {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #0450a1
 }
 
 .victoria {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #009fe0
 }
 
 .waterlooandcity {
-    color: #113b92;
+    color: rgba(250,250,250,.8);
     background: #70c3ce;
 }
 
 .dlr {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #00bbb4
 }
 
 .overground {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #f86c00
 }
 
 .tflrail {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #0019a8
 }
 
 .tram {
-    color: #fff;
+    color: rgba(250,250,250,.8);
     background: #6c0
 }

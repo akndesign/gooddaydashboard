@@ -432,7 +432,7 @@
 				"id": 0,
 				"lineId": "tram",
 				"statusSeverity": 5,
-				"statusSeverityDescription": "Good Service",
+				"statusSeverityDescription": "Service Closed",
 				"reason": "LONDON TRAMS: Wednesday 10 to Monday 15 August, no service between East Croydon and Sandilands. Trams to/from Wimbledon start and terminate at East Croydon. New Addington, Beckenham Junction and Elmers End services operate to/from Sandilands. No early morning, late evening or Sunday services to Elmers End.",
 				"created": "0001-01-01T00:00:00",
 				"validityPeriods": [
