@@ -44,7 +44,7 @@ app.getAJAX = function() {
     });
 
     //Dummy Underground JSON Request */
-    $.getJSON('js/dummy-json/mixedservice.json', function(undergroundResponse) {
+    $.getJSON('js/dummy-json/twodelayedservices.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
@@ -144,13 +144,17 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
         }
         //else if (i === service.length - 4) {
         //undergroundName = service[i].name + ' and other ';
+            
+           /* case 'Part Closure':
+            case 'Minor Delays':
+            case 'Severe Delays':
+            case 'Part Suspended':
+            case 'Special Service':*/
 
-
-    */
         switch (description) {
 
-            case 'Good Service':
-                
+            case 'Good Service':  
+
                 $('#good-service').text('Good').append("<div id='good-title'></div>");
                 $('#good-title').text('service');
                 break;
@@ -165,9 +169,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     $('#good-service').addClass('is-hidden');
                     $('#service-closed').text('Service Closed on the ');
-                    //$('#service-closed').append(undergroundName);
                     $('#service-closed').append(serviceClosedSingle);
-                    console.log(serviceClosedSingle);
                     //$(serviceClosedString.push('and'));
 
                 } else if ($(serviceClosed).length === 2) {
@@ -176,7 +178,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     $('#good-service').addClass('is-hidden');
                     $('#service-closed').text('Service Closed on the ');
-                    //$('#service-closed').append(undergroundName);
                     $('#service-closed').append(serviceClosedPlural);
                     //$(serviceClosedString.push('and'));
 
@@ -197,60 +198,38 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
             
             default:
 
-                /*interruption.push(undergroundName);
+                interruption.push(undergroundName);
 
-                
+                if ($(interruption).length === 1) {
 
-                if ($(serviceClosed).length === 1) {
-
-                    var serviceClosedSingle = serviceClosed.concat(singleLine);
+                    var interruptionSingleLine = interruption.join(" ").concat(singleLine);
 
                     $('#good-service').addClass('is-hidden');
-                    $('#service-closed').text('Service Closed on the ');
-                    //$('#service-closed').append(undergroundName);
-                    $('#service-closed').append(serviceClosedSingle);
-                    console.log(serviceClosedSingle);
-                    //$(serviceClosedString.push('and'));
+                    $('#interruptions').text('Interruption on the ' + interruptionSingleLine);
+                    console.log(interruptionSingleLine);
+                    //$(interruptionSingleLine.push('and'));
 
-                if ($(interruption).length >= 4){
+                } else if ($(interruption).length === 2) {
+
+                    var interruptionPluralLines = interruption.join(', ').concat(pluralLines);
+
                     $('#good-service').addClass('is-hidden');
-                    $('#interruptions').text('Interruptions on the ');
-                    $('#interruptions').append(interruptionString);
-                    var interruptionString = interruption.join(', ').concat(pluralLines);
-                    //$('#interruptions').text('Many Interruptions');
-                    //$(interruption.push("lines"));
-                    otherLines
+                    $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
+                    console.log(interruptionPluralLines);
+                    //$(interruptionPluralLine.push('and'));
 
                 } else {
-                    console.log(interruption);
-                    $('#good-service').addClass('is-hidden');
-                    $('#interruptions').text('Interruptions on the ');
-                    //$('#service-closed').append(undergroundName);
-                    $('#interruptions').append(interruptionString);
-                }
 
-                /*if ($(interruption).length === 1){
-                    serviceClosed.push(undergroundName);
-                    undergroundName = [line.name];
-                    $('.title').text('Interruptions on the ');
-                    $('#good-service').addClass('is-hidden');
-                    $('#interruptions').append(undergroundName);
+                    var interruptionOtherLines = interruption.join(', ').concat(otherLines);
 
-                } else if ($(interruption).length <= 3){
-                    console.log(interruption);
-                    undergroundName = [line.name] + ', ';
-                    $('.title').text('Interruptions on the ');
                     $('#good-service').addClass('is-hidden');
-                    $('#interruptions').append(undergroundName);
-                } else {
-                    console.log(interruption);
-                    $('.title').text('Interruptions on many lines');
-                    $('#good-service').addClass('is-hidden');
-                    //$('#interruptions').append(undergroundName);
-                }*/ break;
-        }
-    });
+                    $('#interruptions').text('Interruptions on the ' + interruptionOtherLines);
+                    console.log(interruptionOtherLines);
 
+                    } break;
+
+        } 
+});
 
     /*var serviceClosed = [];
 
