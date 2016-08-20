@@ -19,6 +19,23 @@
      display: none!important;
 }
 
+#loading {
+    background-color: #3498db;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
+#loader-1{
+    margin: 0 0 2em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
 body {
     margin: 0;
     padding: 0;

@@ -6,22 +6,27 @@
     <title>Underground Status</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Loading Bootstrap -->
+    <script src="https://use.typekit.net/qnk1ava.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src= "/js/moment-timezone.min.js"></script>
+    <script type="text/javascript">
+    $(window).load(function() {
+    $('#loading').remove();
+    });
+    </script>  
+
+     <!-- Loading Bootstrap -->
     <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Loading Flat UI -->
     <link rel="stylesheet" href="css/tube.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/flat-ui.css" >
     <link rel="shortcut icon" href="img/favicon.ico">
-
-    <script src="https://use.typekit.net/qnk1ava.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/moment.min.js"></script>
-    <script type="text/javascript" src= "/js/moment-timezone.min.js"></script>
     <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
-     <script type="text/javascript">
-      // Your Client ID can be retrieved from your project in the Google
+    <script type="text/javascript">
+     // Your Client ID can be retrieved from your project in the Google
       // Developer Console, https://console.developers.google.com
       var CLIENT_ID = '559328610579-le432q0suco7hf1l4mohephcsvss0amm.apps.googleusercontent.com';
 
@@ -39,6 +44,7 @@
           }, handleAuthResult);
       }
 
+      console.log(gapi.auth.authorize);
       /**
        * Handle response from authorization server.
        *
@@ -79,9 +85,10 @@
 
       /**
        * Print the summary and start datetime/date of the next ten events in
-       * the authorized user's calendar. If no events are found an
+       * the authorized users calendar. If no events are found an
        * appropriate message is printed.
        */
+
       function listUpcomingEvents() {
         var request = gapi.client.calendar.events.list({
           'calendarId': 'primary',
@@ -119,13 +126,11 @@
        * @param {string} message Text to be placed in pre element.
        */
       function appendPre(message) {
-        var pre = document.getElementById('output');
+        var pre = document.getElementById('googleCalendar');
         var textContent = document.createTextNode(message + '\n');
         pre.appendChild(textContent);
       }
 
-    </script>
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth">
     </script>
   </head>
 
@@ -133,9 +138,22 @@
     <input id="city" name="city" class="form" autocomplete="off" data-country="us"></input>
     <button id="search-button">Search</button>
     <button id="Reset">Reset Field</button>-->
-
  <body>
     <div class="widget-window row">
+    <div id="loading">
+  <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+  <path fill="#fff" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+    <animateTransform attributeType="xml"
+      attributeName="transform"
+      type="rotate"
+      from="0 25 25"
+      to="360 25 25"
+      dur="0.6s"
+      repeatCount="indefinite"/>
+    </path>
+  </svg>
+</div>
     <div class="service-board toggle col-xs-4">
         <div id="service-notifications" class="overlay">
             <li id="good-service"></li>
@@ -165,15 +183,15 @@
     </div>
     
     <div id="asteriod" class="asteriod col-xs-4"></div>
-    <div id="authorize-div" style="display: none">
-      <span>Authorize access to Google Calendar API</span>
+    <div id="output">
+        <div id="authorize-div" style="display: none">
+        <span>Authorize access to Google Calendar API</span>
       <!--Button for the user to click to initiate auth sequence -->
-      <button id="authorize-button" onclick="handleAuthClick(event)">
-        Authorize
-      </button>
+        <button id="authorize-button" onclick="handleAuthClick(event)"> Authorize </button>
+        </div>
     </div>
-    <pre id="output"></pre>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
     <script src="js/vendor/video.js"></script>
     <script src="js/flat-ui.min.js"></script>
     
