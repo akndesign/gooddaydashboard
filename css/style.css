@@ -1,3 +1,9 @@
+@font-face {
+font-family: "sofia-pro";
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
 *,
 *:after,
 *:before {
@@ -39,37 +45,47 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #eee;
+    background-color: #ecf0f1;
     text-align: center
 }
 
 .widget-window {
-    width:100%;
-    margin:0 auto;
-    border: 2px solid red;
+    flex-direction: row;
+   -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+    justify-content: center;
 }
 
 .service-board {
-    float: left;
+    order: 1;
     padding: 0;
-    margin: 5em;
     text-align: center;
     position: relative;
-    clear: both;
-    width: 500px;
     height:100%;
+    border-radius: 10px;
 }
 
-.asteriod,
 .weather {
-    border: 2px solid blue;
-    margin: 5em 0;
+   order: 2;
+   font-family: sofia-pro;
 }
 
 .asteriod{
-    font-size: 2em;
 }
 
+
+.asteriod,
+.weather {
+}
 
 .overlay {
     position: absolute;

@@ -3972,7 +3972,7 @@ fieldset[disabled] .input-group-btn .btn-default.active {
   filter: alpha(opacity=0);
 }
 .tile {
-  background-color: #eff0f2;
+  background-color: rgba(0,0,0,100)!important;
   border-radius: 6px;
   padding: 14px;
   margin-bottom: 20px;
@@ -5097,7 +5097,7 @@ fieldset[disabled] .navbar-inverse .navbar-btn.active {
   border-top-right-radius: 0;
 }
 .share {
-  background-color: #eff0f2;
+  /*background-color: #eff0f2;*/
   position: relative;
   border-radius: 6px;
 }

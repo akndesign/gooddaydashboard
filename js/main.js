@@ -1,5 +1,14 @@
 var app = {};
 
+var config = {
+    apiKey: 'AIzaSyCVwC9NZGAmenLzrVzrSaXLAUxcv7TYVBc',
+    authDomain: 'good-day-dashboard.firebaseapp.com',
+    databaseURL: 'https://good-day-dashboard.firebaseio.com',
+    storageBucket: '',
+  };
+
+firebase.initializeApp(config);
+
 //WEATHER APP
 
 app.getAJAX = function() {
@@ -29,7 +38,7 @@ app.getAJAX = function() {
         }
     });
 
-    /*$.ajax({
+    $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
         method: 'GET',
         beforeSend: function() {
@@ -43,13 +52,13 @@ app.getAJAX = function() {
         }
     });
 
-    //Dummy Underground JSON Request */
+    /*Dummy Underground JSON Request 
     $.getJSON('js/dummy-json/twodelayedservices.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
         
-        });
+        });*/
 
     $.ajax({
         url: asteriodUrl + apiKey,
