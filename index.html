@@ -19,11 +19,10 @@
     });
     </script>  
 
-     <!-- Loading Bootstrap -->
-    <!-- Loading Flat UI -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style_google.css">
     <link rel="stylesheet" href="css/normalize.css">
+    <!--<link rel="stylesheet" href="css/style.css">-->
+    <link rel="stylesheet" href="css/style.css">
+    
     <!--<link rel="stylesheet" href="css/flat-ui.css" >-->
     <link rel="shortcut icon" href="img/favicon.ico">
     <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
@@ -156,7 +155,9 @@
     </path>
   </svg>
 </div>
-    <!---<div class="service-board toggle flex-item">
+<div class="dashboard display-animation" style="margin: 0 auto; width: 1280px;">
+  <div class="tile-tfl ripple-effect">
+          <div class="tile-content service-board toggle flex-item">
         <div id="service-notifications" class="overlay">
             <li id="good-service"></li>
             <li id="interruptions"></li>
@@ -172,90 +173,46 @@
             <li id='tfl' class="metropolitan"></li>
             <li id='tfl' class="northern"></li>
             <li id='tfl' class="piccadilly"></li>
-            <li id='tfl' class="tram"></li>
-            <li id='tfl' class="victoria"></li>
-            <li id='tfl' class="bottom-li waterlooandcity"></li>
-        </div>
-    </div>   
-    <div class="weather">
-        <h2> London</h2>
-        <span id="location"></span>
-        <span id="weathercondition"></span>
-        <span id="temperature"></span>
-    </div>
-    
-    <div id="asteriod" class="asteriod"></div>-->
-
-<div class="dashboard display-animation" style="margin: 0 auto; width: 1130px;">
-  <div class="tile-exlg ripple-effect" href="#">
-      <span class="tile-content">
-          <div class="service-board toggle flex-item">
-        <div id="service-notifications" class="overlay">
-            <li id="good-service"></li>
-            <li id="interruptions"></li>
-            <li id="service-closed"><span class="status-title"></li>
-        </div>
-        <div id="lines">  
-            <li id='tfl' class="top-li bakerloo text"></li>
-            <li id='tfl' class="central text"></li>
-            <li id='tfl' class="circle text"></li>
-            <li id='tfl' class="district"></li>
-            <li id='tfl' class="hammersmithandcity"></li>
-            <li id='tfl' class="jubilee"></li>
-            <li id='tfl' class="metropolitan"></li>
-            <li id='tfl' class="northern"></li>
-            <li id='tfl' class="piccadilly"></li>
-            <li id='tfl' class="tram"></li>
             <li id='tfl' class="victoria"></li>
             <li id='tfl' class="bottom-li waterlooandcity"></li>
         </div>
     </div>       
-    </span>
   </div>
-  <a class="tile tile-lg tile-sqr tile-red ripple-effect" href="#">
+  <div class="tile tile-weather ripple-effect">
+        <div class="weather-content">
+            <span id="temperature"></span>
+            <div>London</div>
+            <div id="location"></div> 
+            <div id="weathercondition"></div>
+            </div>
+        </div> 
+    <div class="tile tile-asteriod ripple-effect">
     <span class="content-wrapper">
       <span class="tile-content">
-        <span class="tile-img" style="background-image: url(http://www.google.com/design/images/design-minutes.png);"></span>
-        <span class="tile-holder tile-holder-sm">
+            <div class="asteriod-content">
+            <img src="img/asteriod.svg" alt="Asteriod" height="150" width="150">   
+            <div id="asteriod" class="asteriod"></div>    
+            </div> 
+    </span>
+    </span>
+  </div>
+  <div class="tile tile-calendar ripple-effect">
+    <span class="content-wrapper">
+      <span class="tile-content">
+        <span class="tile-holder tile-holder-sm">Google Calendar
          <div id="output">
         <div id="authorize-div" style="display: none">
         <span>Authorize access to Google Calendar API</span>
       <!--Button for the user to click to initiate auth sequence -->
         <button id="authorize-button" onclick="handleAuthClick(event)"> Authorize </button>
         </div>
-    </div>
-
-        </span>
-      </span>      
-    </span>
-  </a>
-  <div class="tile tile-lg tile-sqr tile-indigo ripple-effect">
-    <span class="content-wrapper">
-      <span class="tile-content">
-        <span class="tile-holder tile-holder-sm">
-            <div id="asteriod" class="asteriod title"></div>
-        </span>
-      </span>      
-    </span>
-  </div>
-  <div class="tile tile-lg tile-sqr tile-deep-orange ripple-effect">
-    <span class="content-wrapper">
-      <span class="tile-content">
-        <span class="tile-holder tile-holder-sm">
-        <span class="title">London</span>
-        <div class="weather">
-        <span id="location"></span>
-        <span id="weathercondition"></span>
-        <span id="temperature"></span>
         </div>
         </span>
       </span>      
     </span>
   </div>
   <div class="tile-message tile-white ripple-effect">
-    <span class="content-wrapper">
-     <span class="title">It's a Good Day Today, in London</span>   
-    </span>
+    <span class="content-wrapper"><h1>It's a good day in London!</h1></span>
   </div>
 
     <script src="js/index.js"></script>

@@ -52,8 +52,8 @@ app.getAJAX = function() {
         }
     });
 
-    /*Dummy Underground JSON Request 
-    $.getJSON('js/dummy-json/twodelayedservices.json', function(undergroundResponse) {
+    //Dummy Underground JSON Request 
+    /*$.getJSON('js/dummy-json/goodservice.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
@@ -89,7 +89,8 @@ app.displayWeather = function(weatherResponse) {
             $('#temperature').text(temperature + '°C');
         } else if (key === 'weather') {
             var weatherCondition = weatherResponse.list[1].weather[0].main;
-            $('#weathercondition').text(weatherCondition + ', ');
+            console.log(weatherResponse.list[1].weather[0].main);
+            $('#weathercondition').text(weatherCondition);
         }
     }
 };
@@ -176,7 +177,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     var serviceClosedSingle = serviceClosed.concat(singleLine);
 
-                    $('#good-service').addClass('is-hidden');
                     $('#service-closed').text('Service Closed on the ');
                     $('#service-closed').append(serviceClosedSingle);
                     //$(serviceClosedString.push('and'));
@@ -185,7 +185,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     var serviceClosedPlural = serviceClosed.join(', ').concat(pluralLines);
 
-                    $('#good-service').addClass('is-hidden');
                     $('#service-closed').text('Service Closed on the ');
                     $('#service-closed').append(serviceClosedPlural);
                     //$(serviceClosedString.push('and'));
@@ -213,7 +212,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     var interruptionSingleLine = interruption.join(" ").concat(singleLine);
 
-                    $('#good-service').addClass('is-hidden');
                     $('#interruptions').text('Interruption on the ' + interruptionSingleLine);
                     console.log(interruptionSingleLine);
                     //$(interruptionSingleLine.push('and'));
@@ -222,7 +220,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     var interruptionPluralLines = interruption.join(', ').concat(pluralLines);
 
-                    $('#good-service').addClass('is-hidden');
                     $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
                     console.log(interruptionPluralLines);
                     //$(interruptionPluralLine.push('and'));
@@ -308,9 +305,10 @@ app.displayAsteriods = function(asteriodResponse) {
         var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
 
         if (asteriodData) {
-            return $('#asteriod').text('Asteroids are nearby');
+            return $('#asteriod').text('Nearby Asteriods');
         } else {
-            $('#asteriod').text('No nearby asteriods');
+            $('#asteriod').text('No Near').append("<div id='asteriod-title'></div>");
+            $('#asteriod-title').text('Asteriods');
         }
     }
 };
