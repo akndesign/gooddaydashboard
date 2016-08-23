@@ -64,8 +64,30 @@ h1 {
   font-size: 28px;
 }
 
+h4 {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+}
+
 .is-hidden {
      display: none!important;
+}
+
+.text-hidden {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-hidden h4 {
+  opacity: 0;
+  transition: all 0.15s ease-in-out;
+
+}
+
+.text-title {
+  font-size: 100px!important;
+  line-height: 1.1!important;
 }
 
 /* -- Google typography ------------------------------- */
@@ -225,7 +247,6 @@ h1 {
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
-
 .overlay {
     position: absolute;
     top: 0;
@@ -234,10 +255,16 @@ h1 {
     bottom:0;
     margin: auto;
     padding-top: 5em;
-    background-color:rgba(0, 0, 0, 0.5);
+    background-image: -moz-linear-gradient( 115deg, rgba(255,252,0, .4) 0%, rgba(255,0,0,.4) 50%, rgba(10,0,178,.4) 100%);
+    background-image: -webkit-linear-gradient( 115deg, rgba(255,252,0,.4) 0%, rgba(255,0,0,.4) 50%, rgba(10,0,178,.4) 100%);
+    background-image: -ms-linear-gradient( 115deg, rgba(255,252,0,.4) 0%, rgba(255,0,0,.4) 50%, rgba(10,0,178,.4) 100%);
+    opacity: 40;
+    /*background-image: -moz-linear-gradient( 115deg, rgba(0,0,0,.7) 0%, rgba(235,236,238, .2) 100%);
+    background-image: -webkit-linear-gradient( 115deg, rgba(0,0,0,.7) 0%, rgba(235,236,238,.2) 100%);
+    background-image: -ms-linear-gradient( 115deg, rgba(0,0,0, .7) 0%, rgba(235,236,238,.2) 100%);*/
     z-index:1;
     color:white;
-    border-radius: 10px;
+    border-radius: 4px;
     -moz-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
     -webkit-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
@@ -263,29 +290,23 @@ h1 {
 
 }
 
-#interruptions {
-    font-size: 2em;
+#interruptions, #partclosure, #service-closed{
+    font-size: 1.5em;
     list-style-type: none;
     line-height: 1.4em;
-}
-
-#service-closed {
-    font-size: 2em;
-    list-style-type: none;
-    line-height: 1.4;
 }
 
 
 #lines {
     display: inline-block;
+    font-size: 20px;
     padding: 0;
-    border-radius: 6px;
+    border-radius: 4px;
     -moz-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
     -webkit-box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1)
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
     z-index: 1;
     height: 100%;
-    color:;
 }
 
 #lines li {
@@ -294,6 +315,8 @@ h1 {
     width: 100%;
     height: 9.09%;
     transition: .12s ease-in-out;
+    line-height: 0;
+
 }
 
 #lines li:hover,
@@ -304,13 +327,13 @@ h1 {
 #lines li.active:focus {
     -webkit-transform: scale(1.04);
     transform: scale(1.04);
-    -moz-border-radius-topleft: 6px;
-    -moz-border-radius-topright: 6px;
-    -moz-border-radius-bottomright: 6px;
-    -moz-border-radius-bottomleft: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    box-shadow: 0 1px 25px rgba(0,0,0,.1);
+    -moz-border-radius-topleft: 4px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 25px rgba(0,0,0,.4);
     z-index: 9;
     /*transition: .12s ease-in-out;*/
 }
@@ -319,92 +342,101 @@ h1 {
 .bakerloo:hover,
 .central:hover, 
 .circle:hover,
-.district:hover {
+.district:hover,
+.hammersmithandcity:hover,
+.jubilee:hover,
+.metropolitan:hover,
+.northern:hover,
+.piccadilly:hover,
+.victoria:hover,
+.waterlooandcity:hover {
     color: white;
+    border-radius: 4px;
 }
 
 .top-li {
-    border-top-left-radius:6px;
-    border-top-right-radius:6px;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
 }
 
 .bottom-li{
-    border-bottom-left-radius:6px;
-    border-bottom-right-radius:6px;
+    border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
 }
 
 .bakerloo {
-    color: rgba(250,250,250,.8);
+    font-weight: 200;
+    color: rgba(250,250,250,.75);
     background: #ae6118
 }
 
 .central {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #e41f1f
 }
 
 .circle {
-    color: #113b92;
+    color:rgba(250,250,250,.75);
     background: #f8d42d
 }
 
 .district {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #00a575
 }
 
 .hammersmithandcity {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #e899a8
 }
 
 .jubilee {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #8f989e
 }
 
 .metropolitan {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #893267
 }
 
 .northern {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #000
 }
 
 .piccadilly {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #0450a1
 }
 
 .victoria {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #009fe0
 }
 
 .waterlooandcity {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #70c3ce;
 }
 
 .dlr {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #00bbb4
 }
 
 .overground {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #f86c00
 }
 
 .tflrail {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #0019a8
 }
 
 .tram {
-    color: rgba(250,250,250,.8);
+    color: rgba(250,250,250,.75);
     background: #6c0
 }
 
@@ -588,6 +620,24 @@ h1 {
     border-image-slice: 1;
     transition: transform .25s;
 }
+.clouds {
+  background-image: -moz-linear-gradient( 115deg, rgb(173,178,188) 0%, rgb(235,236,238) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(173,178,188) 0%, rgb(235,236,238) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(173,178,188) 0%, rgb(235,236,238) 100%);
+  border-image-slice: 1;
+  border: 2px solid lightgrey;
+  transition: transform .25s;
+}
+
+.clear {
+  background-image: -moz-linear-gradient( 115deg, rgb(147,182,194) 0%, rgb(221,242,249) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(147,182,194) 0%, rgb(221,242,249) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(147,182,194) 0%, rgb(221,242,249) 100%);
+
+}
+
+
+}
 
 .tile-weather:hover {
   
@@ -607,9 +657,6 @@ h1 {
     pointer-events: none;
     transition: opacity 1s;
 }
-
-}
-
 
 .tile-weather:active {
   transform: scale(.96);
@@ -648,13 +695,6 @@ h1 {
 }
 .tile-weather .ink {
   background-color: #ef6c00;
-}
-.tile-weather-reverse {
-  background-image: -moz-linear-gradient( 115deg, rgb(243,156,18) 0%, rgb(250,205,133) 100%);
-  background-image: -webkit-linear-gradient( 115deg, rgb(243,156,18) 0%, rgb(250,205,133) 100%);
-  background-image: -ms-linear-gradient( 115deg, rgb(243,156,18) 0%, rgb(250,205,133) 100%);
-  box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
-  transition: 1s ease-in-out;
 }
 .tile-weather-reverse:hover {
   background-color: #eceff1;
@@ -698,6 +738,7 @@ h1 {
 .tile-tfl {
   width: 550px;
   height: 590px;
+  border-radius: 4px;
 }
 
 .tile-weather {

@@ -25,8 +25,12 @@ app.getAJAX = function() {
     var asteriodUrl = 'https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false';
     var apiKey = '&api_key=PT3Ux5XFGFqnK869ovrGVMS5SBciZGmQ0I0LnkrC';
 
+    //Dummy Weather JSON Request 
+    $.getJSON('js/dummy-json/clouds.json', function(weatherResponse) {
+        app.displayWeather(weatherResponse);
+        });
 
-    $.ajax({
+    /*$.ajax({
         url: weatherUrl + city + celcius + apiWeatherKey,
         method: 'GET',
         beforeSend: function() {
@@ -36,7 +40,7 @@ app.getAJAX = function() {
 
             app.displayWeather(weatherResponse);
         }
-    });
+    });*/
 
     $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
@@ -85,14 +89,45 @@ app.displayWeather = function(weatherResponse) {
         if (key === 'name') {
             $('#city').text(weatherResponse.list[0][key]);
         } else if (key === 'main') {
-            var temperature = Math.round(weatherResponse.list[1].main.temp);
+            var temperature = Math.round(weatherResponse.list[0].main.temp);
             $('#temperature').text(temperature + '°C');
+
         } else if (key === 'weather') {
-            var weatherCondition = weatherResponse.list[1].weather[0].main;
-            console.log(weatherResponse.list[1].weather[0].main);
-            $('#weathercondition').text(weatherCondition);
+            
+            var weatherCondition = weatherResponse.list[0].weather[0].main;
+            
+            switch (weatherCondition) {
+
+            case 'Clouds':  
+                $('.tile-weather').addClass('clouds');
+                $('#weathercondition').text(weatherCondition);
+                break;
+            
+            case 'Clear':
+                
+                $('.tile-weather').addClass('clear');
+                $('#weathercondition').text(weatherCondition);
+
+                break;
+
+            case 'Rain':
+            
+                $('.tile-weather').addClass('rain');
+                $('#weathercondition').text(weatherCondition);
+
+                break; 
+
+            case 'Snow':
+            
+                $('.tile-weather').addClass('snow');
+                $('#weathercondition').text(weatherCondition);
+
+                break;
+            
+            default: $('#weathercondition').text(weatherCondition);
         }
     }
+}
 };
 
 //Display Underground, Per-Line
@@ -110,7 +145,7 @@ app.displayUndergroundService = function(undergroundResponse) {
         var undergroundStatus = undergroundResponse[i].lineStatuses[0].statusSeverityDescription;
 
         var addLineID = $('#tfl').attr('id', undergroundID);
-        var addLine = '<h6>' + undergroundName + ' ' + undergroundStatus + '</h6>';
+        var addLine = '<h4>' + undergroundName + ' ' + undergroundStatus + '</h4>';
         $(addLineID).append(addLine);
     }
 };
@@ -121,8 +156,12 @@ app.undergroundOverlay = function(undergroundResponse) {
 
     $('.toggle').hover(function() {
         $('#service-notifications').fadeOut('fast');
+        $('#lines').removeClass('text-hidden');
+        //$('#lines').fadeIn('fast');
     }, function() {
         $('#service-notifications').fadeIn('fast');
+        //$('#lines h6').fadeOut('fast');
+        $('#lines').addClass('text-hidden');
     });
 };
 
@@ -198,12 +237,42 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                             $('#service-closed').text('Night Tube Available');
                         } else { $('#good-service').addClass('is-hidden');
                                 $('#service-closed').text('Service Closed');
+                                $('#service-closed').addClass('text-title');
                     }
 
                 }
 
                 break;
-            
+
+            /*case 'Part Closure':    
+
+                partclosure.push(undergroundName);
+
+                if ($(partclosure).length === 1) {
+
+                    var partclosureSingleLine = partclosure.join(' ').concat(singleLine);
+
+                    $('#partclosure').text('Part Closure on the ' + partclosureSingleLine);
+                    console.log(partclosureSingleLine);
+
+                } else if ($(partclosure).length === 2) {
+
+                    var partclosurePluralLines = partclosure.join(', ').concat(pluralLines);
+
+                    $('#partclosure').text('Interruptions on the ' + partclosurePluralLines);
+                    console.log(partclosurePluralLines);
+                    //$(interruptionPluralLine.push('and'));
+
+                } else {
+
+                    var partclosureOtherLines = interruption.join(', ').concat(otherLines);
+
+                    $('#good-service').addClass('is-hidden');
+                    $('#partclosure').text('Interruptions on the ' + partclosureOtherLines);
+                    console.log(partclosureOtherLines);
+
+                    } break; */
+
             default:
 
                 interruption.push(undergroundName);

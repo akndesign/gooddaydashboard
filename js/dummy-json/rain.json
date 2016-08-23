@@ -1,0 +1,75 @@
+{
+	"message": "accurate",
+	"cod": "200",
+	"count": 2,
+	"list": [
+		{
+			"id": 2643743,
+			"name": "London",
+			"coord": {
+				"lon": -0.12574,
+				"lat": 51.50853
+			},
+			"main": {
+				"temp": 17.7,
+				"pressure": 1025,
+				"humidity": 68,
+				"temp_min": 15,
+				"temp_max": 21
+			},
+			"dt": 1471904907,
+			"wind": {
+				"speed": 3.1,
+				"deg": 230
+			},
+			"sys": {
+				"country": "GB"
+			},
+			"clouds": {
+				"all": 0
+			},
+			"weather": [
+				{
+					"id": 800,
+					"main": "Rain",
+					"description": "Rain",
+					"icon": "01n"
+				}
+			]
+		},
+		{
+			"id": 6058560,
+			"name": "London",
+			"coord": {
+				"lon": -81.23304,
+				"lat": 42.983391
+			},
+			"main": {
+				"temp": 23.28,
+				"pressure": 1022,
+				"humidity": 49,
+				"temp_min": 22,
+				"temp_max": 24.44
+			},
+			"dt": 1471905139,
+			"wind": {
+				"speed": 3.6,
+				"deg": 300
+			},
+			"sys": {
+				"country": "CA"
+			},
+			"clouds": {
+				"all": 20
+			},
+			"weather": [
+				{
+					"id": 801,
+					"main": "Clouds",
+					"description": "few clouds",
+					"icon": "02d"
+				}
+			]
+		}
+	]
+}
