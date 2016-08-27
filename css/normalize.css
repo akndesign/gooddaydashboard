@@ -236,6 +236,8 @@ pre,
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
+  font-family: "sofia-pro";
+  font-weight: 400;
 }
 
 /* Forms

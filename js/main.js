@@ -26,11 +26,11 @@ app.getAJAX = function() {
     var apiKey = '&api_key=PT3Ux5XFGFqnK869ovrGVMS5SBciZGmQ0I0LnkrC';
 
     //Dummy Weather JSON Request 
-    $.getJSON('js/dummy-json/clouds.json', function(weatherResponse) {
+    /*$.getJSON('js/dummy-json/clouds.json', function(weatherResponse) {
         app.displayWeather(weatherResponse);
-        });
+        });*/
 
-    /*$.ajax({
+    $.ajax({
         url: weatherUrl + city + celcius + apiWeatherKey,
         method: 'GET',
         beforeSend: function() {
@@ -40,7 +40,7 @@ app.getAJAX = function() {
 
             app.displayWeather(weatherResponse);
         }
-    });*/
+    });
 
     $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
@@ -57,7 +57,7 @@ app.getAJAX = function() {
     });
 
     //Dummy Underground JSON Request 
-    /*$.getJSON('js/dummy-json/goodservice.json', function(undergroundResponse) {
+    /*$.getJSON('js/dummy-json/mixedservice.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
@@ -74,6 +74,13 @@ app.getAJAX = function() {
 
             app.displayAsteriods(asteriodResponse);
         }
+
+    //Dummy Asteriod JSON Request 
+    /*$.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
+        app.displayAsteriods(asteriodResponse);
+        });    
+    */
+
     });
 };
 
@@ -85,16 +92,30 @@ app.displayWeather = function(weatherResponse) {
         weatherResponse = [];
     }
 
+    var temperature = Math.round(weatherResponse.list[0].main.temp);
+    var weatherCondition = weatherResponse.list[0].weather[0].main;
+
     for (var key in weatherResponse.list[0]) {
         if (key === 'name') {
             $('#city').text(weatherResponse.list[0][key]);
         } else if (key === 'main') {
-            var temperature = Math.round(weatherResponse.list[0].main.temp);
-            $('#temperature').text(temperature + '°C');
+
+            
+            if (temperature >= 29){
+                
+                $('.tile-weather').addClass('hot');
+                $('#temperature').text(temperature + '°C');
+                $('#temperaturecondition').text("It's hot!");
+            } else if (temperature <= 0){
+                
+                $('#temperature').text(temperature + '°C');
+                $('#temperaturecondition').text("Brr!");    
+
+            } else ($('#temperature').text(temperature + '°C'));
 
         } else if (key === 'weather') {
-            
-            var weatherCondition = weatherResponse.list[0].weather[0].main;
+
+            console.log(weatherCondition); 
             
             switch (weatherCondition) {
 
@@ -114,20 +135,32 @@ app.displayWeather = function(weatherResponse) {
             
                 $('.tile-weather').addClass('rain');
                 $('#weathercondition').text(weatherCondition);
+                $('#temperaturecondition').text(':(');  
 
                 break; 
 
             case 'Snow':
-            
+
+                console.log(weatherCondition);
                 $('.tile-weather').addClass('snow');
                 $('#weathercondition').text(weatherCondition);
 
                 break;
+                
+            case 'Mist':
+
+                console.log(weatherCondition);
+                $('.tile-weather').addClass('mist');
+                $('#weathercondition').text(weatherCondition);
+
+                break;        
+
             
             default: $('#weathercondition').text(weatherCondition);
+           
+            }
         }
     }
-}
 };
 
 //Display Underground, Per-Line
@@ -163,6 +196,13 @@ app.undergroundOverlay = function(undergroundResponse) {
         //$('#lines h6').fadeOut('fast');
         $('#lines').addClass('text-hidden');
     });
+        setTimeout(function() {
+            if ($('#lines').removeClass('text-hidden')) {
+                $('#service-notifications').fadeIn('fast');
+                    $('#lines').addClass('text-hidden');
+                }
+        }, 10);
+
 };
 
 //Display Underground Overlay
@@ -298,7 +338,10 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     var interruptionOtherLines = interruption.join(', ').concat(otherLines);
 
                     $('#good-service').addClass('is-hidden');
-                    $('#interruptions').text('Interruptions on the ' + interruptionOtherLines);
+                    $('#interruptions').text(interruptionOtherLines).addClass('interruptions');
+                    $('#interruptions-title').text('Interrupted Service ');
+                    $('#interruptions-title').addClass('interruptions-text-title');
+                    
                     console.log(interruptionOtherLines);
 
                     } break;
@@ -374,9 +417,15 @@ app.displayAsteriods = function(asteriodResponse) {
         var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
 
         if (asteriodData) {
-            return $('#asteriod').text('Nearby Asteriods');
+            console.log(asteriodData);
+            $('#asteriod').text('Nearby');
+            $('#asteriod-title').text('Asteriods');
+            $('#asteriod-svg').attr('src','img/asteriod2.svg');
+            $('.tile-asteriod').addClass('asteriod-near');
         } else {
-            $('#asteriod').text('No Near').append("<div id='asteriod-title'></div>");
+            console.log(asteriodData);
+            $('#asteriod').text('No Near');
+            $('#asteriod-svg').attr('src','img/asteriod.svg');
             $('#asteriod-title').text('Asteriods');
         }
     }

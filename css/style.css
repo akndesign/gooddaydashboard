@@ -62,12 +62,20 @@ h1 {
   font-style: normal;
   font-weight: 300;
   font-size: 28px;
+  margin:0;
 }
 
 h4 {
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
+}
+
+#googleCalendar {
+  font-family: "sofia-pro";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .is-hidden {
@@ -86,9 +94,29 @@ h4 {
 }
 
 .text-title {
-  font-size: 100px!important;
+  font-size: 6.25em!important;
   line-height: 1.1!important;
+  list-style: none;
 }
+
+.interruptions-text-title {
+  font-size: 5em!important;
+  line-height: 1.0!important;
+  list-style: none;
+  padding-top: 25px;
+}
+.interruptions {
+  font-size: 1.5em;
+  line-height: 1.5!important;
+  list-style: none;
+  padding-top: 25px;
+}
+
+.asteriod-near {
+    background-color: #34495e!important;
+
+}
+
 
 /* -- Google typography ------------------------------- */
 .title {
@@ -245,6 +273,7 @@ h4 {
     height:100%;
     border-radius: 4px;
     box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
+    list-style-type: none;
 }
 
 .overlay {
@@ -255,9 +284,9 @@ h4 {
     bottom:0;
     margin: auto;
     padding-top: 5em;
-    background-image: -moz-linear-gradient( 115deg, rgba(255,252,0, .4) 0%, rgba(255,0,0,.4) 50%, rgba(10,0,178,.4) 100%);
-    background-image: -webkit-linear-gradient( 115deg, rgba(255,252,0,.4) 0%, rgba(255,0,0,.4) 50%, rgba(10,0,178,.4) 100%);
-    background-image: -ms-linear-gradient( 115deg, rgba(255,252,0,.4) 0%, rgba(255,0,0,.4) 50%, rgba(10,0,178,.4) 100%);
+    background-image: -moz-linear-gradient( 115deg, rgba(255,252,0, .5) 0%, rgba(255,0,0,.3) 50%, rgba(2,0,37,.4) 100%);
+    background-image: -webkit-linear-gradient( 115deg, rgba(255,252,0,.5) 0%, rgba(255,0,0,.3) 50%, rgba(2,0,37,.4) 100%);
+    background-image: -ms-linear-gradient( 115deg, rgba(255,252,0,.5) 0%, rgba(255,0,0,.3) 50%, rgba(2,0,37,.4) 100%);
     opacity: 40;
     /*background-image: -moz-linear-gradient( 115deg, rgba(0,0,0,.7) 0%, rgba(235,236,238, .2) 100%);
     background-image: -webkit-linear-gradient( 115deg, rgba(0,0,0,.7) 0%, rgba(235,236,238,.2) 100%);
@@ -290,7 +319,12 @@ h4 {
 
 }
 
-#interruptions, #partclosure, #service-closed{
+
+#interruptions-title {
+   list-style-type: none;
+}
+
+#interruptions, #partclosure, #service-closed, {
     font-size: 1.5em;
     list-style-type: none;
     line-height: 1.4em;
@@ -316,6 +350,8 @@ h4 {
     height: 9.09%;
     transition: .12s ease-in-out;
     line-height: 0;
+    text-align: left;
+    padding-left: 2em;
 
 }
 
@@ -445,7 +481,7 @@ h4 {
     font-weight: 400;
 }
 
-#weathercondition {
+#weathercondition, #temperaturecondition {
     font-size: .5em;
     font-weight: 200;   
 }
@@ -513,6 +549,8 @@ h4 {
 .tile-calendar {
   background-color: #e74c3c;
   box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
+  color: white;
+  text-align: center;
 }
 
 }
@@ -620,6 +658,12 @@ h4 {
     border-image-slice: 1;
     transition: transform .25s;
 }
+.rain {
+  background-image: -moz-linear-gradient( 115deg, rgb(52,73,94) 0%, rgb(168,202,225) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(52,73,94) 0%, rgb(168,202,225) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(52,73,94) 0%, rgb(168,202,225) 100%);
+}
+
 .clouds {
   background-image: -moz-linear-gradient( 115deg, rgb(173,178,188) 0%, rgb(235,236,238) 100%);
   background-image: -webkit-linear-gradient( 115deg, rgb(173,178,188) 0%, rgb(235,236,238) 100%);
@@ -636,12 +680,26 @@ h4 {
 
 }
 
-
+.hot {
+  background-image: -moz-linear-gradient( 115deg, rgb(231,76,60) 0%, rgb(245,237,163) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(231,76,60) 0%, rgb(245,237,163) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(231,76,60) 0%, rgb(245,237,163) 100%);
+  box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
-.tile-weather:hover {
-  
+.snow {
+  background-image: -moz-linear-gradient( 115deg, rgb(177,202,210) 0%, rgb(255,255,255) 48%, rgb(255,255,255) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(177,202,210) 0%, rgb(255,255,255) 48%, rgb(255,255,255) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(177,202,210) 0%, rgb(255,255,255) 48%, rgb(255,255,255) 100%);
+  color: black!important;
 }
+
+.mist {
+  background-image: -moz-linear-gradient( 115deg, rgb(41,128,185) 0%, rgb(235,236,238) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(41,128,185) 0%, rgb(235,236,238) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(41,128,185) 0%, rgb(235,236,238) 100%);
+}
+
 
 .tile-weather::after {
     content: "";
@@ -686,7 +744,7 @@ h4 {
 
 }
 .tile-weather:focus {
-  background-color: #f57c00;
+  background-color: linear-gradient(to top left, rgba(249, 208, 129, 1) 0%, rgba(227, 2, 62, 1) 40%, rgba(49, 128, 135, 1) 100%);
 }
 .tile-weather:disabled,
 .tile-weather.disabled,
@@ -736,9 +794,39 @@ h4 {
 }
 
 .tile-tfl {
-  width: 550px;
-  height: 590px;
+  width: 34.375em;
+  height: 36.875em;
   border-radius: 4px;
+}
+
+@media (max-device-width: 668px) {
+
+    .tile-tfl {
+        width: 100%;
+        height: 305px;
+    }
+
+    .tile-weather {
+        width: 100%!important;
+        height: 400px!important;
+    }
+
+    .tile-asteriod {
+        width: 47%!important;
+        height: 200px!important;
+    }
+    .tile-calendar {
+        width: 47%!important;
+        height: 200px!important;
+    }
+    .tile-message {
+        width: 100%!important;
+    }
+
+}
+
+@media (max-device-width: 668px) {
+    
 }
 
 .tile-weather {
@@ -750,7 +838,7 @@ h4 {
 }
 
 .tile-message {
-  width: 1165px;
+  width: 72.813em;
   height: 80px;
   border-radius: 4px;
   background-color: rgb(249, 249, 249);

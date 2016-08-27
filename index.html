@@ -3,7 +3,7 @@
   <head>
 
     <meta charset="utf-8">
-    <title>Underground Status</title>
+    <title>Is it a Good Day? - London </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://use.typekit.net/qnk1ava.js"></script>
@@ -20,11 +20,27 @@
     </script>  
 
     <link rel="stylesheet" href="css/normalize.css">
-    <!--<link rel="stylesheet" href="css/style.css">-->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!--<link rel="stylesheet" href="css/flat-ui.css" >-->
-    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="fav/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="fav/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="fav/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="fav/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="fav/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="fav/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="fav/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="fav/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="fav/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png">
+    <link rel="icon" href="http://www.akndesign.com/favicon.ico?v=2" />
+    <link rel="manifest" href="fav/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
@@ -43,9 +59,10 @@
             'scope': SCOPES.join(' '),
             'immediate': true
           }, handleAuthResult);
+        console.log(gapi.auth.authorize);
       }
 
-      console.log(gapi.auth.authorize);
+      
       /**
        * Handle response from authorization server.
        *
@@ -133,6 +150,8 @@
       }
 
     </script>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth">
+    </script>
   </head>
 
     <!--Future Feature, Search by City
@@ -160,9 +179,10 @@
           <div class="tile-content service-board toggle flex-item">
         <div id="service-notifications" class="overlay">
             <li id="good-service"></li>
+            <li id="interruptions-title"></li>
             <li id="interruptions"></li>
             <li id="partclosure"></li>
-            <li id="service-closed"><span class="status-title"></li>
+            <li id="service-closed"></li>
         </div>
         <div id="lines" class="text-hidden">  
             <li id='tfl' class="top-li bakerloo"></li>
@@ -185,30 +205,33 @@
             <div>London</div>
             <div id="location"></div> 
             <div id="weathercondition"></div>
+            <div id="temperaturecondition"></div>
             </div>
         </div> 
     <div class="tile tile-asteriod ripple-effect">
     <span class="content-wrapper">
       <span class="tile-content">
             <div class="asteriod-content">
-            <img src="img/asteriod.svg" alt="Asteriod" height="150" width="150">   
+            <img id="asteriod-svg" alt="Asteriod" height="150" width="150">   
             <div id="asteriod" class="asteriod"></div>    
+            <div id='asteriod-title'></div>
             </div> 
     </span>
     </span>
   </div>
   <div class="tile tile-calendar ripple-effect">
     <span class="content-wrapper">
-      <span class="tile-content">
-        <span class="tile-holder tile-holder-sm">Google Calendar
+      <span class="tile-content"> Google Calendar
+      <div>(In Development)</div> 
+      <pre id="googleCalendar" style="font-family:'sofia-pro'"></pre>
          <div id="output">
         <div id="authorize-div" style="display: none">
         <span>Authorize access to Google Calendar API</span>
       <!--Button for the user to click to initiate auth sequence -->
         <button id="authorize-button" onclick="handleAuthClick(event)"> Authorize </button>
+
         </div>
         </div>
-        </span>
       </span>      
     </span>
   </div>
@@ -216,9 +239,9 @@
     <span class="content-wrapper"><h1>It's a good day in London!</h1></span>
   </div>
 
+
     <script src="js/index.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
     <script>
     </script>
 
