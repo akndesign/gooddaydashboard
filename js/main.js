@@ -38,11 +38,12 @@ app.getAJAX = function() {
         },
         success: function(weatherResponse) {
 
+            app.displayGoodDay(weatherResponse);
             app.displayWeather(weatherResponse);
         }
     });
 
-    $.ajax({
+    /*$.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
         method: 'GET',
         beforeSend: function() {
@@ -50,19 +51,20 @@ app.getAJAX = function() {
         },
         success: function(undergroundResponse) {
 
+            app.displayGoodDay(undergroundResponse);
             app.displayUndergroundService(undergroundResponse);
             app.undergroundOverlay(undergroundResponse);
             app.displayUndergroundOverlay(undergroundResponse);
         }
-    });
+    });*/
 
     //Dummy Underground JSON Request 
-    /*$.getJSON('js/dummy-json/mixedservice.json', function(undergroundResponse) {
+    $.getJSON('js/dummy-json/nighttube.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
         
-        });*/
+        });
 
     $.ajax({
         url: asteriodUrl + apiKey,
@@ -72,6 +74,7 @@ app.getAJAX = function() {
         },
         success: function(asteriodResponse) {
 
+            app.displayGoodDay(asteriodResponse);
             app.displayAsteriods(asteriodResponse);
         }
 
@@ -109,9 +112,9 @@ app.displayWeather = function(weatherResponse) {
             } else if (temperature <= 0){
                 
                 $('#temperature').text(temperature + '°C');
-                $('#temperaturecondition').text("Brr!");    
+                $('#temperaturecondition').text('Brr!');    
 
-            } else ($('#temperature').text(temperature + '°C'));
+            } else { $('#temperature').text(temperature + '°C'); }
 
         } else if (key === 'weather') {
 
@@ -213,6 +216,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
     var serviceClosed = [];
     var interruption = [];
 
+    var severalOtherLines = [' and several other lines'];
     var otherLines = [' other lines'];
     var pluralLines = [' lines'];
     var singleLine = [' line'];
@@ -249,8 +253,13 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                 break;
             
             case 'Service Closed':
+
+                //moment().tz("Europe/London").format();
+                //moment.tz.add(['Europe/London']);
                 
                 serviceClosed.push(undergroundName);
+
+                var serviceClosedTest = serviceClosed.length >= 4;
 
                 if ($(serviceClosed).length === 1) {
 
@@ -270,14 +279,21 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 } else {
 
-                    var today = new Date();
+                    var today = moment().add('Europe/London').format('e');
                     
-                    if (today.getDay() == 6 || today.getDay() == 0) {
+                    if (today === '5' || today === '6') {
+
+                        var serviceClosedOtherLines = serviceClosed.join(', ');
+                        var serviceSlice = serviceClosedOtherLines.slice(0, 26).concat(severalOtherLines);
+                        
                             $('#good-service').addClass('is-hidden');
-                            $('#service-closed').text('Night Tube Available');
-                        } else { $('#good-service').addClass('is-hidden');
-                                $('#service-closed').text('Service Closed');
-                                $('#service-closed').addClass('text-title');
+                            $('#service-closed').text('Service Closed on the ');
+                            $('#service-closed').append(serviceSlice);
+                            $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
+
+                    } else { $('#good-service').addClass('is-hidden');
+                             $('#service-closed').text('Service Closed');
+                             $('#service-closed').addClass('text-title');
                     }
 
                 }
@@ -319,7 +335,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 if ($(interruption).length === 1) {
 
-                    var interruptionSingleLine = interruption.join(" ").concat(singleLine);
+                    var interruptionSingleLine = interruption.join(' ').concat(singleLine);
 
                     $('#interruptions').text('Interruption on the ' + interruptionSingleLine);
                     console.log(interruptionSingleLine);
@@ -345,11 +361,63 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     console.log(interruptionOtherLines);
 
                     } break;
-
         } 
-});
+    });
+};
 
-    /*var serviceClosed = [];
+app.displayGoodDay = function(weatherResponse, undergroundResponse, asteriodResponse) {
+
+    console.log('hello', weatherResponse, undergroundResponse);
+/*
+switch (description) {
+
+            case 'Good Service':  
+
+                $('#good-service').text('Good').append("<div id='good-title'></div>");
+                $('#good-title').text('service');
+                break;
+            
+            case 'Service Closed':
+                
+                serviceClosed.push(undergroundName);
+
+                if ($(serviceClosed).length === 1) {
+
+                    var serviceClosedSingle = serviceClosed.concat(singleLine);
+
+                    $('#service-closed').text('Service Closed on the ');
+                    $('#service-closed').append(serviceClosedSingle);
+                    //$(serviceClosedString.push('and'));
+
+                } else if ($(serviceClosed).length === 2) {
+
+                    var serviceClosedPlural = serviceClosed.join(', ').concat(pluralLines);
+
+                    $('#service-closed').text('Service Closed on the ');
+                    $('#service-closed').append(serviceClosedPlural);
+                    //$(serviceClosedString.push('and'));
+
+                } else {
+
+                    var today = new Date();
+                    
+                    if (today.getDay() === 6 || today.getDay() === 0) {
+                            $('#good-service').addClass('is-hidden');
+                            $('#service-closed').text('Night Tube Available');
+                        } else { $('#good-service').addClass('is-hidden');
+                                $('#service-closed').text('Service Closed');
+                                $('#service-closed').addClass('text-title');
+                    }
+
+                }
+
+                break;
+
+        }
+        */
+};
+
+/*var serviceClosed = [];
 
     if (!undergroundResponse) {
         undergroundResponse = [];
@@ -395,7 +463,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
         }
         //$('#interruptions').addClass('is-hidden');
     }*/
-};
 
 /*var count = 0;
         for (var i = 0; i < messageBoard.messages.length; i++) {
@@ -408,22 +475,18 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
 app.displayAsteriods = function(asteriodResponse) {
 
-    moment.tz.add(['America/Los_Angeles|PST PDT|80 70|0101|1Lzm0 1zb0 Op0']);
-
-    var nasaAPIDay = moment().tz('America/Los_Angeles').format('YYYY-MM-DD');
+    var nasaAPIDay = moment().add('America/Los_Angeles').format('YYYY-MM-DD');
     var asteriod = asteriodResponse.near_earth_objects[nasaAPIDay];
 
     for (var i = 0; i < asteriod.length; i++) {
         var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
 
         if (asteriodData) {
-            console.log(asteriodData);
             $('#asteriod').text('Nearby');
             $('#asteriod-title').text('Asteriods');
             $('#asteriod-svg').attr('src','img/asteriod2.svg');
             $('.tile-asteriod').addClass('asteriod-near');
         } else {
-            console.log(asteriodData);
             $('#asteriod').text('No Near');
             $('#asteriod-svg').attr('src','img/asteriod.svg');
             $('#asteriod-title').text('Asteriods');
@@ -434,6 +497,7 @@ app.displayAsteriods = function(asteriodResponse) {
 
 app.init = function() {
     app.getAJAX();
+    app.displayGoodDay();
     app.displayWeather();
     app.displayUndergroundService();
     app.undergroundOverlay();
