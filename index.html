@@ -43,121 +43,7 @@
 
     <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-     // Your Client ID can be retrieved from your project in the Google
-      // Developer Console, https://console.developers.google.com
-      var CLIENT_ID = '559328610579-le432q0suco7hf1l4mohephcsvss0amm.apps.googleusercontent.com';
-      var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
-
-      /**
-       * Check if current user has authorized this application.
-       */
-      function checkAuth() {
-        gapi.auth.authorize(
-          {
-            'client_id': CLIENT_ID,
-            'scope': SCOPES.join(' '),
-            'immediate': true
-          }, handleAuthResult);
-        console.log(gapi.auth.authorize);
-      }
-
-      
-      /**
-       * Handle response from authorization server.
-       *
-       * @param {Object} authResult Authorization result.
-       */
-      function handleAuthResult(authResult) {
-        var authorizeDiv = document.getElementById('authorize-div');
-        if (authResult && !authResult.error) {
-          // Hide auth UI, then load client library.
-          authorizeDiv.style.display = 'none';
-          loadCalendarApi();
-        } else {
-          // Show auth UI, allowing the user to initiate authorization by
-          // clicking authorize button.
-          authorizeDiv.style.display = 'inline';
-        }
-      }
-
-      /**
-       * Initiate auth flow in response to user clicking authorize button.
-       *
-       * @param {Event} event Button click event.
-       */
-      function handleAuthClick(event) {
-        gapi.auth.authorize(
-          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-          handleAuthResult);
-        return false;
-      }
-
-      /**
-       * Load Google Calendar client library. List upcoming events
-       * once client library is loaded.
-       */
-      function loadCalendarApi() {
-        gapi.client.load('calendar', 'v3', listUpcomingEvents);
-      }
-
-      /**
-       * Print the summary and start datetime/date of the next ten events in
-       * the authorized users calendar. If no events are found an
-       * appropriate message is printed.
-       */
-
-      function listUpcomingEvents() {
-        var request = gapi.client.calendar.events.list({
-          'calendarId': 'primary',
-          'timeMin': (new Date()).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          'maxResults': 10,
-          'orderBy': 'startTime'
-        });
-
-        request.execute(function(resp) {
-          var events = resp.items;
-          appendPre('Upcoming events:');
-
-          if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-              var event = events[i];
-              var when = event.start.dateTime;
-              if (!when) {
-                when = event.start.date;
-              }
-              appendPre(event.summary + ' (' + when + ')')
-            }
-          } else {
-            appendPre('No upcoming events found.');
-          }
-
-        });
-      }
-
-      /**
-       * Append a pre element to the body containing the given message
-       * as its text node.
-       *
-       * @param {string} message Text to be placed in pre element.
-       */
-      function appendPre(message) {
-        var pre = document.getElementById('googleCalendar');
-        var textContent = document.createTextNode(message + '\n');
-        pre.appendChild(textContent);
-      }
-
-    </script>
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth">
-    </script>
   </head>
-
-    <!--Future Feature, Search by City
-    <input id="city" name="city" class="form" autocomplete="off" data-country="us"></input>
-    <button id="search-button">Search</button>
-    <button id="Reset">Reset Field</button>-->
  <body>
     <div class="widget-window flex-container wrap">
     <div id="loading">
@@ -221,25 +107,16 @@
   </div>
   <div class="tile tile-calendar ripple-effect">
     <span class="content-wrapper">
-      <span class="tile-content"> Google Calendar
-      <div>(In Development)</div> 
-      <pre id="googleCalendar" style="font-family:'sofia-pro'"></pre>
-         <div id="output">
-        <div id="authorize-div" style="display: none">
-        <span>Authorize access to Google Calendar API</span>
-      <!--Button for the user to click to initiate auth sequence -->
-        <button id="authorize-button" onclick="handleAuthClick(event)"> Authorize </button>
-
-        </div>
+    <pre id="googleCalendar" style="font-family:'sofia-pro'"></pre>
+        <div id="authorize-div">Authorize access to Google Calendar API <button id="authorize-button" onclick="app.getGoogleCalendar()"> Authorize </button>
         </div>
       </span>      
-    </span>
   </div>
   <div class="tile-message tile-white ripple-effect">
     <span class="content-wrapper"><h1>It's a good day in London!</h1></span>
   </div>
 
-
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
     <script src="js/index.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script>

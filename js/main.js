@@ -9,8 +9,6 @@ var config = {
 
 firebase.initializeApp(config);
 
-//WEATHER APP
-
 app.getAJAX = function() {
 
     var weatherUrl = 'http://api.openweathermap.org/data/2.5/find?q=';
@@ -43,7 +41,7 @@ app.getAJAX = function() {
         }
     });
 
-    /*$.ajax({
+    $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
         method: 'GET',
         beforeSend: function() {
@@ -56,15 +54,15 @@ app.getAJAX = function() {
             app.undergroundOverlay(undergroundResponse);
             app.displayUndergroundOverlay(undergroundResponse);
         }
-    });*/
+    });
 
     //Dummy Underground JSON Request 
-    $.getJSON('js/dummy-json/nighttube.json', function(undergroundResponse) {
+    /*$.getJSON('js/dummy-json/nighttube.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
         
-        });
+        });*/
 
     $.ajax({
         url: asteriodUrl + apiKey,
@@ -77,14 +75,25 @@ app.getAJAX = function() {
             app.displayGoodDay(asteriodResponse);
             app.displayAsteriods(asteriodResponse);
         }
+    });
 
     //Dummy Asteriod JSON Request 
     /*$.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
         app.displayAsteriods(asteriodResponse);
         });    
     */
+};
 
-    });
+app.getGoogleCalendar = function() {
+
+        var CLIENT_ID = '559328610579-le432q0suco7hf1l4mohephcsvss0amm.apps.googleusercontent.com';
+        var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+
+        var googleResponse = gapi.auth.authorize(
+          {client_id: CLIENT_ID, scope: SCOPES.join(' '), immediate: false}
+        );
+      
+      app.displayGoogleCalendar(googleResponse);
 };
 
 //Display Weather 
@@ -102,7 +111,6 @@ app.displayWeather = function(weatherResponse) {
         if (key === 'name') {
             $('#city').text(weatherResponse.list[0][key]);
         } else if (key === 'main') {
-
             
             if (temperature >= 29){
                 
@@ -117,8 +125,6 @@ app.displayWeather = function(weatherResponse) {
             } else { $('#temperature').text(temperature + '°C'); }
 
         } else if (key === 'weather') {
-
-            console.log(weatherCondition); 
             
             switch (weatherCondition) {
 
@@ -144,7 +150,6 @@ app.displayWeather = function(weatherResponse) {
 
             case 'Snow':
 
-                console.log(weatherCondition);
                 $('.tile-weather').addClass('snow');
                 $('#weathercondition').text(weatherCondition);
 
@@ -152,7 +157,6 @@ app.displayWeather = function(weatherResponse) {
                 
             case 'Mist':
 
-                console.log(weatherCondition);
                 $('.tile-weather').addClass('mist');
                 $('#weathercondition').text(weatherCondition);
 
@@ -365,9 +369,53 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
     });
 };
 
+
+app.displayGoogleCalendar = function(googleResponse) {
+    
+    gapi.client.load('calendar', 'v3', function(request) {
+         request = gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        });
+
+        request.execute(function(resp) {
+          var events = resp.items;
+           
+          appendPre('Upcoming events:');
+
+          if (events.length > 0) {
+            for (i = 0; i < events.length; i++) {
+              var event = events[i];
+              var when = event.start.dateTime;
+              if (!when) {
+                when = event.start.date;
+              }
+              appendPre(event.summary + ' (' + when + ')');
+              $('#authorize-div').addClass('is-hidden');
+            }
+          } else {
+            appendPre('No upcoming events found.');
+            $('#authorize-div').addClass('is-hidden');
+          }
+
+        });
+      
+      function appendPre(message) {
+        var pre = document.getElementById('googleCalendar');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+
+    });
+  };
+
 app.displayGoodDay = function(weatherResponse, undergroundResponse, asteriodResponse) {
 
-    console.log('hello', weatherResponse, undergroundResponse);
+    //console.log('hello', weatherResponse, undergroundResponse);
 /*
 switch (description) {
 
@@ -497,13 +545,13 @@ app.displayAsteriods = function(asteriodResponse) {
 
 app.init = function() {
     app.getAJAX();
+    app.displayGoogleCalendar();
     app.displayGoodDay();
     app.displayWeather();
     app.displayUndergroundService();
     app.undergroundOverlay();
     app.displayUndergroundOverlay();
     app.displayAsteriods();
-    app.getGoogleCalendar();
 };
 
 $(document).ready(app.init);
