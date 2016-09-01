@@ -239,6 +239,11 @@ h4 {
     width: 90%;
     margin: auto;
     justify-content: center;
+   /* TO READJUST TILE SIZE
+   -webkit-transform:scale(0.75);
+   -moz-transform:scale(0.75);
+   -ms-transform:scale(0.75);
+   transform:scale(0.75);*/
 }
 
 
@@ -487,8 +492,159 @@ h4 {
 }
 
 #asteriod-title {
-    font-size: 30px;
+    font-size: 1.875em;
     line-height: .8;
+}
+
+.clock-label {
+  color: #fff;
+  font-size: 1.2em;
+  font-style: normal;
+  font-weight:normal;
+  padding: 0.5em 0.75em 0.25em;
+}
+#day-label {
+  display: block;
+}
+/* Clock */
+
+.center {
+  width: 50%;
+  height: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.clockface {
+   width: 175px;
+   height: 175px;
+   background: white;
+   border-radius: 50%;
+   display: inline-block;
+   margin: 15px 0px;
+   box-shadow: 0 2px 10px 0 rgba(0,0,0,.3);
+}
+
+.dial {
+   position: relative;
+  -webkit-transform:scale(0.5);
+   -moz-transform:scale(0.5);
+   -ms-transform:scale(0.5);
+   transform:scale(0.5);
+   -webkit-backface-visibility: hidden;
+}
+
+.dot {
+   position: absolute;
+   margin: auto;
+   width: 18px;
+   height: 18px;
+   border-radius: 50%;
+   background: #dd191d;
+   z-index: 10;
+   box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+   top: 50%;  /* position the top  edge of the element at the middle of the parent */
+   left: 50%; /* position the left edge of the element at the middle of the parent */
+   transform: translate(-50%, 890%);
+   vertical-align: middle;
+}
+
+.sec-hand {
+   position: absolute;
+   top: 38px;
+   left: 50%;
+   width: 5px;
+   height: 162px;
+   background: #dd191d;
+   z-index: 9;
+   -webkit-backface-visibility: hidden;
+   transition-delay: 0.021s;
+   -webkit-transform-origin: 50% 136px;
+           transform-origin: 50% 136px;
+
+
+} 
+.sec-hand:before {
+    background: #dd191d;
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    top: -9%;
+    left: -130%;
+    height: 20px;
+    width: 20px;
+}
+
+.min-hand {
+   position: absolute;
+   top: 51px;  
+   left: 50%;
+   margin-left: -8px;
+   width: 8px;
+   height: 144px;
+   background: black;
+   z-index: 7;
+   -webkit-transform-origin: 50% 124px;
+           transform-origin: 50% 124px;
+}
+
+.hour-hand {
+   position: absolute;
+   top: 85px;
+   left: 50%;
+   margin-left: -7px;
+   width: 8px;
+   height: 110px;
+   background: black;
+   z-index: 5;
+   -webkit-transform-origin: 50% 90px;
+           transform-origin: 50% 90px;
+}
+
+.hand-movement {
+   transition-delay: 0.021s;
+   -webkit-backface-visibility: hidden;
+   -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+   transition: -webkit-transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+   transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+   transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44), -webkit-transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+
+.test {
+  -webkit-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+
+.dial span {
+  display: inline-block;
+}
+
+.diallines {
+   position: absolute;
+   top: 15px;
+   left: 50%;
+   margin-left: -1px;
+   width: 2px;
+   height: 10px;
+   background: #b3b3b0;
+   z-index: 1;
+   -webkit-transform-origin: 50% 160px;
+           transform-origin: 50% 160px;
+}
+
+.diallines:nth-of-type(5n) {
+   position: absolute;
+   top: 10px;
+   left: 50%;
+   margin-left: -2px;
+   width: 4px;
+   height: 25px;
+   background: #b3b3b0;
+   z-index: 1;
+   -webkit-transform-origin: 50% 165px;
+           transform-origin: 50% 165px;
 }
 
 /* -- Tiles content ----------------------------------- */
@@ -646,6 +802,7 @@ h4 {
     margin: auto;
     height: 35%;
     cursor: pointer;
+    color: white;
 }
 
 }
@@ -799,36 +956,6 @@ h4 {
   border-radius: 4px;
 }
 
-@media (max-device-width: 668px) {
-
-    .tile-tfl {
-        width: 100%;
-        height: 305px;
-    }
-
-    .tile-weather {
-        width: 100%!important;
-        height: 400px!important;
-    }
-
-    .tile-asteriod {
-        width: 47%!important;
-        height: 200px!important;
-    }
-    .tile-calendar {
-        width: 47%!important;
-        height: 200px!important;
-    }
-    .tile-message {
-        width: 100%!important;
-    }
-
-}
-
-@media (max-device-width: 668px) {
-    
-}
-
 .tile-weather {
   width: 305px;
   height: 590px;
@@ -844,6 +971,56 @@ h4 {
   background-color: rgb(249, 249, 249);
   box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
 }
+
+
+@media (max-device-width: 668px) {
+
+.tile-tfl {
+        width: 100%;
+        height: 305px;
+    }  
+
+#good-service {
+    font-weight: 400;
+    line-height: .2em;
+    font-size: 5em;
+    padding-top: 25px;
+    
+    }
+
+    #good-title {
+    white-space: nowrap; 
+    font-size: .8em;
+    }
+    
+    h4 {
+      font-size: 10px!important;
+    }
+
+    .tile-weather {
+        width: 100%!important;
+        height: 200px!important; 
+        color: white;
+        font-size: 30px;
+    }
+
+    .weather-content {
+      height: 0%;
+      margin: 0;
+    }
+
+    .tile-asteriod {
+        width: 100%!important;
+        height: 300px!important;
+    }
+    .tile-calendar {
+        width: 100%!important;
+        height: 400px!important;
+    }
+    .tile-message {
+        width: 100%!important;
+    }
+};
 
 /*-- Display animation -------------------------------- */
 
