@@ -1,0 +1,38 @@
+{
+  "name": "yes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ui",
+    "flat",
+    "bootstrap"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.14.1",
+    "moment-timezone": "^0.5.5"
+  },
+  "style": "/css/flat-ui.css",
+  "less": "less/flat-ui.less",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/designmodo/Flat-UI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/designmodo/Flat-UI/issues"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "jshint": "^2.9.2",
+    "gulp-connect": "^5.0.0",
+    "gulp-jshint": "^2.0.1",
+  },
+  "engines": {
+    "node": "~0.10.31"
+  }
+}
