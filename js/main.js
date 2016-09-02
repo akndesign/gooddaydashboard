@@ -1,12 +1,12 @@
 var app = {};
 
-app.getAJAX = function() {
+app.getAJAX = function(weatherResponse) {
 
-    var weatherUrl = 'http://api.openweathermap.org/data/2.5/find?q=';
-    var city = 'london';
-    var celcius = '&units=metric';
-    var apiWeatherKey = '&appid=ea43d349fe09f49a0d21b5607b77208c';
-
+    var weatherUrl = 'https://api.wunderground.com/api/';
+    var apiWeatherKey = 'c2ca7887db0ced3d';
+    var conditions = '/conditions/q/';
+    var city = 'UK/London.json';
+    
     var tflUrl = 'https://api.tfl.gov.uk/line/mode/tube/status?';
     var app_id = 'app_id=2a49b2c6';
     var apiUndergroundKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
@@ -20,17 +20,40 @@ app.getAJAX = function() {
         });*/
 
     $.ajax({
-        url: weatherUrl + city + celcius + apiWeatherKey,
+        url: weatherUrl + apiWeatherKey + conditions + city,
         method: 'GET',
         beforeSend: function() {
             $('#weather').html('Loading...');
         },
-        success: function(weatherResponse) {
-
-            app.displayGoodDay(weatherResponse);
-            app.displayWeather(weatherResponse);
-        }
+        dataType : 'json',
+        success: function(data){
+            $.each(data, function(i, item){
+            app.displayWeather(data);
+         });
+    }
     });
+
+      /* (function (weatherParse) {
+            $.each()
+            weatherResponse = weatherParse.current_observation;
+            
+            if (weatherParse.Success) {
+                app.displayWeather(weatherResponse);
+                app.displayGoodDay(weatherResponse);
+            } else { alert(weatherParse.Error);
+
+        }
+    });      
+
+        /*var temp_c = parsed_json.current_observation.temp_c;
+        alert('Current temperature in London' + ' is: ' + temp_c);
+             }
+        });
+
+            
+        }
+    });*/
+    
 
     $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
@@ -38,12 +61,12 @@ app.getAJAX = function() {
         beforeSend: function() {
             $('#service-board').html('Loading...');
         },
-        success: function(undergroundResponse) {
+        success: function(data) {
 
-            app.displayGoodDay(undergroundResponse);
-            app.displayUndergroundService(undergroundResponse);
-            app.undergroundOverlay(undergroundResponse);
-            app.displayUndergroundOverlay(undergroundResponse);
+            app.displayGoodDay(data);
+            app.displayUndergroundService(data);
+            app.undergroundOverlay(data);
+            app.displayUndergroundOverlay(data);
         }
     });
 
@@ -130,78 +153,76 @@ app.getGoogleCalendar = function() {
 
 app.displayWeather = function(weatherResponse) {
 
-    if (!weatherResponse) {
-        weatherResponse = [];
-    }
+    var weatherCondition = weatherResponse.current_observation.weather;
+    var city = weatherResponse.current_observation.weather.city;
+    var temperature = weatherResponse.current_observation.temp_c;
+    var feelsLike = weatherResponse.current_observation.feelslike_c;
 
-    var temperature = Math.round(weatherResponse.list[0].main.temp);
-    var weatherCondition = weatherResponse.list[0].weather[0].main;
+    $('#city').text(city);
 
-    for (var key in weatherResponse.list[0]) {
-        if (key === 'name') {
-            $('#city').text(weatherResponse.list[0][key]);
-        } else if (key === 'main') {
+    if (temperature >= 29) {
 
-            if (temperature >= 29) {
+            $('.tile-weather').addClass('hot');
+            $('#temperature').text(temperature + '°C');
+            $('#temperaturecondition').text("It's hot!");
 
-                $('.tile-weather').addClass('hot');
-                $('#temperature').text(temperature + '°C');
-                $('#temperaturecondition').text("It's hot!");
-            } else if (temperature <= 0) {
+        } else if (temperature <= 0) {
 
-                $('#temperature').text(temperature + '°C');
-                $('#temperaturecondition').text('Brr!');
+            $('#temperature').text(temperature + '°C');
+            $('#temperaturecondition').text('Brr!');
 
-            } else {
-                $('#temperature').text(temperature + '°C');
-            }
-
-        } else if (key === 'weather') {
-
-            switch (weatherCondition) {
-
-                case 'Clouds':
-                    $('.tile-weather').addClass('clouds');
-                    $('#weathercondition').text(weatherCondition);
-                    break;
-
-                case 'Clear':
-
-                    $('.tile-weather').addClass('clear');
-                    $('#weathercondition').text(weatherCondition);
-
-                    break;
-
-                case 'Rain':
-
-                    $('.tile-weather').addClass('rain');
-                    $('#weathercondition').text(weatherCondition);
-                    $('#temperaturecondition').text(':(');
-
-                    break;
-
-                case 'Snow':
-
-                    $('.tile-weather').addClass('snow');
-                    $('#weathercondition').text(weatherCondition);
-
-                    break;
-
-                case 'Mist':
-
-                    $('.tile-weather').addClass('mist');
-                    $('#weathercondition').text(weatherCondition);
-
-                    break;
-
-
-                default:
-                    $('#weathercondition').text(weatherCondition);
-
-            }
+        } else {
+            $('#temperature').text(temperature + '°C');
         }
-    }
+
+    switch (weatherCondition) {
+
+            case 'Clouds':
+                $('.tile-weather').addClass('clouds');
+                $('#weathercondition').text(weatherCondition);
+                break;
+
+            case 'Clear':
+
+                $('.tile-weather').addClass('clear');
+                $('#weathercondition').text(weatherCondition);
+
+                break;
+
+            case 'Light Rain':
+
+                $('.tile-weather').addClass('rain');
+                $('#weathercondition').text(weatherCondition);
+                $('#temperaturecondition').text(':(');
+
+                break;
+
+            case 'Snow':
+
+                $('.tile-weather').addClass('snow');
+                $('#weathercondition').text(weatherCondition);
+
+                break;
+
+            case 'Mist':
+
+                $('.tile-weather').addClass('mist');
+                $('#weathercondition').text(weatherCondition);
+
+                break;
+
+            default:
+                $('#weathercondition').text(weatherCondition);
+
+        }
+
+    if (feelsLike = temperature) {
+            $('#temperaturecondition').text('Feels similar');
+        } else {
+            $('#temperaturecondition').text(feelsLike);
+        }
 };
+
 
 //Display Underground, Per-Line
 
@@ -761,7 +782,7 @@ app.init = function() {
     app.displayClock();
     app.displayGoogleCalendar();
     app.displayGoodDay();
-    app.displayWeather();
+    //app.displayWeather();
     app.displayUndergroundService();
     app.undergroundOverlay();
     app.displayUndergroundOverlay();
