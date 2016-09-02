@@ -175,9 +175,19 @@ app.displayWeather = function(weatherResponse) {
             $('#temperature').text(temperature + '°C');
         }
 
+    var lightWeather = weatherCondition.includes('Light');
+
     switch (weatherCondition) {
 
             case 'Clouds':
+            case 'Patches of Fog':
+            case 'Shallow Fog':
+            case 'Partial Fog':
+            case 'Thunderstorm':
+            case 'Partly Cloudy': 
+            case 'Mostly Cloudy' : 
+            case 'Scattered Clouds':
+                console.log(weatherCondition);
                 $('.tile-weather').addClass('clouds');
                 $('#weathercondition').text(weatherCondition);
                 break;
@@ -190,6 +200,9 @@ app.displayWeather = function(weatherResponse) {
                 break;
 
             case 'Light Rain':
+            case 'Heavy Rain':
+            case 'Light Drizzle':
+            case 'Heavy Drizzle':
 
                 $('.tile-weather').addClass('rain');
                 $('#weathercondition').text(weatherCondition);
