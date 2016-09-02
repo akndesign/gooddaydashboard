@@ -18,6 +18,9 @@ xcuserdata
 .svn
 CVS
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
 bower_components/bootstrap-switch/.bower.json
 bower_components/bootstrap-switch/.gitignore
 bower_components/bootstrap-switch/bower.json
@@ -1741,5 +1744,8 @@ js/tz/yearistype.sh
 js/tz/zone.tab
 js/tz/zone1970.tab
 js/tz/zoneinfo2tdf.pl
+<<<<<<< HEAD
 =======
 >>>>>>> old_a/master
+=======
+>>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0

@@ -7,11 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
   "keywords": [
     "ui",
     "flat",
     "bootstrap"
   ],
+<<<<<<< HEAD
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -36,18 +40,35 @@
   "engines": {
     "node": "~0.10.31"
 =======
+=======
+>>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-connect": "^5.0.0",
-    "gulp-jshint": "^2.0.1",
-    "jshint": "^2.9.2"
+    "moment": "^2.14.1",
+    "moment-timezone": "^0.5.5"
+  },
+  "style": "/css/flat-ui.css",
+  "less": "less/flat-ui.less",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/designmodo/Flat-UI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/designmodo/Flat-UI/issues"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "jshint": "^2.9.2",
     "gulp-connect": "^5.0.0",
+<<<<<<< HEAD
     "gulp-jshint": "^2.0.1"
 >>>>>>> old_a/master
+=======
+    "gulp-jshint": "^2.0.1",
+  },
+  "engines": {
+    "node": "~0.10.31"
+>>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
   }
 }

@@ -23,9 +23,12 @@ gulp.task ('html', function(){
 gulp.task ('watch', function(){
  	gulp.watch(['./*.html'], ['html']);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
  	gulp.watch(['./js/*.js'], ['jshint']);
 >>>>>>> old_a/master
+=======
+>>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
 });
 
 gulp.task('default', ['connect', 'watch']);
