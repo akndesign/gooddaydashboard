@@ -17,6 +17,7 @@ xcuserdata
 # svn & cvs
 .svn
 CVS
+<<<<<<< HEAD
 bower_components/bootstrap-switch/.bower.json
 bower_components/bootstrap-switch/.gitignore
 bower_components/bootstrap-switch/bower.json
@@ -1740,3 +1741,5 @@ js/tz/yearistype.sh
 js/tz/zone.tab
 js/tz/zone1970.tab
 js/tz/zoneinfo2tdf.pl
+=======
+>>>>>>> old_a/master
