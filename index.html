@@ -37,6 +37,7 @@
       <meta name="msapplication-TileColor" content="#ffffff">
       <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
       <meta name="theme-color" content="#ffffff">
+      
       <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
       <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
 
@@ -126,8 +127,13 @@
          <div id="day-label" class=""></div>
          </div>
       <div class="tile-message tile-white ripple-effect">
-         <span class="content-wrapper">
-            <h1>It's a good day in London!</h1>
+         <span class="content-wrapper"><h1>
+            <div id="overallCommentary">
+           <span id="tflCommentary"></span>
+           <span id="weatherStart">It's the</span>
+           <span id="weatherCommentary"></span>
+           </div>    
+         </h1>
          </span>
       </div>
       <script src="js/index.js"></script>

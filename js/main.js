@@ -1,6 +1,6 @@
 var app = {};
 
-app.getAJAX = function(weatherResponse) {
+app.getAJAX = function() {
 
     var weatherUrl = 'https://api.wunderground.com/api/';
     var apiWeatherKey = 'c2ca7887db0ced3d';
@@ -26,33 +26,12 @@ app.getAJAX = function(weatherResponse) {
             $('#weather').html('Loading...');
         },
         dataType : 'json',
-        success: function(data){
-            $.each(data, function(i, item){
-            app.displayWeather(data);
+        success: function(weatherData){
+            $.each(weatherData, function(i, item){
+            app.displayWeather(weatherData);
          });
     }
     });
-
-      /* (function (weatherParse) {
-            $.each()
-            weatherResponse = weatherParse.current_observation;
-            
-            if (weatherParse.Success) {
-                app.displayWeather(weatherResponse);
-                app.displayGoodDay(weatherResponse);
-            } else { alert(weatherParse.Error);
-
-        }
-    });      
-
-        /*var temp_c = parsed_json.current_observation.temp_c;
-        alert('Current temperature in London' + ' is: ' + temp_c);
-             }
-        });
-
-            
-        }
-    });*/
     
 
     $.ajax({
@@ -63,7 +42,7 @@ app.getAJAX = function(weatherResponse) {
         },
         success: function(data) {
 
-            app.displayGoodDay(data);
+            //app.displayGoodDay(data);
             app.displayUndergroundService(data);
             app.undergroundOverlay(data);
             app.displayUndergroundOverlay(data);
@@ -71,7 +50,7 @@ app.getAJAX = function(weatherResponse) {
     });
 
     //Dummy Underground JSON Request 
-    /*$.getJSON('js/dummy-json/nighttube.json', function(undergroundResponse) {
+    /*$.getJSON('js/dummy-json/goodservice.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
@@ -83,21 +62,42 @@ app.getAJAX = function(weatherResponse) {
         method: 'GET',
         beforeSend: function() {
             $('#asteriod').html('Loading...');
-        },
-        success: function(asteriodResponse) {
+    },success: function(asteriodResponse) {
+        
+        var asteriodArray = [];
 
-            app.displayGoodDay(asteriodResponse);
-            app.displayAsteriods(asteriodResponse);
-        }
-    });
+        moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
+        var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
+        var asteriod = asteriodResponse.near_earth_objects[nasaAPIDay];
 
-    //Dummy Asteriod JSON Request 
+        for (var i = 0; i < asteriod.length; i++) {
+            var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
+            asteriodArray.push(asteriodData);
+
+        } app.displayAsteriods(asteriodArray);
+    }
+});
+
+    //Dummy Asteriod JSON. Request MAKE SURE TO UPDATE THE DAY TO TODAY MANUALLY
     /*$.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
-        app.displayAsteriods(asteriodResponse);
-        });    
-    */
-};
+        
+        var asteriodArray = [];
 
+        moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
+
+        var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
+        var asteriod = asteriodResponse.near_earth_objects[nasaAPIDay];
+
+        for (var i = 0; i < asteriod.length; i++) {
+
+        var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
+
+        asteriodArray.push(asteriodData);
+
+        } app.displayAsteriods(asteriodArray);
+        
+        });*/
+             
 app.getGoogleCalendar = function() {
 
     var CLIENT_ID = '898526595344-15r6oqg7ibui899rt34ieha6l0ilkoqk.apps.googleusercontent.com';
@@ -149,13 +149,27 @@ app.getGoogleCalendar = function() {
       }
 };
 
+/*app.displayGoodDay = function(weatherResponse, undergroundResponse, asteriodResponse) {
+
+    if (undergroundResponse)
+
+    switch (undergroundResponse, weatherResponse, asteriodResponse) {
+    
+    case 'Good Service':  
+    case 'Clear': 
+    case 'No Asteriods':
+
+    $('#overallCommentary').text("It's a good day in London!");
+
+    };*/
+
 //Display Weather 
 
 app.displayWeather = function(weatherResponse) {
 
     var weatherCondition = weatherResponse.current_observation.weather;
     var city = weatherResponse.current_observation.weather.city;
-    var temperature = weatherResponse.current_observation.temp_c;
+    var temperature = Math.round(weatherResponse.current_observation.temp_c);
     var feelsLike = weatherResponse.current_observation.feelslike_c;
 
     $('#city').text(city);
@@ -183,19 +197,20 @@ app.displayWeather = function(weatherResponse) {
             case 'Patches of Fog':
             case 'Shallow Fog':
             case 'Partial Fog':
-            case 'Thunderstorm':
             case 'Partly Cloudy': 
             case 'Mostly Cloudy' : 
             case 'Scattered Clouds':
-                console.log(weatherCondition);
                 $('.tile-weather').addClass('clouds');
                 $('#weathercondition').text(weatherCondition);
+                $('#weatherCommentary').text(" average, grey day in London");
+                
                 break;
 
             case 'Clear':
 
                 $('.tile-weather').addClass('clear');
                 $('#weathercondition').text(weatherCondition);
+                $('#weatherCommentary').text(" a good day in London");
 
                 break;
 
@@ -203,6 +218,7 @@ app.displayWeather = function(weatherResponse) {
             case 'Heavy Rain':
             case 'Light Drizzle':
             case 'Heavy Drizzle':
+            case 'Thunderstorm':
 
                 $('.tile-weather').addClass('rain');
                 $('#weathercondition').text(weatherCondition);
@@ -361,6 +377,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#service-closed').text('Service Closed on the ');
                         $('#service-closed').append(serviceSlice);
                         $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
+                        $('#tflCommentary').append('Party On!');
 
                     } else {
                         $('#good-service').addClass('is-hidden');
@@ -417,6 +434,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     var interruptionPluralLines = interruption.join(', ').concat(pluralLines);
 
                     $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
+                    $('#weatherStart').addClass('is-hidden');
+                    $('#tflCommentary').text('Take some deep breaths on the Underground, otherwise');
                     //$(interruptionPluralLine.push('and'));
 
                 } else {
@@ -438,9 +457,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 app.displayGoogleCalendar = function(events) {
 
             };
-
-app.displayGoodDay = function(weatherResponse, undergroundResponse, asteriodResponse) {
-
     //console.log('hello', weatherResponse, undergroundResponse);
     /*
     switch (description) {
@@ -549,24 +565,18 @@ app.displayGoodDay = function(weatherResponse, undergroundResponse, asteriodResp
 
 app.displayAsteriods = function(asteriodResponse) {
 
-    moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
+    console.log('Any Hazardous Asteriods? ' + asteriodResponse);
 
-    var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
-    var asteriod = asteriodResponse.near_earth_objects[nasaAPIDay];
-
-    for (var i = 0; i < asteriod.length; i++) {
-        var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
-
-        if (asteriodData) {
-            $('#asteriod').text('Nearby');
-            $('#asteriod-title').text('Asteriods');
-            $('#asteriod-svg').attr('src', 'img/asteriod2.svg');
-            $('.tile-asteriod').addClass('asteriod-near');
-        } else {
-            $('#asteriod').text('No Near');
+    if ( $.inArray(true, asteriodResponse) > -1 ){
+       
+        $('#asteriod').text('Nearby');
+        $('#asteriod-title').text('Asteriods');
+        $('#asteriod-svg').attr('src', 'img/asteriod2.svg');
+        $('.tile-asteriod').addClass('asteriod-near');
+    
+    } else { $('#asteriod').text('No Near');
             $('#asteriod-svg').attr('src', 'img/asteriod.svg');
             $('#asteriod-title').text('Asteriods');
-        }
     }
 };
 
@@ -790,16 +800,12 @@ app.displayClock = function() {
 
 
 app.init = function() {
-
+    
     app.getAJAX();
+    //app.displayGoodDay();
     app.displayClock();
     app.displayGoogleCalendar();
-    app.displayGoodDay();
-    //app.displayWeather();
-    app.displayUndergroundService();
-    app.undergroundOverlay();
-    app.displayUndergroundOverlay();
-    app.displayAsteriods();
+
 };
 
 $(document).ready(app.init);
