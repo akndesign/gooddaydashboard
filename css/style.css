@@ -104,6 +104,8 @@ h4 {
   line-height: 1.0!important;
   list-style: none;
   padding-top: 25px;
+  padding-bottom: 10px;
+
 }
 .interruptions {
   font-size: 1.5em;
@@ -486,7 +488,11 @@ h4 {
     font-weight: 400;
 }
 
-#weathercondition, #temperaturecondition {
+#temperature .snow {
+    color: black! important;
+}
+
+#weathercondition, #temperaturecondition, #feelslike {
     font-size: .5em;
     font-weight: 200;   
 }
@@ -802,7 +808,6 @@ h4 {
     margin: auto;
     height: 35%;
     cursor: pointer;
-    color: white;
 }
 
 }
@@ -845,10 +850,10 @@ h4 {
 }
 
 .snow {
+  color: black!important;
   background-image: -moz-linear-gradient( 115deg, rgb(177,202,210) 0%, rgb(255,255,255) 48%, rgb(255,255,255) 100%);
   background-image: -webkit-linear-gradient( 115deg, rgb(177,202,210) 0%, rgb(255,255,255) 48%, rgb(255,255,255) 100%);
   background-image: -ms-linear-gradient( 115deg, rgb(177,202,210) 0%, rgb(255,255,255) 48%, rgb(255,255,255) 100%);
-  color: black!important;
 }
 
 .mist {

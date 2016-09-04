@@ -14,10 +14,7 @@ app.getAJAX = function() {
     var asteriodUrl = 'https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false';
     var apiKey = '&api_key=PT3Ux5XFGFqnK869ovrGVMS5SBciZGmQ0I0LnkrC';
 
-    //Dummy Weather JSON Request 
-    /*$.getJSON('js/dummy-json/clouds.json', function(weatherResponse) {
-        app.displayWeather(weatherResponse);
-        });*/
+
 
     $.ajax({
         url: weatherUrl + apiWeatherKey + conditions + city,
@@ -28,11 +25,17 @@ app.getAJAX = function() {
         dataType : 'json',
         success: function(weatherData){
             $.each(weatherData, function(i, item){
-            app.displayWeather(weatherData);
+                console.log(weatherData);
+                app.displayWeather(weatherData);
          });
     }
     });
-    
+
+    //Dummy Weather JSON Request 
+    /*$.getJSON('js/dummy-json/weather/mist.json', function(weatherData){
+                console.log(weatherData);
+                app.displayWeather(weatherData);
+         }); */
 
     $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
@@ -50,7 +53,7 @@ app.getAJAX = function() {
     });
 
     //Dummy Underground JSON Request 
-    /*$.getJSON('js/dummy-json/goodservice.json', function(undergroundResponse) {
+    /*$.getJSON('js/dummy-json/tube/serviceclosed.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
@@ -167,6 +170,11 @@ app.getGoogleCalendar = function() {
 
 app.displayWeather = function(weatherResponse) {
 
+    console.log(weatherResponse);
+
+    var test = weatherResponse.current_observation;
+    console.log(test);
+
     var weatherCondition = weatherResponse.current_observation.weather;
     var city = weatherResponse.current_observation.weather.city;
     var temperature = Math.round(weatherResponse.current_observation.temp_c);
@@ -179,6 +187,10 @@ app.displayWeather = function(weatherResponse) {
             $('.tile-weather').addClass('hot');
             $('#temperature').text(temperature + '°C');
             $('#temperaturecondition').text("It's hot!");
+            $('#hot').text(" a hot day!");
+            $('#weatherCommentary').addClass('is-hidden');
+            $('#weatherStart').addClass('is-hidden');
+            $('#rainStart').addClass('is-hidden');
 
         } else if (temperature <= 0) {
 
@@ -200,9 +212,12 @@ app.displayWeather = function(weatherResponse) {
             case 'Partly Cloudy': 
             case 'Mostly Cloudy' : 
             case 'Scattered Clouds':
+            case 'Overcast':
+
                 $('.tile-weather').addClass('clouds');
                 $('#weathercondition').text(weatherCondition);
-                $('#weatherCommentary').text(" average, grey day in London");
+                $('#rainStart').addClass('is-hidden');
+                $('#weatherCommentary').text(" an average, grey day in London.");
                 
                 break;
 
@@ -210,7 +225,7 @@ app.displayWeather = function(weatherResponse) {
 
                 $('.tile-weather').addClass('clear');
                 $('#weathercondition').text(weatherCondition);
-                $('#weatherCommentary').text(" a good day in London");
+                $('#weatherCommentary').text(" a good day in London.");
 
                 break;
 
@@ -223,6 +238,8 @@ app.displayWeather = function(weatherResponse) {
                 $('.tile-weather').addClass('rain');
                 $('#weathercondition').text(weatherCondition);
                 $('#temperaturecondition').text(':(');
+                $('#weatherStart').addClass('is-hidden');
+                $('#weatherCommentary').text(' bring an umbrella!');
 
                 break;
 
@@ -230,6 +247,9 @@ app.displayWeather = function(weatherResponse) {
 
                 $('.tile-weather').addClass('snow');
                 $('#weathercondition').text(weatherCondition);
+                $('#weatherStart').addClass('is-hidden');
+                $('#rainStart').addClass('is-hidden');
+                $('#weatherCommentary').text(' snowing in London?? Madness!');
 
                 break;
 
@@ -237,6 +257,9 @@ app.displayWeather = function(weatherResponse) {
 
                 $('.tile-weather').addClass('mist');
                 $('#weathercondition').text(weatherCondition);
+                $('#weatherStart').addClass('is-hidden');
+                $('#rainStart').addClass('is-hidden');
+                $('#weatherCommentary').text(' weather that is like your eyes watching Jack slip in ocean (spoiler!)');
 
                 break;
 
@@ -246,9 +269,9 @@ app.displayWeather = function(weatherResponse) {
         }
 
     if (feelsLike = temperature) {
-            $('#temperaturecondition').text('Feels similar');
+            $('#feelslike').text('Feels similar');
         } else {
-            $('#temperaturecondition').text(feelsLike);
+            $('#feelslike').text(feelsLike);
         }
 };
 
@@ -337,6 +360,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 $('#good-service').text('Good').append("<div id='good-title'></div>");
                 $('#good-title').text('service');
+                
                 break;
 
             case 'Service Closed':
@@ -377,12 +401,17 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#service-closed').text('Service Closed on the ');
                         $('#service-closed').append(serviceSlice);
                         $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
-                        $('#tflCommentary').append('Party On!');
+                        $('#weatherStart').addClass('is-hidden');
+                        $('#rainStart').text('best to');
+                        $('#tflCommentary').text("Woohoo, Night Tube – Party On! Otherwise it's");
 
                     } else {
                         $('#good-service').addClass('is-hidden');
                         $('#service-closed').text('Service Closed');
                         $('#service-closed').addClass('text-title');
+                        $('#weatherStart').addClass('is-hidden');
+                        $('#rainStart').text('best to');
+                        $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
                     }
 
                 }
@@ -435,7 +464,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
                     $('#weatherStart').addClass('is-hidden');
-                    $('#tflCommentary').text('Take some deep breaths on the Underground, otherwise');
+                    $('#rainStart').text('best to');
+                    $('#tflCommentary').text('Replan travels on the Underground if needed, otherwise');
                     //$(interruptionPluralLine.push('and'));
 
                 } else {
@@ -446,6 +476,9 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     $('#interruptions').text(interruptionOtherLines).addClass('interruptions');
                     $('#interruptions-title').text('Interrupted Service ');
                     $('#interruptions-title').addClass('interruptions-text-title');
+                    $('#weatherStart').addClass('is-hidden');
+                    $('#rainStart').text('best to');
+                    $('#tflCommentary').text("The Underground looks a bit broken today -- otherwise it's");
 
                 }
                 break;
