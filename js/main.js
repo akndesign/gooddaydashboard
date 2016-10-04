@@ -60,7 +60,7 @@ app.getAJAX = function() {
         
         });*/
 
-   /* $.ajax({
+   $.ajax({
         url: asteriodUrl + apiKey,
         method: 'GET',
         beforeSend: function() {
@@ -81,10 +81,10 @@ app.getAJAX = function() {
 
         } app.displayAsteriods(asteriodArray);
     }
-});*/
+});
 
     //Dummy Asteriod JSON. Request MAKE SURE TO UPDATE THE DAY TO TODAY MANUALLY
-    $.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
+    /*$.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
         
         var asteriodArray = [];
 
@@ -101,7 +101,7 @@ app.getAJAX = function() {
 
         } app.displayAsteriods(asteriodArray);
         
-        });
+        });*/
              
 app.getGoogleCalendar = function() {
 
