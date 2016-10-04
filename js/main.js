@@ -25,8 +25,8 @@ app.getAJAX = function() {
         dataType : 'json',
         success: function(weatherData){
             $.each(weatherData, function(i, item){
-                console.log(weatherData);
                 app.displayWeather(weatherData);
+                //ACCOUNT FOR ZERO OBJECTS
          });
     }
     });
@@ -60,7 +60,7 @@ app.getAJAX = function() {
         
         });*/
 
-    $.ajax({
+   /* $.ajax({
         url: asteriodUrl + apiKey,
         method: 'GET',
         beforeSend: function() {
@@ -68,6 +68,8 @@ app.getAJAX = function() {
     },success: function(asteriodResponse) {
         
         var asteriodArray = [];
+
+        console.log(asteriodResponse);
 
         moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
         var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
@@ -79,10 +81,10 @@ app.getAJAX = function() {
 
         } app.displayAsteriods(asteriodArray);
     }
-});
+});*/
 
     //Dummy Asteriod JSON. Request MAKE SURE TO UPDATE THE DAY TO TODAY MANUALLY
-    /*$.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
+    $.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
         
         var asteriodArray = [];
 
@@ -99,7 +101,7 @@ app.getAJAX = function() {
 
         } app.displayAsteriods(asteriodArray);
         
-        });*/
+        });
              
 app.getGoogleCalendar = function() {
 
@@ -606,6 +608,7 @@ app.displayAsteriods = function(asteriodResponse) {
         $('#asteriod-title').text('Asteriods');
         $('#asteriod-svg').attr('src', 'img/asteriod2.svg');
         $('.tile-asteriod').addClass('asteriod-near');
+        $('#overallCommentary').text('Better stay indoors!');
     
     } else { $('#asteriod').text('No Near');
             $('#asteriod-svg').attr('src', 'img/asteriod.svg');
