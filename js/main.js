@@ -37,7 +37,7 @@ app.getAJAX = function() {
                 app.displayWeather(weatherData);
          }); */
 
-    /*$.ajax({
+    $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
         method: 'GET',
         beforeSend: function() {
@@ -50,15 +50,15 @@ app.getAJAX = function() {
             app.undergroundOverlay(data);
             app.displayUndergroundOverlay(data);
         }
-    });*/
+    });
 
     //Dummy Underground JSON Request 
-    $.getJSON('js/dummy-json/tube/partclosure&serviceclosed.json', function(undergroundResponse) {
+    /*$.getJSON('js/dummy-json/tube/partclosure&serviceclosed.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
         
-        });
+        });*/
 
    $.ajax({
         url: asteriodUrl + apiKey,
