@@ -114,6 +114,11 @@ h4 {
   padding-top: 25px;
 }
 
+.closure-interruptions {
+  line-height: 2!important;
+  list-style: none;
+}
+
 .asteriod-near {
     background-color: #34495e!important;
 

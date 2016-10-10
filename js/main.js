@@ -37,7 +37,7 @@ app.getAJAX = function() {
                 app.displayWeather(weatherData);
          }); */
 
-    $.ajax({
+    /*$.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
         method: 'GET',
         beforeSend: function() {
@@ -50,15 +50,15 @@ app.getAJAX = function() {
             app.undergroundOverlay(data);
             app.displayUndergroundOverlay(data);
         }
-    });
+    });*/
 
     //Dummy Underground JSON Request 
-    /*$.getJSON('js/dummy-json/tube/serviceclosed.json', function(undergroundResponse) {
+    $.getJSON('js/dummy-json/tube/partclosure&serviceclosed.json', function(undergroundResponse) {
         app.displayUndergroundService(undergroundResponse);
         app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
         
-        });*/
+        });
 
    $.ajax({
         url: asteriodUrl + apiKey,
@@ -241,7 +241,7 @@ app.displayWeather = function(weatherResponse) {
                 $('#weathercondition').text(weatherCondition);
                 $('#temperaturecondition').text(':(');
                 $('#weatherStart').addClass('is-hidden');
-                $('#weatherCommentary').text(' bring an umbrella!');
+                $('#weatherCommentary').text(' best to bring an umbrella!');
 
                 break;
 
@@ -326,6 +326,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
     var goodService = [];
     var serviceClosed = [];
+    var partClosure = [];
     var interruption = [];
 
     var severalOtherLines = [' and several other lines'];
@@ -372,7 +373,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 serviceClosed.push(undergroundName);
 
-                var serviceClosedTest = serviceClosed.length >= 4;
 
                 if ($(serviceClosed).length === 1) {
 
@@ -404,7 +404,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#service-closed').append(serviceSlice);
                         $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
                         $('#weatherStart').addClass('is-hidden');
-                        $('#rainStart').text('best to');
+                        $('#rainStart').addClass('is-hidden');
                         $('#tflCommentary').text("Woohoo, Night Tube – Party On! Otherwise it's");
 
                     } else {
@@ -412,7 +412,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#service-closed').text('Service Closed');
                         $('#service-closed').addClass('text-title');
                         $('#weatherStart').addClass('is-hidden');
-                        $('#rainStart').text('best to');
+                        $('#rainStart').addClass('is-hidden');
+                        //$('#rainStart').text('best to');
                         $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
                     }
 
@@ -420,34 +421,41 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 break;
 
-                /*case 'Part Closure':    
+                case 'Part Closure': 
+                case 'Planned Closure':   
 
-                    partclosure.push(undergroundName);
+                    partClosure.push(undergroundName);
 
-                    if ($(partclosure).length === 1) {
+                    if ($(partClosure).length === 1) {
 
-                        var partclosureSingleLine = partclosure.join(' ').concat(singleLine);
+                        var partclosureSingleLine = partClosure.join(', ').concat(singleLine);
 
                         $('#partclosure').text('Part Closure on the ' + partclosureSingleLine);
+                        $('#partclosure').addClass('interruptions');
+                        $('#interruptions').addClass('closure-interruptions');
                         console.log(partclosureSingleLine);
 
-                    } else if ($(partclosure).length === 2) {
+                    } else if ($(partClosure).length === 2) {
 
-                        var partclosurePluralLines = partclosure.join(', ').concat(pluralLines);
+                        var partclosurePluralLines = partClosure.join(', ').concat(pluralLines);
 
-                        $('#partclosure').text('Interruptions on the ' + partclosurePluralLines);
+                        $('#partclosure').text('Part or Planned Closures on the ' + partclosurePluralLines);
+                        $('#partclosure').addClass('interruptions');
+                        $('#interruptions').addClass('closure-interruptions');
                         console.log(partclosurePluralLines);
                         //$(interruptionPluralLine.push('and'));
 
                     } else {
 
-                        var partclosureOtherLines = interruption.join(', ').concat(otherLines);
+                        var partclosureOtherLines = partClosure.join(', ').concat(otherLines);
 
-                        $('#good-service').addClass('is-hidden');
-                        $('#partclosure').text('Interruptions on the ' + partclosureOtherLines);
+                        $('#partclosure').text('Part or Planned Closures on the ' + partclosureOtherLines);
+                        $('#partclosure').addClass('interruptions');
+                        $('#interruptions').addClass('closure-interruptions');
+                        
                         console.log(partclosureOtherLines);
 
-                        } break; */
+                    } break;
 
             default:
 
