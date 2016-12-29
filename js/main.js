@@ -16,7 +16,7 @@ app.getAJAX = function() {
 
 
 
-    $.ajax({
+    /*$.ajax({
         url: weatherUrl + apiWeatherKey + conditions + city,
         method: 'GET',
         beforeSend: function() {
@@ -25,17 +25,19 @@ app.getAJAX = function() {
         dataType : 'json',
         success: function(weatherData){
             $.each(weatherData, function(i, item){
+                console.log(weatherData);
                 app.displayWeather(weatherData);
                 //ACCOUNT FOR ZERO OBJECTS
          });
     }
-    });
+    
+    });*/
 
     //Dummy Weather JSON Request 
-    /*$.getJSON('js/dummy-json/weather/mist.json', function(weatherData){
+    $.getJSON('js/dummy-json/weather/mist.json', function(weatherData){
                 console.log(weatherData);
                 app.displayWeather(weatherData);
-         }); */
+         });
 
     $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
@@ -183,6 +185,8 @@ app.displayWeather = function(weatherResponse) {
     var weatherCondition = weatherResponse.current_observation.weather;
     var city = weatherResponse.current_observation.weather.city;
     var temperature = Math.round(weatherResponse.current_observation.temp_c);
+    var temperatureString = '' + temperature;
+
     var feelsLike = weatherResponse.current_observation.feelslike_c;
 
     $('#city').text(city);
@@ -277,12 +281,21 @@ app.displayWeather = function(weatherResponse) {
 
         }
 
-    if (feelsLike = temperature) {
+    if (feelsLike === temperatureString) {
+            $('#feelslike').text('Feels similar');
+        } else {
+            $('#feelslike').text('Feels like ' + feelsLike + '°C');
+        }
+    };    
+
+    /*if (feelsLike || "") { //if the 'feelsLike is 0, which returns as undefined, whereas the temp is still an object'
+            $('#feelslike').text('Feels similar');
+        } else if (feelsLike = temperatureString) {
             $('#feelslike').text('Feels similar');
         } else {
             $('#feelslike').text(feelsLike);
         }
-};
+    };*/
 
 
 //Display Underground, Per-Line

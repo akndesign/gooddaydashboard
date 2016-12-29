@@ -73,7 +73,7 @@
 		"windchill_c":"NA",
 		"feelslike_string":"64 F (18 C)",
 		"feelslike_f":"64",
-		"feelslike_c":"18",
+		"feelslike_c": "7",
 		"visibility_mi":"6.2",
 		"visibility_km":"10.0",
 		"solarradiation":"--",
