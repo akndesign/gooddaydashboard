@@ -16,7 +16,7 @@ app.getAJAX = function() {
 
 
 
-    /*$.ajax({
+    $.ajax({
         url: weatherUrl + apiWeatherKey + conditions + city,
         method: 'GET',
         beforeSend: function() {
@@ -31,13 +31,13 @@ app.getAJAX = function() {
          });
     }
     
-    });*/
+    });
 
     //Dummy Weather JSON Request 
-    $.getJSON('js/dummy-json/weather/mist.json', function(weatherData){
+    /*$.getJSON('js/dummy-json/weather/mist.json', function(weatherData){
                 console.log(weatherData);
                 app.displayWeather(weatherData);
-         });
+         });*/
 
     $.ajax({
         url: tflUrl + app_id + apiUndergroundKey,
