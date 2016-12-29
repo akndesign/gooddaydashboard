@@ -93,28 +93,20 @@
             <div id="feelslike"></div>
          </div>
       </div>
-      <div class="tile tile-asteriod ripple-effect">
+      <div class="tile tile-asteroid ripple-effect">
          <span class="content-wrapper">
             <span class="tile-content">
-               <div class="asteriod-content">
-                  <img id="asteriod-svg" alt="Asteriod" height="150" width="150">   
-                  <div id="asteriod" class="asteriod"></div>
-                  <div id='asteriod-title'></div>
+               <div class="asteroid-content">
+                  <img id="asteroid-svg" alt="Asteroid" height="150" width="150">   
+                  <div id="asteroid" class="asteroid"></div>
+                  <div id='asteroid-title'></div>
                </div>
             </span>
          </span>
       </div>
       <div class="tile tile-calendar ripple-effect">
-         <span class="content-wrapper">
-            <div id="googletitle"></div>
-            <pre id="googleCalendar" style="font-family:'sofia-pro'"></pre>
-            <div id="authorize-div">Authorize access to Google Calendar API <button id="authorize-button" onclick="app.getGoogleCalendar()"> Authorize </button>
-            </div>
-            <div>Don't use Google Calendar? <button id="arrow"> ></button></div>
-         </span>
-      </div>
-      <div id="clock" class="tile tile-calendar ripple-effect">
-         <div class="clock-label">British Summer Time</div>
+      <div class="clock is-hidden">
+      <div class="clock-label">British Summer Time</div>
          <div class="clockface">
          <div class="dial">
             <div class="dot"></div>
@@ -123,9 +115,17 @@
             <div class="hour-hand hand-movement"></div>
             <div class="diallines"></div> 
          </div>
-         </div> 
+         </div>
          <div id="day-label" class=""></div>
          </div>
+         <span class="google content-wrapper">
+            <div id="googletitle"></div>
+            <pre id="googleCalendar" style="font-family:'sofia-pro'"></pre>
+            <div id="authorize-div">Show Google Calendar?<button id="authorize-button" onclick="app.getGoogleCalendar()"> Authorize </button>
+            </div>
+            <div id="noGoogle">Don't use Google Calendar?<button id="arrow">></button></div>
+         </span>
+      </div>
       <div class="tile-message tile-white ripple-effect">
          <span class="content-wrapper"><h3>
            <div id="overallCommentary">

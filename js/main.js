@@ -11,7 +11,7 @@ app.getAJAX = function() {
     var app_id = 'app_id=2a49b2c6';
     var apiUndergroundKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
-    var asteriodUrl = 'https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false';
+    var asteroidUrl = 'https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false';
     var apiKey = '&api_key=PT3Ux5XFGFqnK869ovrGVMS5SBciZGmQ0I0LnkrC';
 
 
@@ -61,49 +61,52 @@ app.getAJAX = function() {
         });*/
 
    $.ajax({
-        url: asteriodUrl + apiKey,
+        url: asteroidUrl + apiKey,
         method: 'GET',
         beforeSend: function() {
-            $('#asteriod').html('Loading...');
-    },success: function(asteriodResponse) {
+            $('#asteroid').html('Loading...');
+    },success: function(asteroidResponse) {
         
-        var asteriodArray = [];
+        var asteroidArray = [];
 
-        console.log(asteriodResponse);
+        console.log(asteroidResponse);
 
         moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
         var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
-        var asteriod = asteriodResponse.near_earth_objects[nasaAPIDay];
+        var asteroid = asteroidResponse.near_earth_objects[nasaAPIDay];
 
-        for (var i = 0; i < asteriod.length; i++) {
-            var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
-            asteriodArray.push(asteriodData);
+        for (var i = 0; i < asteroid.length; i++) {
+            var asteroidData = asteroid[i].is_potentially_hazardous_asteroid;
+            asteroidArray.push(asteroidData);
 
-        } app.displayAsteriods(asteriodArray);
+        } app.displayAsteroids(asteroidArray);
     }
 });
 
-    //Dummy Asteriod JSON. Request MAKE SURE TO UPDATE THE DAY TO TODAY MANUALLY
-    /*$.getJSON('js/dummy-json/asteriodtrue.json', function(asteriodResponse) {
+    //Dummy Asteroid JSON. Request MAKE SURE TO UPDATE THE DAY TO TODAY MANUALLY
+    /*$.getJSON('js/dummy-json/asteroidtrue.json', function(asteroidResponse) {
         
-        var asteriodArray = [];
+        var asteroidArray = [];
 
         moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
 
         var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
-        var asteriod = asteriodResponse.near_earth_objects[nasaAPIDay];
+        var asteroid = asteroidResponse.near_earth_objects[nasaAPIDay];
 
-        for (var i = 0; i < asteriod.length; i++) {
+        for (var i = 0; i < asteroid.length; i++) {
 
-        var asteriodData = asteriod[i].is_potentially_hazardous_asteroid;
+        var asteroidData = asteroid[i].is_potentially_hazardous_asteroid;
 
-        asteriodArray.push(asteriodData);
+        asteroidArray.push(asteroidData);
 
-        } app.displayAsteriods(asteriodArray);
+        } app.displayAsteroids(asteroidArray);
         
         });*/
+
              
 app.getGoogleCalendar = function() {
+
+    $('#noGoogle' ).addClass('is-hidden');
 
     var CLIENT_ID = '898526595344-15r6oqg7ibui899rt34ieha6l0ilkoqk.apps.googleusercontent.com';
     var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
@@ -154,15 +157,15 @@ app.getGoogleCalendar = function() {
       }
 };
 
-/*app.displayGoodDay = function(weatherResponse, undergroundResponse, asteriodResponse) {
+/*app.displayGoodDay = function(weatherResponse, undergroundResponse, asteroidResponse) {
 
     if (undergroundResponse)
 
-    switch (undergroundResponse, weatherResponse, asteriodResponse) {
+    switch (undergroundResponse, weatherResponse, asteroidResponse) {
     
     case 'Good Service':  
     case 'Clear': 
-    case 'No Asteriods':
+    case 'No Asteroids':
 
     $('#overallCommentary').text("It's a good day in London!");
 
@@ -194,10 +197,14 @@ app.displayWeather = function(weatherResponse) {
             $('#weatherStart').addClass('is-hidden');
             $('#rainStart').addClass('is-hidden');
 
-        } else if (temperature <= 0) {
+        } else if (temperature <= 5) {
 
             $('#temperature').text(temperature + '°C');
             $('#temperaturecondition').text('Brr!');
+            $('#hot').text("bring a winter jacket!");
+            $('#weatherCommentary').addClass('is-hidden');
+            $('#weatherStart').addClass('is-hidden');
+            $('#rainStart').addClass('is-hidden');
 
         } else {
             $('#temperature').text(temperature + '°C');
@@ -487,7 +494,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     $('#interruptions-title').text('Interrupted Service ');
                     $('#interruptions-title').addClass('interruptions-text-title');
                     $('#weatherStart').addClass('is-hidden');
-                    $('#rainStart').text('best to');
+                    //$('#rainStart').text('best to');
                     $('#tflCommentary').text("The Underground looks a bit broken today -- otherwise it's");
 
                 }
@@ -604,27 +611,35 @@ app.displayGoogleCalendar = function(events) {
         
     };*/
 
-//Display Asteriods
+//Display Asteroids
 
-app.displayAsteriods = function(asteriodResponse) {
+app.displayAsteroids = function(asteroidResponse) {
 
-    console.log('Any Hazardous Asteriods? ' + asteriodResponse);
+    console.log('Any Hazardous Asteroids? ' + asteroidResponse);
 
-    if ( $.inArray(true, asteriodResponse) > -1 ){
+    if ( $.inArray(true, asteroidResponse) > -1 ){
        
-        $('#asteriod').text('Nearby');
-        $('#asteriod-title').text('Asteriods');
-        $('#asteriod-svg').attr('src', 'img/asteriod2.svg');
-        $('.tile-asteriod').addClass('asteriod-near');
+        $('#asteroid').text('Nearby');
+        $('#asteroid-title').text('Asteroids');
+        $('#asteroid-svg').attr('src', 'img/asteroid2.svg');
+        $('.tile-asteroid').addClass('asteroid-near');
         $('#overallCommentary').text('Better stay indoors!');
     
-    } else { $('#asteriod').text('No Near');
-            $('#asteriod-svg').attr('src', 'img/asteriod.svg');
-            $('#asteriod-title').text('Asteriods');
+    } else { $('#asteroid').text('No Near');
+            $('#asteroid-svg').attr('src', 'img/asteroid.svg');
+            $('#asteroid-title').text('Asteroids');
     }
 };
 
 app.displayClock = function() {
+    
+    $('#arrow' ).on('click', function() {
+        $('.google').addClass('is-hidden').fadeOut('slow');
+        $('.clock').fadeIn('slow').removeClass('is-hidden');
+    }); app.runClock();
+};
+
+app.runClock = function() {
 
     londonTime = moment.tz.add('Europe/London|BST BDST GMT|0 -10 -20|0101010101010101010101010101010101010101010101010121212121210101210101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-2axa0 Rc0 1fA0 14M0 1fc0 1g00 1co0 1dc0 1co0 1oo0 1400 1dc0 19A0 1io0 1io0 WM0 1o00 14o0 1o00 17c0 1io0 17c0 1fA0 1a00 1lc0 17c0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1cM0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1io0 1qM0 Dc0 2Rz0 Dc0 1zc0 Oo0 1zc0 Rc0 1wo0 17c0 1iM0 FA0 xB0 1fA0 1a00 14o0 bb0 LA0 xB0 Rc0 1wo0 11A0 1o00 17c0 1fA0 1a00 1fA0 1cM0 1fA0 1a00 17c0 1fA0 1a00 1io0 17c0 1lc0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1a00 1qM0 WM0 1qM0 11A0 1o00 WM0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1tA0 IM0 90o0 U00 1tA0 U00 1tA0 U00 1tA0 U00 1tA0 WM0 1qM0 WM0 1qM0 WM0 1tA0 U00 1tA0 U00 1tA0 11z0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 14o0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00');
 
@@ -844,12 +859,8 @@ app.displayClock = function() {
 
 
 app.init = function() {
-    
     app.getAJAX();
-    //app.displayGoodDay();
     app.displayClock();
-    app.displayGoogleCalendar();
-
 };
 
 $(document).ready(app.init);
