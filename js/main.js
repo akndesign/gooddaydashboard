@@ -636,7 +636,7 @@ app.displayAsteroids = function(asteroidResponse) {
         $('#asteroid-title').text('Asteroids');
         $('#asteroid-svg').attr('src', 'img/asteroid2.svg');
         $('.tile-asteroid').addClass('asteroid-near');
-        $('#overallCommentary').text('Better stay indoors!');
+        $('#asteroidCommentary').text('Stay away from windows today?');
     
     } else { $('#asteroid').text('No Near');
             $('#asteroid-svg').attr('src', 'img/asteroid.svg');
