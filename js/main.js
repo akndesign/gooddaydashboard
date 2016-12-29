@@ -14,7 +14,7 @@ app.getAJAX = function() {
     var asteroidUrl = 'https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false';
     var apiKey = '&api_key=PT3Ux5XFGFqnK869ovrGVMS5SBciZGmQ0I0LnkrC';
 
-
+    console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
     $.ajax({
         url: weatherUrl + apiWeatherKey + conditions + city,
@@ -25,7 +25,6 @@ app.getAJAX = function() {
         dataType : 'json',
         success: function(weatherData){
             $.each(weatherData, function(i, item){
-                console.log(weatherData);
                 app.displayWeather(weatherData);
                 //ACCOUNT FOR ZERO OBJECTS
          });
@@ -71,7 +70,7 @@ app.getAJAX = function() {
         
         var asteroidArray = [];
 
-        console.log(asteroidResponse);
+        console.log('Asteroids Data ', asteroidResponse);
 
         moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
         var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
@@ -177,10 +176,10 @@ app.getGoogleCalendar = function() {
 
 app.displayWeather = function(weatherResponse) {
 
-    console.log(weatherResponse);
+    console.log('Weather Data ', weatherResponse);
 
-    var test = weatherResponse.current_observation;
-    console.log(test);
+    /*var test = weatherResponse.current_observation;
+    console.log(test);*/
 
     var weatherCondition = weatherResponse.current_observation.weather;
     var city = weatherResponse.current_observation.weather.city;
@@ -188,6 +187,8 @@ app.displayWeather = function(weatherResponse) {
     var temperatureString = '' + temperature;
 
     var feelsLike = weatherResponse.current_observation.feelslike_c;
+
+    console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
 
     $('#city').text(city);
 
@@ -219,9 +220,11 @@ app.displayWeather = function(weatherResponse) {
     switch (weatherCondition) {
 
             case 'Clouds':
+            case 'Fog':
             case 'Patches of Fog':
             case 'Shallow Fog':
             case 'Partial Fog':
+            case 'Light Freezing Fog':
             case 'Partly Cloudy': 
             case 'Mostly Cloudy' : 
             case 'Scattered Clouds':
@@ -453,11 +456,11 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#partclosure').text('Part Closure on the ' + partclosureSingleLine);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
-                        console.log(partclosureSingleLine);
+                        console.log('Part Closure on the', partclosureSingleLine);
 
                     } else if ($(partClosure).length === 2) {
 
-                        var partclosurePluralLines = partClosure.join(', ').concat(pluralLines);
+                        var partclosurePluralLines = partClosure.join(' & ').concat(pluralLines);
 
                         $('#partclosure').text('Part or Planned Closures on the ' + partclosurePluralLines);
                         $('#partclosure').addClass('interruptions');
@@ -508,9 +511,10 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     $('#interruptions-title').addClass('interruptions-text-title');
                     $('#weatherStart').addClass('is-hidden');
                     //$('#rainStart').text('best to');
-                    $('#tflCommentary').text("The Underground looks a bit broken today -- otherwise it's");
+                    $('#tflCommentary').text("The Underground looks a bit broken today – otherwise it's");
 
                 }
+                
                 break;
         }
     });

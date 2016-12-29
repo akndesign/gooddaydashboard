@@ -40,7 +40,7 @@ html {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-  min-height: 100%;
+  height: 100%;
 }
 
 body {
@@ -219,21 +219,18 @@ h4 {
 
 /* -- Dashboard --------------------------------------- */
 
-.dashboard {
-  position: relative;
-  overflow-x: hidden;
-  width: 100%;
-  padding: 5px;
-  margin: 0;
-}
+
 .dashboard > * {
   display: block;
   float: left;
   margin: 5px;
+  width: 1vw;
+  justify-content: center;
+  overflow-x: hidden;
 }
 
 .widget-window {
-    flex-direction: row;
+   flex-direction: row;
    -ms-box-orient: horizontal;
     display: -webkit-box;
     display: -moz-box;
@@ -243,8 +240,9 @@ h4 {
     display: flex;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    width: 90%;
-    margin: auto;
+    height: 100%;
+    text-align: center;
+    align-items: center;
     justify-content: center;
    /* TO READJUST TILE SIZE
    -webkit-transform:scale(0.75);
@@ -982,6 +980,11 @@ h4 {
   box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
+@media (max-device-width: 1280px) {
+.widget-window {
+    width: 90%;  
+}
+}
 
 @media (max-device-width: 668px) {
 
