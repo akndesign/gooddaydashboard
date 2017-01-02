@@ -42,7 +42,7 @@ app.getAJAX = function() {
         url: tflUrl + app_id + apiUndergroundKey,
         method: 'GET',
         beforeSend: function() {
-            $('#service-board').html('Loading...');
+            $('#tile-tfl').html('Loading...');
         },
         success: function(data) {
 
@@ -65,7 +65,7 @@ app.getAJAX = function() {
         url: asteroidUrl + apiKey,
         method: 'GET',
         beforeSend: function() {
-            $('#asteroid').html('Loading...');
+            $('#tile-asteroid').html('Loading...');
     },success: function(asteroidResponse) {
         
         var asteroidArray = [];
@@ -234,7 +234,7 @@ app.displayWeather = function(weatherResponse) {
                 $('#weathercondition').text(weatherCondition);
                 $('#rainStart').addClass('is-hidden');
                 $('#weatherCommentary').text(" an average, grey day in London.");
-                
+                $('#tflCommentary').addClass('is-hidden');
                 break;
 
             case 'Clear':
@@ -352,7 +352,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
     var partClosure = [];
     var interruption = [];
 
-    var severalOtherLines = [' and several other lines'];
+    var severalOtherLines = [' & several other lines'];
     var otherLines = [' other lines'];
     var pluralLines = [' lines'];
     var singleLine = [' line'];
@@ -428,7 +428,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
                         $('#weatherStart').addClass('is-hidden');
                         $('#rainStart').addClass('is-hidden');
-                        $('#tflCommentary').text("Woohoo, Night Tube – Party On! Otherwise it's");
+                        $('#hot').addClass('is-hidden');
+                        $('#tflCommentary').text("Woohoo, Night Tube – Party On!");
 
                     } else {
                         $('#good-service').addClass('is-hidden');
@@ -878,6 +879,12 @@ app.runClock = function() {
 app.init = function() {
     app.getAJAX();
     app.displayClock();
+    $('.footer').removeClass('is-hidden');
+    /*var rotator = function(){
+    widget.Rotator.rotate();
+    setTimeout(rotator,5000);
+        };
+rotator();*/
 };
 
 $(document).ready(app.init);

@@ -12,9 +12,13 @@
       <script type="text/javascript" src= "js/moment-timezone.min.js"></script>
 
       <script type="text/javascript">
+
          $(window).load(function() {
-         $('#loading').remove();
+            setTimeout(function() {
+               $('#loading').remove();
+            }, 2000); 
          });
+
       </script>  
 
       <link rel="stylesheet" href="css/normalize.css">
@@ -63,9 +67,9 @@
          <div class="tile-content service-board toggle flex-item">
             <div id="service-notifications" class="overlay">
                <li id="good-service"></li>
-               <li id="service-closed"></li>
-               <li id="partclosure"></li>
                <li id="interruptions-title"></li>
+               <li id="partclosure"></li>
+               <li id="service-closed"></li>
                <li id="interruptions"></li>
             </div>
             <div id="lines" class="text-hidden">
@@ -139,6 +143,9 @@
          </h3>
          </span>
       </div>
+      </div>
+      </div>
+      </body>
+      <footer class="footer is-hidden"><a target="_blank" href="https://akndesign.com">Made with <img src="img/hearticon-01.svg" id="hearticon" alt="Heart" height="16" width="16"> by <img src="img/akndesign2-01.svg" id="akndesign" alt="aknDesign" height="50" width="50"</a></footer>
       <script src="js/rippleeffect.js" type="text/javascript" charset="utf-8"></script>
-   </body>
 </html>

@@ -71,6 +71,20 @@ h4 {
   font-size: 20px;
 }
 
+footer {
+  color: #bbbfc7;
+}
+
+footer a {
+  color: #bbbfc7;
+  text-decoration: none;
+}
+#akndesign {
+  display: inline-block;
+  background-size: contain;
+  vertical-align: middle;
+}
+
 #googleCalendar {
   font-family: "sofia-pro";
   font-style: normal;
@@ -111,7 +125,7 @@ h4 {
   font-size: 1.5em;
   line-height: 1.5!important;
   list-style: none;
-  padding-top: 25px;
+
 }
 
 .closure-interruptions {
