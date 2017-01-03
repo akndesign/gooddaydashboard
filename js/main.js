@@ -16,95 +16,48 @@ app.getAJAX = function() {
 
     console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
-    $.ajax({
-        url: weatherUrl + apiWeatherKey + conditions + city,
-        method: 'GET',
-        beforeSend: function() {
-            $('#weather').html('Loading...');
-        },
-        dataType : 'json',
-        success: function(weatherData){
-            $.each(weatherData, function(i, item){
-                app.displayWeather(weatherData);
-                //ACCOUNT FOR ZERO OBJECTS
-         });
-    }
-    
-    });
-
-    //Dummy Weather JSON Request 
-    /*$.getJSON('js/dummy-json/weather/mist.json', function(weatherData){
-                console.log(weatherData);
-                app.displayWeather(weatherData);
-         });*/
-
-    $.ajax({
-        url: tflUrl + app_id + apiUndergroundKey,
-        method: 'GET',
-        beforeSend: function() {
-            $('#tile-tfl').html('Loading...');
-        },
-        success: function(data) {
-
-            //app.displayGoodDay(data);
-            app.displayUndergroundService(data);
-            app.undergroundOverlay(data);
-            app.displayUndergroundOverlay(data);
-        }
-    });
-
-    //Dummy Underground JSON Request 
-    /*$.getJSON('js/dummy-json/tube/partclosure&serviceclosed.json', function(undergroundResponse) {
-        app.displayUndergroundService(undergroundResponse);
-        app.undergroundOverlay(undergroundResponse);
-        app.displayUndergroundOverlay(undergroundResponse);
+    $.when(
         
-        });*/
+        $.get(weatherUrl + apiWeatherKey + conditions + city),
+        //$.getJSON('js/dummy-json/weather/clear.json'),
+        $.get(tflUrl + app_id + apiUndergroundKey),
+        //$.getJSON('js/dummy-json/tube/mixedservice.json'),
+        $.get(asteroidUrl + apiKey)
+        //$.getJSON('js/dummy-json/asteroidtrue.json',
 
-   $.ajax({
-        url: asteroidUrl + apiKey,
-        method: 'GET',
-        beforeSend: function() {
-            $('#tile-asteroid').html('Loading...');
-    },success: function(asteroidResponse) {
-        
+     ).done(function(weatherData, undergroundData, asteroidResponse) {
+
+
+        app.displayWeather(weatherData[0]);
+        app.displayUndergroundService(undergroundData[0]);
+        app.undergroundOverlay(undergroundData[0]);
+        app.displayUndergroundOverlay(undergroundData[0]);
+
+        console.log('Asteroids Data ', asteroidResponse, weatherData);
+
         var asteroidArray = [];
-
-        console.log('Asteroids Data ', asteroidResponse);
-
+        
         moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
         var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
-        var asteroid = asteroidResponse.near_earth_objects[nasaAPIDay];
-
+        var asteroid = asteroidResponse[0].near_earth_objects[nasaAPIDay];
+        
         for (var i = 0; i < asteroid.length; i++) {
             var asteroidData = asteroid[i].is_potentially_hazardous_asteroid;
             asteroidArray.push(asteroidData);
-
-        } app.displayAsteroids(asteroidArray);
-    }
-});
-
-    //Dummy Asteroid JSON. Request MAKE SURE TO UPDATE THE DAY TO TODAY MANUALLY
-    /*$.getJSON('js/dummy-json/asteroidtrue.json', function(asteroidResponse) {
         
-        var asteroidArray = [];
-
-        moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
-
-        var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
-        var asteroid = asteroidResponse.near_earth_objects[nasaAPIDay];
-
-        for (var i = 0; i < asteroid.length; i++) {
-
-        var asteroidData = asteroid[i].is_potentially_hazardous_asteroid;
-
-        asteroidArray.push(asteroidData);
-
         } app.displayAsteroids(asteroidArray);
-        
-        });*/
 
-             
+    });
+/*
+   $(document).ajaxStop(function() {
+  // place code to be executed on completion of last outstanding ajax call here
+    console.log('happy!!');
+    
+    app.displayBadDay(asteroidArray);
+
+    });*/
+
+          
 app.getGoogleCalendar = function() {
 
     $('#noGoogle' ).addClass('is-hidden');
@@ -158,152 +111,28 @@ app.getGoogleCalendar = function() {
       }
 };
 
-/*app.displayGoodDay = function(weatherResponse, undergroundResponse, asteroidResponse) {
 
-    if (undergroundResponse)
-
-    switch (undergroundResponse, weatherResponse, asteroidResponse) {
+   /*if ( $.inArray(true, asteroidResponse) > -1 ){
+       
+        $('#asteroid').text('Nearby');
+        $('#asteroid-title').text('Asteroids');
+        $('#asteroid-svg').attr('src', 'img/asteroid2.svg');
+        $('.tile-asteroid').addClass('asteroid-near');
+        $('#asteroidCommentary').text('Stay away from windows today?');
     
-    case 'Good Service':  
-    case 'Clear': 
-    case 'No Asteroids':
+    } else { $('#asteroid').text('No Near');
+            $('#asteroid-svg').attr('src', 'img/asteroid.svg');
+            $('#asteroid-title').text('Asteroids');
+    }
+};
 
-    $('#overallCommentary').text("It's a good day in London!");
-
-    };*/
-
-//Display Weather 
-
-app.displayWeather = function(weatherResponse) {
-
-    console.log('Weather Data ', weatherResponse);
-
-    /*var test = weatherResponse.current_observation;
-    console.log(test);*/
-
-    var weatherCondition = weatherResponse.current_observation.weather;
-    var city = weatherResponse.current_observation.weather.city;
-    var temperature = Math.round(weatherResponse.current_observation.temp_c);
-    var temperatureString = '' + temperature;
-
-    var feelsLike = weatherResponse.current_observation.feelslike_c;
-
-    console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
-
-    $('#city').text(city);
-
-    if (temperature >= 29) {
-
-            $('.tile-weather').addClass('hot');
-            $('#temperature').text(temperature + '°C');
-            $('#temperaturecondition').text("It's hot!");
-            $('#hot').text(" a hot day!");
-            $('#weatherCommentary').addClass('is-hidden');
-            $('#weatherStart').addClass('is-hidden');
-            $('#rainStart').addClass('is-hidden');
-
-        } else if (temperature <= 5) {
-
-            $('#temperature').text(temperature + '°C');
-            $('#temperaturecondition').text('Brr!');
-            $('#hot').text("bring a winter jacket!");
-            $('#weatherCommentary').addClass('is-hidden');
-            $('#weatherStart').addClass('is-hidden');
-            $('#rainStart').addClass('is-hidden');
-
-        } else {
-            $('#temperature').text(temperature + '°C');
-        }
-
-    var lightWeather = weatherCondition.includes('Light');
-
-    switch (weatherCondition) {
-
-            case 'Clouds':
-            case 'Fog':
-            case 'Patches of Fog':
-            case 'Shallow Fog':
-            case 'Partial Fog':
-            case 'Light Freezing Fog':
-            case 'Partly Cloudy': 
-            case 'Mostly Cloudy' : 
-            case 'Scattered Clouds':
-            case 'Overcast':
-
-                $('.tile-weather').addClass('clouds');
-                $('#weathercondition').text(weatherCondition);
-                $('#rainStart').addClass('is-hidden');
-                $('#weatherCommentary').text(" an average, grey day in London.");
-                $('#tflCommentary').addClass('is-hidden');
-                break;
-
-            case 'Clear':
-
-                $('.tile-weather').addClass('clear');
-                $('#weathercondition').text(weatherCondition);
-                $('#weatherCommentary').text(" a good day in London.");
-
-                break;
-
-            case 'Light Rain':
-            case 'Heavy Rain':
-            case 'Light Drizzle':
-            case 'Heavy Drizzle':
-            case 'Thunderstorm':
-
-                $('.tile-weather').addClass('rain');
-                $('#weathercondition').text(weatherCondition);
-                $('#temperaturecondition').text(':(');
-                $('#weatherStart').addClass('is-hidden');
-                $('#weatherCommentary').text(' best to bring an umbrella!');
-
-                break;
-
-            case 'Snow':
-
-                $('.tile-weather').addClass('snow');
-                $('#weathercondition').text(weatherCondition);
-                $('#weatherStart').addClass('is-hidden');
-                $('#rainStart').addClass('is-hidden');
-                $('#weatherCommentary').text(' snowing in London?? Madness!');
-
-                break;
-
-            case 'Mist':
-
-                $('.tile-weather').addClass('mist');
-                $('#weathercondition').text(weatherCondition);
-                $('#weatherStart').addClass('is-hidden');
-                $('#rainStart').addClass('is-hidden');
-                $('#weatherCommentary').text(' weather that is like your eyes watching Jack slip in ocean (spoiler!)');
-
-                break;
-
-            default:
-                $('#weathercondition').text(weatherCondition);
-
-        }
-
-    if (feelsLike === temperatureString) {
-            $('#feelslike').text('Feels similar');
-        } else {
-            $('#feelslike').text('Feels like ' + feelsLike + '°C');
-        }
-    };    
-
-    /*if (feelsLike || "") { //if the 'feelsLike is 0, which returns as undefined, whereas the temp is still an object'
-            $('#feelslike').text('Feels similar');
-        } else if (feelsLike = temperatureString) {
-            $('#feelslike').text('Feels similar');
-        } else {
-            $('#feelslike').text(feelsLike);
-        }
-    };*/
-
+    $('#overallCommentary').text("It's a good day in London!");*/
 
 //Display Underground, Per-Line
 
 app.displayUndergroundService = function(undergroundResponse) {
+
+    console.log(undergroundResponse[0]);
 
     if (!undergroundResponse) {
         undergroundResponse = [];
@@ -386,7 +215,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 $('#good-service').text('Good').append("<div id='good-title'></div>");
                 $('#good-title').text('service');
-                
+                $('#weatherStart').addClass('is-hidden');
+
                 break;
 
             case 'Service Closed':
@@ -395,7 +225,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                 //moment.tz.add(['Europe/London']);
 
                 serviceClosed.push(undergroundName);
-
 
                 if ($(serviceClosed).length === 1) {
 
@@ -427,17 +256,13 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#service-closed').append(serviceSlice);
                         $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
                         $('#weatherStart').addClass('is-hidden');
-                        $('#rainStart').addClass('is-hidden');
-                        $('#hot').addClass('is-hidden');
-                        $('#tflCommentary').text("Woohoo, Night Tube – Party On!");
+                        $('#tflCommentary').text("Woohoo, Night Tube – Party On! Otherwise, it's");
 
                     } else {
                         $('#good-service').addClass('is-hidden');
                         $('#service-closed').text('Service Closed');
                         $('#service-closed').addClass('text-title');
                         $('#weatherStart').addClass('is-hidden');
-                        $('#rainStart').addClass('is-hidden');
-                        //$('#rainStart').text('best to');
                         $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
                     }
 
@@ -485,6 +310,9 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 interruption.push(undergroundName);
 
+                var interruptedService = 'hello';
+                app.displayBadDay(interruptedService);
+
                 if ($(interruption).length === 1) {
 
                     var interruptionSingleLine = interruption.join(' ').concat(singleLine);
@@ -498,7 +326,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
                     $('#weatherStart').addClass('is-hidden');
-                    $('#rainStart').text('best to');
                     $('#tflCommentary').text('Replan travels on the Underground if needed, otherwise');
                     //$(interruptionPluralLine.push('and'));
 
@@ -507,19 +334,141 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     var interruptionOtherLines = interruption.join(', ').concat(otherLines);
 
                     $('#good-service').addClass('is-hidden');
-                    $('#interruptions').text(interruptionOtherLines).addClass('interruptions');
+                    $('#interruptions').text('Interruptions on the ' + interruptionOtherLines);
                     $('#interruptions-title').text('Interrupted Service ');
                     $('#interruptions-title').addClass('interruptions-text-title');
                     $('#weatherStart').addClass('is-hidden');
-                    //$('#rainStart').text('best to');
                     $('#tflCommentary').text("The Underground looks a bit broken today – otherwise it's");
-
                 }
                 
                 break;
         }
+          
     });
 };
+
+//Display Weather 
+
+app.displayWeather = function(weatherResponse) {
+
+    console.log('Weather Data ', weatherResponse);
+
+    var test = weatherResponse.current_observation;
+    console.log(test);
+
+    var weatherCondition = weatherResponse.current_observation.weather;
+    var city = weatherResponse.current_observation.city;
+    var temperature = Math.round(weatherResponse.current_observation.temp_c);
+    var temperatureString = '' + temperature;
+
+    var feelsLike = weatherResponse.current_observation.feelslike_c;
+
+    //console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
+
+    $('#city').text(city);
+
+    if (temperature >= 29) {
+
+            $('.tile-weather').addClass('hot');
+            $('#temperature').text(temperature + '°C');
+            $('#temperaturecondition').text("It's hot!");
+            $('#hot').text(" a hot day! ");
+            $('#weatherCommentary').addClass('is-hidden');
+
+        } else if (temperature <= 5) {
+
+            $('#temperature').text(temperature + '°C');
+            $('#temperaturecondition').text('Brr!');
+            $('#hot').text("best to bring a winter jacket!");
+            $('#weatherCommentary').addClass('is-hidden');
+
+        } else {
+            $('#temperature').text(temperature + '°C');
+        }
+
+    var lightWeather = weatherCondition.includes('Light');
+
+    switch (weatherCondition) {
+
+            case 'Clouds':
+            case 'Fog':
+            case 'Patches of Fog':
+            case 'Shallow Fog':
+            case 'Partial Fog':
+            case 'Light Freezing Fog':
+            case 'Partly Cloudy': 
+            case 'Mostly Cloudy' : 
+            case 'Scattered Clouds':
+            case 'Overcast':
+
+                $('.tile-weather').addClass('clouds');
+                $('#weathercondition').text(weatherCondition);
+                $('#weatherCommentary').text(" an average, grey day in London.");
+
+                break;
+
+            case 'Clear':
+
+                $('.tile-weather').addClass('clear');
+                $('#weathercondition').text(weatherCondition);
+                $('#weatherCommentary').text(' a good day in London.');
+
+                break;
+
+            case 'Light Rain':
+            case 'Heavy Rain':
+            case 'Light Drizzle':
+            case 'Heavy Drizzle':
+            case 'Thunderstorm':
+
+                $('.tile-weather').addClass('rain');
+                $('#weathercondition').text(weatherCondition);
+                $('#temperaturecondition').text(':(');
+                $('#weatherStart').addClass('is-hidden');
+                $('#weatherCommentary').text(' best to bring an umbrella!');
+
+
+                break;
+
+            case 'Snow':
+
+                $('.tile-weather').addClass('snow');
+                $('#weathercondition').text(weatherCondition);
+                $('#weatherStart').addClass('is-hidden');
+                $('#hot').append(' (Snowing in London?? Madness!)');
+
+                break;
+
+            case 'Mist':
+
+                $('.tile-weather').addClass('mist');
+                $('#weathercondition').text(weatherCondition);
+                $('#weatherStart').addClass('is-hidden');
+                $('#weatherCommentary').text(' weather that is like your eyes watching Jack slip in ocean (spoiler!)');
+
+                break;
+
+            default:
+                $('#weathercondition').text(weatherCondition);
+
+        }
+
+    if (feelsLike === temperatureString) {
+            $('#feelslike').text('Feels similar');
+        } else {
+            $('#feelslike').text('Feels like ' + feelsLike + '°C');
+        }
+    };    
+
+    /*if (feelsLike || "") { //if the 'feelsLike is 0, which returns as undefined, whereas the temp is still an object'
+            $('#feelslike').text('Feels similar');
+        } else if (feelsLike = temperatureString) {
+            $('#feelslike').text('Feels similar');
+        } else {
+            $('#feelslike').text(feelsLike);
+        }
+    };*/
+
 
 
 app.displayGoogleCalendar = function(events) {
@@ -631,23 +580,41 @@ app.displayGoogleCalendar = function(events) {
 
 //Display Asteroids
 
-app.displayAsteroids = function(asteroidResponse) {
+app.displayAsteroids = function(asteroidArray) {
 
-    console.log('Any Hazardous Asteroids? ' + asteroidResponse);
+    console.log('Any Hazardous Asteroids? ' + asteroidArray);
+    
 
-    if ( $.inArray(true, asteroidResponse) > -1 ){
+    if ( $.inArray(true, asteroidArray) > -1 ){
+
+        //var nearbyAsteriods = 'true';
+        //app.displayBadDay(nearbyAsteriods);
        
         $('#asteroid').text('Nearby');
         $('#asteroid-title').text('Asteroids');
         $('#asteroid-svg').attr('src', 'img/asteroid2.svg');
         $('.tile-asteroid').addClass('asteroid-near');
-        $('#asteroidCommentary').text('Stay away from windows today?');
+
     
     } else { $('#asteroid').text('No Near');
             $('#asteroid-svg').attr('src', 'img/asteroid.svg');
             $('#asteroid-title').text('Asteroids');
-    }
+    } 
 };
+
+app.displayBadDay = function(asteroidArray, interruptedService, nearbyAsteriods) {
+
+        $.when(interruptedService, nearbyAsteriods);
+
+         var badDay = [];
+
+         badDay = interruptedService.concat(nearbyAsteriods);
+
+         console.log(badDay);
+
+     //$('#asteroidCommentary').text('Stay away from windows today?');
+
+ };   
 
 app.displayClock = function() {
     
@@ -880,11 +847,6 @@ app.init = function() {
     app.getAJAX();
     app.displayClock();
     $('.footer').removeClass('is-hidden');
-    /*var rotator = function(){
-    widget.Rotator.rotate();
-    setTimeout(rotator,5000);
-        };
-rotator();*/
 };
 
 $(document).ready(app.init);
