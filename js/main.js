@@ -19,45 +19,40 @@ app.getAJAX = function() {
     $.when(
         
         $.get(weatherUrl + apiWeatherKey + conditions + city),
-        //$.getJSON('js/dummy-json/weather/clear.json'),
+        //$.getJSON('js/dummy-json/weather/rain.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
-        //$.getJSON('js/dummy-json/tube/mixedservice.json'),
+        //$.getJSON('js/dummy-json/tube/twodelayedservices.json'),
         $.get(asteroidUrl + apiKey)
-        //$.getJSON('js/dummy-json/asteroidtrue.json',
+        //$.getJSON('js/dummy-json/asteroidtrue.json')
+        //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA
 
-     ).done(function(weatherData, undergroundData, asteroidResponse) {
+     ).done(function(weatherResponse, undergroundResponse, asteroidResponse) {
 
-
-        app.displayWeather(weatherData[0]);
-        app.displayUndergroundService(undergroundData[0]);
-        app.undergroundOverlay(undergroundData[0]);
-        app.displayUndergroundOverlay(undergroundData[0]);
-
-        console.log('Asteroids Data ', asteroidResponse, weatherData);
-
+        //var weatherandAsteroidArray = [];
         var asteroidArray = [];
-        
+
+        var weatherCondition = weatherResponse[0].current_observation.weather;
+
         moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
-        var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
-        var asteroid = asteroidResponse[0].near_earth_objects[nasaAPIDay];
+            var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
+            var asteroid = asteroidResponse[0].near_earth_objects[nasaAPIDay];
         
         for (var i = 0; i < asteroid.length; i++) {
             var asteroidData = asteroid[i].is_potentially_hazardous_asteroid;
             asteroidArray.push(asteroidData);
-        
-        } app.displayAsteroids(asteroidArray);
+        }
 
-    });
-/*
-   $(document).ajaxStop(function() {
-  // place code to be executed on completion of last outstanding ajax call here
-    console.log('happy!!');
-    
-    app.displayBadDay(asteroidArray);
+        //weatherandAsteriodArray = asteroidArray.concat(weatherCondition);
+        //console.log(weatherandAsteriodArray); 
 
-    });*/
+        app.displayWeather(weatherCondition, weatherResponse);
+        app.undergroundOverlay(undergroundResponse);
+        app.displayUndergroundOverlay(undergroundResponse);
+        app.displayAsteroids(asteroidArray);
+        app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
 
-          
+      });
+  
 app.getGoogleCalendar = function() {
 
     $('#noGoogle' ).addClass('is-hidden');
@@ -111,45 +106,6 @@ app.getGoogleCalendar = function() {
       }
 };
 
-
-   /*if ( $.inArray(true, asteroidResponse) > -1 ){
-       
-        $('#asteroid').text('Nearby');
-        $('#asteroid-title').text('Asteroids');
-        $('#asteroid-svg').attr('src', 'img/asteroid2.svg');
-        $('.tile-asteroid').addClass('asteroid-near');
-        $('#asteroidCommentary').text('Stay away from windows today?');
-    
-    } else { $('#asteroid').text('No Near');
-            $('#asteroid-svg').attr('src', 'img/asteroid.svg');
-            $('#asteroid-title').text('Asteroids');
-    }
-};
-
-    $('#overallCommentary').text("It's a good day in London!");*/
-
-//Display Underground, Per-Line
-
-app.displayUndergroundService = function(undergroundResponse) {
-
-    console.log(undergroundResponse[0]);
-
-    if (!undergroundResponse) {
-        undergroundResponse = [];
-    }
-
-    for (var i = 0; i < undergroundResponse.length; i++) {
-
-        var undergroundID = undergroundResponse[i].id;
-        var undergroundName = undergroundResponse[i].name;
-        var undergroundStatus = undergroundResponse[i].lineStatuses[0].statusSeverityDescription;
-
-        var addLineID = $('#tfl').attr('id', undergroundID);
-        var addLine = '<h4>' + undergroundName + ' ' + undergroundStatus + '</h4>';
-        $(addLineID).append(addLine);
-    }
-};
-
 //Hide Underground Overlay, on Hover
 
 app.undergroundOverlay = function(undergroundResponse) {
@@ -172,44 +128,39 @@ app.undergroundOverlay = function(undergroundResponse) {
 
 };
 
-//Display Underground Overlay
+//Display Underground, Per-Line, display Underground Overlay
 
 app.displayUndergroundOverlay = function(undergroundResponse) {
+
+    if (!undergroundResponse) {
+        undergroundResponse = [];
+    }
 
     var goodService = [];
     var serviceClosed = [];
     var partClosure = [];
     var interruption = [];
 
-    var severalOtherLines = [' & several other lines'];
+    var severalOtherLines = [' and several other lines'];
     var otherLines = [' other lines'];
     var pluralLines = [' lines'];
     var singleLine = [' line'];
 
-    undergroundResponse.forEach(function(line) {
+    //THIS IS A DUPLICATION OF YOUR PROCESSING ABOVE
 
+    undergroundResponse[0].forEach(function(line) {
+
+        var undergroundID = line.id;
         var undergroundName = line.name;
-        var description = line.lineStatuses[0].statusSeverityDescription;
+        //var description = line.lineStatuses[0].statusSeverityDescription;
+        var undergroundStatus = line.lineStatuses[0].statusSeverityDescription;
+        
+        
+        var addLineID = $('#tfl').attr('id', undergroundID);
+        var addLine = '<h4>' + undergroundName + ' ' + undergroundStatus + '</h4>';
+        $(addLineID).append(addLine);
 
-        //var linePural = service.length(count >= 1 ? this: 's');
-
-        /* if (i === undergroundResponse.length - 2) {
-             undergroundName = undergroundResponse[i].name + ' and ';
-         } else if (i === undergroundResponse.length - 1) {
-             undergroundName = undergroundResponse[i].name + ' lines';
-         } else {
-             undergroundName = undergroundResponse[i].name + ', ';
-         }
-         //else if (i === service.length - 4) {
-         //undergroundName = service[i].name + ' and other ';
-             
-            /* case 'Part Closure':
-             case 'Minor Delays':
-             case 'Severe Delays':
-             case 'Part Suspended':
-             case 'Special Service':*/
-
-        switch (description) {
+        switch (undergroundStatus) {
 
             case 'Good Service':
 
@@ -221,10 +172,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
             case 'Service Closed':
 
-                //moment().tz("Europe/London").format();
-                //moment.tz.add(['Europe/London']);
-
                 serviceClosed.push(undergroundName);
+                console.log(serviceClosed);
 
                 if ($(serviceClosed).length === 1) {
 
@@ -291,7 +240,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#partclosure').text('Part or Planned Closures on the ' + partclosurePluralLines);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
-                        console.log(partclosurePluralLines);
                         //$(interruptionPluralLine.push('and'));
 
                     } else {
@@ -301,8 +249,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#partclosure').text('Part or Planned Closures on the ' + partclosureOtherLines);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
-                        
-                        console.log(partclosureOtherLines);
 
                     } break;
 
@@ -310,8 +256,9 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 interruption.push(undergroundName);
 
-                var interruptedService = 'hello';
-                app.displayBadDay(interruptedService);
+                /*tflAsteroidArray = interruption.concat(weatherandAsteriodArray);
+                app.displayBadDay(interruption);
+                //app.displayBadDay(tflAsteroidArray);*/
 
                 if ($(interruption).length === 1) {
 
@@ -342,30 +289,24 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                 }
                 
                 break;
-        }
-          
-    });
+            }
+
+        }); //app.displayBadDay(tflAsteroidArray);
+    };
 };
 
 //Display Weather 
 
-app.displayWeather = function(weatherResponse) {
+app.displayWeather = function(weatherCondition, weatherResponse) {
 
-    console.log('Weather Data ', weatherResponse);
+    var city = weatherResponse[0].current_observation.display_location.city;
+    var temperature = Math.round(weatherResponse[0].current_observation.temp_c);
+    var feelsLike = weatherResponse[0].current_observation.feelslike_c;
 
-    var test = weatherResponse.current_observation;
-    console.log(test);
+    //weatherandAsteroidArray = [];
 
-    var weatherCondition = weatherResponse.current_observation.weather;
-    var city = weatherResponse.current_observation.city;
-    var temperature = Math.round(weatherResponse.current_observation.temp_c);
-    var temperatureString = '' + temperature;
-
-    var feelsLike = weatherResponse.current_observation.feelslike_c;
 
     //console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
-
-    $('#city').text(city);
 
     if (temperature >= 29) {
 
@@ -413,6 +354,8 @@ app.displayWeather = function(weatherResponse) {
                 $('#weathercondition').text(weatherCondition);
                 $('#weatherCommentary').text(' a good day in London.');
 
+                //app.displayBadDay(weatherCondition);
+
                 break;
 
             case 'Light Rain':
@@ -427,7 +370,7 @@ app.displayWeather = function(weatherResponse) {
                 $('#weatherStart').addClass('is-hidden');
                 $('#weatherCommentary').text(' best to bring an umbrella!');
 
-
+                
                 break;
 
             case 'Snow':
@@ -453,6 +396,8 @@ app.displayWeather = function(weatherResponse) {
 
         }
 
+    var temperatureString = '' + temperature;
+
     if (feelsLike === temperatureString) {
             $('#feelslike').text('Feels similar');
         } else {
@@ -460,141 +405,18 @@ app.displayWeather = function(weatherResponse) {
         }
     };    
 
-    /*if (feelsLike || "") { //if the 'feelsLike is 0, which returns as undefined, whereas the temp is still an object'
-            $('#feelslike').text('Feels similar');
-        } else if (feelsLike = temperatureString) {
-            $('#feelslike').text('Feels similar');
-        } else {
-            $('#feelslike').text(feelsLike);
-        }
-    };*/
-
-
-
-app.displayGoogleCalendar = function(events) {
-
-            };
-    //console.log('hello', weatherResponse, undergroundResponse);
-    /*
-    switch (description) {
-
-                case 'Good Service':  
-
-                    $('#good-service').text('Good').append("<div id='good-title'></div>");
-                    $('#good-title').text('service');
-                    break;
-                
-                case 'Service Closed':
-                    
-                    serviceClosed.push(undergroundName);
-
-                    if ($(serviceClosed).length === 1) {
-
-                        var serviceClosedSingle = serviceClosed.concat(singleLine);
-
-                        $('#service-closed').text('Service Closed on the ');
-                        $('#service-closed').append(serviceClosedSingle);
-                        //$(serviceClosedString.push('and'));
-
-                    } else if ($(serviceClosed).length === 2) {
-
-                        var serviceClosedPlural = serviceClosed.join(', ').concat(pluralLines);
-
-                        $('#service-closed').text('Service Closed on the ');
-                        $('#service-closed').append(serviceClosedPlural);
-                        //$(serviceClosedString.push('and'));
-
-                    } else {
-
-                        var today = new Date();
-                        
-                        if (today.getDay() === 6 || today.getDay() === 0) {
-                                $('#good-service').addClass('is-hidden');
-                                $('#service-closed').text('Night Tube Available');
-                            } else { $('#good-service').addClass('is-hidden');
-                                    $('#service-closed').text('Service Closed');
-                                    $('#service-closed').addClass('text-title');
-                        }
-
-                    }
-
-                    break;
-
-            }
-            */
-};
-
-/*var serviceClosed = [];
-
-    if (!undergroundResponse) {
-        undergroundResponse = [];
-    }
-
-    for (var i = 0; i < undergroundResponse.length; i++) {
-
-        var undergroundName;
-        //var linePural = service.length(count >= 1 ? this: 's');
-
-        if (i === undergroundResponse.length - 2) {
-            undergroundName = undergroundResponse[i].name + ' and ';
-        } else if (i === undergroundResponse.length - 1) {
-            undergroundName = undergroundResponse[i].name + ' lines';
-        } else {
-            undergroundName = undergroundResponse[i].name + ', ';
-        }
-        //else if (i === service.length - 4) {
-        //undergroundName = service[i].name + ' and other ';
-
-        var undergroundStatus = undergroundResponse[i].lineStatuses[0].statusSeverityDescription;
-
-        if (undergroundStatus === 'Good Service') {
-            $('#good-service').text('Good').append("<div id='good-title'></div>");
-            $('#good-title').text('service');
-            //$('.title').text('Interruptions on the ');
-
-        } else if (undergroundStatus === 'Service Closed') {
-            serviceClosed.push(undergroundName);
-
-            if (i === service.length - 2) {
-                $('#service-closed').text('Service Closed').append(undergroundName);
-
-            }
-            return ($('#service-closed').text('Service Closed'));
-
-
-        } else if (undergroundStatus !== 'Good Service' && 'Service Closed') {
-            $('#good-service').addClass('is-hidden');
-            $('.title').text('Interruptions on the ');
-            $('#interruptions').append(undergroundName);
-
-        }
-        //$('#interruptions').addClass('is-hidden');
-    }*/
-
-/*var count = 0;
-        for (var i = 0; i < messageBoard.messages.length; i++) {
-            count += messageBoard.messages[i].votes;
-        } return count;
-        
-    };*/
-
 //Display Asteroids
 
 app.displayAsteroids = function(asteroidArray) {
 
-    console.log('Any Hazardous Asteroids? ' + asteroidArray);
-    
+    //console.log('Any Hazardous Asteroids? ' + asteroidArray);
 
     if ( $.inArray(true, asteroidArray) > -1 ){
 
-        //var nearbyAsteriods = 'true';
-        //app.displayBadDay(nearbyAsteriods);
-       
         $('#asteroid').text('Nearby');
         $('#asteroid-title').text('Asteroids');
         $('#asteroid-svg').attr('src', 'img/asteroid2.svg');
         $('.tile-asteroid').addClass('asteroid-near');
-
     
     } else { $('#asteroid').text('No Near');
             $('#asteroid-svg').attr('src', 'img/asteroid.svg');
@@ -602,19 +424,100 @@ app.displayAsteroids = function(asteroidArray) {
     } 
 };
 
-app.displayBadDay = function(asteroidArray, interruptedService, nearbyAsteriods) {
+app.displayBadDay = function(weatherCondition, asteroidArray, undergroundResponse) {
 
-        $.when(interruptedService, nearbyAsteriods);
+    if (!undergroundResponse) {
+        undergroundResponse = [];
+    }
 
-         var badDay = [];
+    weather = [];
+    underground = [];
+    asteroid = [];
+    asteriodWeather = [];
+    asteriodUnderground = [];
+    undergroundWeather = [];
+    reallyBadDay = [];
 
-         badDay = interruptedService.concat(nearbyAsteriods);
+    for (var i = 0; i < undergroundResponse.length; i++) {
+            
+    var undergroundStatus = undergroundResponse[i].lineStatuses[0].statusSeverityDescription;
 
-         console.log(badDay);
+     switch (undergroundStatus) {
 
-     //$('#asteroidCommentary').text('Stay away from windows today?');
+            case 'Part Closure': 
+            case 'Planned Closure':   
+            case 'Severe Delays':
+            case 'Minor Delays':
+            case 'Part Suspended':
+            case 'Special Service':
 
- };   
+            underground.push(undergroundStatus);
+            asteriodUnderground.push(undergroundStatus);
+            undergroundWeather.push(undergroundStatus);
+            reallyBadDay.push(undergroundStatus); 
+
+    break;
+    
+        }
+    }
+
+    switch (weatherCondition) {
+
+            case 'Light Rain':
+            case 'Heavy Rain':
+            case 'Light Drizzle':
+            case 'Heavy Drizzle':
+            case 'Thunderstorm':
+            case 'Fog':
+            case 'Patches of Fog':
+            case 'Shallow Fog':
+            case 'Partial Fog':
+            case 'Light Freezing Fog':
+            
+            weather.push(weatherCondition);
+            asteriodWeather.push(weatherCondition);
+            undergroundWeather.push(weatherCondition);
+            reallyBadDay.push(weatherCondition);
+    break;
+    
+    }
+
+    if ( $.inArray(true, asteroidArray) > -1 ){
+
+            asteroidArraySimplified = 'true';
+    
+            asteroid.push(asteroidArraySimplified);
+            asteriodWeather.push(asteroidArraySimplified);
+            asteriodUnderground.push(asteroidArraySimplified);
+            reallyBadDay.push(asteroidArraySimplified); 
+
+    }
+
+    if (asteriodWeather.length === 2) {
+        $('#overallCommentary').text("Don't curse Mother Nature anymore than you have to today!");
+    }
+    console.log(asteriodUnderground);
+    
+    if (asteriodUnderground.length >= 4) {
+        $('#overallCommentary').text("You'd think you could hide from nearby asteroids, but TfL said no!");
+    }
+
+    console.log (undergroundWeather);
+    if (undergroundWeather.length >= 4) {
+        $('#overallCommentary').text("Hey, at least there's no asteriods coming your way... ");
+    }
+
+    console.log(reallyBadDay);
+
+    if (reallyBadDay.length === 3) {
+        $('#overallCommentary').text("Today could've been a bit better!");
+    } else if (reallyBadDay.length === 4) {
+        $('#overallCommentary').text("It's not the best day! :(");
+    } else if (reallyBadDay.length >= 5) {
+        $('#overallCommentary').text("Good luck with today! :(");
+    }
+
+    };
 
 app.displayClock = function() {
     
@@ -677,171 +580,6 @@ app.runClock = function() {
     setInterval(tick, 100);
 
 }; 
-
-/*app.displayClock = function() {
-
-    (function() {
-        // Initialise the locale-enabled clocks
-        initInternationalClocks();
-        // Initialise any local time clocks
-        initLocalClocks();
-        // Start the seconds container moving
-        moveSecondHands();
-        // Set the intial minute hand container transition, and then each subsequent step
-        setUpMinuteHands();
-    })();
-
-    /*
-     *  Set up an entry for each locale of clock we want to use
-     
-    function getTimes() {
-        moment.tz.add([
-            'Eire|GMT IST|0 -10|01010101010101010101010|1BWp0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00',
-        ]);
-        var now = new Date();
-        // Set the time manually for each of the clock types we're using
-        var times = [{jsclass: 'js-london', jstime: moment.tz(now, 'Eire')}, ];
-        return times;
-    }
-
-    /*
-     * Set up the clocks that use moment.js
-     
-    function initInternationalClocks() {
-        // Initialise the clock settings and the three times
-        var times = getTimes();
-        for (i = 0; i < times.length; ++i) {
-            var hours = times[i].jstime.format('h');
-            var minutes = times[i].jstime.format('mm');
-            var seconds = times[i].jstime.format('ss');
-
-            var degrees = [{
-                hand: 'hours',
-                degree: (hours * 30) + (minutes / 2)
-            }, {
-                hand: 'minutes',
-                degree: (minutes * 6)
-            }, {
-                hand: 'seconds',
-                degree: (seconds * 6)
-            }];
-            for (var j = 0; j < degrees.length; j++) {
-                var elements = document.querySelectorAll('.active .' + times[i].jsclass + ' .' + degrees[j].hand);
-                for (var k = 0; k < elements.length; k++) {
-                    elements[k].style.webkitTransform = 'rotateZ(' + degrees[j].degree + 'deg)';
-                    elements[k].style.transform = 'rotateZ(' + degrees[j].degree + 'deg)';
-                    // If this is a minute hand, note the seconds position (to calculate minute position later)
-                    if (degrees[j].hand === 'minutes') {
-                        elements[k].parentNode.setAttribute('data-second-angle', degrees[j + 1].degree);
-                    }
-                }
-            }
-        }
-        // Add a class to the clock container to show it
-        var elements = document.querySelectorAll('.clock');
-        for (var l = 0; l < elements.length; l++) {
-            elements[l].className = elements[l].className + ' show';
-        }
-    }
-
-    /*
-     * Starts any clocks using the user's local time
-     
-    function initLocalClocks() {
-        // Get the local time using JS
-        var date = new Date;
-        var seconds = date.getSeconds();
-        var minutes = date.getMinutes();
-        var hours = date.getHours();
-
-        // Create an object with each hand and it's angle in degrees
-        var hands = [{
-            hand: 'hours',
-            angle: (hours * 30) + (minutes / 2)
-        }, {
-            hand: 'minutes',
-            angle: (minutes * 6)
-        }, {
-            hand: 'seconds',
-            angle: (seconds * 6)
-        }];
-        // Loop through each of these hands to set their angle
-        for (var j = 0; j < hands.length; j++) {
-            var elements = document.querySelectorAll('.local .' + hands[j].hand);
-            for (var k = 0; k < elements.length; k++) {
-                elements[k].style.transform = 'rotateZ(' + hands[j].angle + 'deg)';
-                // If this is a minute hand, note the seconds position (to calculate minute position later)
-                if (hands[j].hand === 'minutes') {
-                    elements[k].parentNode.setAttribute('data-second-angle', hands[j + 1].angle);
-                }
-            }
-        }
-    }
-
-    /*
-     * Move the second containers
-     
-    function moveSecondHands() {
-        var containers = document.querySelectorAll('.bounce .seconds-container');
-        setInterval(function() {
-            for (var i = 0; i < containers.length; i++) {
-                if (containers[i].angle === undefined) {
-                    containers[i].angle = 6;
-                } else {
-                    containers[i].angle += 6;
-                }
-                containers[i].style.webkitTransform = 'rotateZ(' + containers[i].angle + 'deg)';
-                containers[i].style.transform = 'rotateZ(' + containers[i].angle + 'deg)';
-            }
-        }, 1000);
-        for (var i = 0; i < containers.length; i++) {
-            // Add in a little delay to make them feel more natural
-            var randomOffset = Math.floor(Math.random() * (100 - 10 + 1)) + 10;
-            containers[i].style.transitionDelay = '0.0' + randomOffset + 's';
-        }
-    }
-
-    /*
-     * Set a timeout for the first minute hand movement (less than 1 minute), then rotate it every minute after that
-     
-    function setUpMinuteHands() {
-        // More tricky, this needs to move the minute hand when the second hand hits zero
-        var containers = document.querySelectorAll('.minutes-container');
-        var secondAngle = containers[containers.length - 1].getAttribute('data-second-angle');
-        console.log(secondAngle);
-        if (secondAngle > 0) {
-            // Set a timeout until the end of the current minute, to move the hand
-            var delay = (((360 - secondAngle) / 6) + 0.1) * 1000;
-            console.log(delay);
-            setTimeout(function() {
-                moveMinuteHands(containers);
-            }, delay);
-        }
-    }
-
-    /*
-     * Do the first minute's rotation, then move every 60 seconds after
-     
-    function moveMinuteHands(containers) {
-        for (var i = 0; i < containers.length; i++) {
-            containers[i].style.webkitTransform = 'rotateZ(6deg)';
-            containers[i].style.transform = 'rotateZ(6deg)';
-        }
-        // Then continue with a 60 second interval
-        setInterval(function() {
-            for (var i = 0; i < containers.length; i++) {
-                if (containers[i].angle === undefined) {
-                    containers[i].angle = 12;
-                } else {
-                    containers[i].angle += 6;
-                }
-                containers[i].style.webkitTransform = 'rotateZ(' + containers[i].angle + 'deg)';
-                containers[i].style.transform = 'rotateZ(' + containers[i].angle + 'deg)';
-            }
-        }, 60000);
-    }
-};*/
-
 
 app.init = function() {
     app.getAJAX();
