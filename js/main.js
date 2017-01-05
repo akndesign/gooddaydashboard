@@ -34,7 +34,7 @@ app.getAJAX = function() {
         var weatherCondition = weatherResponse[0].current_observation.weather;
 
         moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
-            var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
+            var nasaAPIDay = moment.tz('America/Los_ Angeles').format('YYYY-MM-DD');
             var asteroid = asteroidResponse[0].near_earth_objects[nasaAPIDay];
         
         for (var i = 0; i < asteroid.length; i++) {
@@ -299,12 +299,17 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
 app.displayWeather = function(weatherCondition, weatherResponse) {
 
+
+    console.log(weatherResponse);
+
     var city = weatherResponse[0].current_observation.display_location.city;
     var temperature = Math.round(weatherResponse[0].current_observation.temp_c);
-    var feelsLike = weatherResponse[0].current_observation.feelslike_c;
+    var feelsLike = Math.round(weatherResponse[0].current_observation.feelslike_c);
 
+    console.log(city);
     //weatherandAsteroidArray = [];
 
+    $('#city').text(city);
 
     //console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
 
@@ -312,14 +317,14 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
             $('.tile-weather').addClass('hot');
             $('#temperature').text(temperature + '°C');
-            $('#temperaturecondition').text("It's hot!");
+            //$('#temperaturecondition').text("It's hot! ");
             $('#hot').text(" a hot day! ");
             $('#weatherCommentary').addClass('is-hidden');
 
         } else if (temperature <= 5) {
 
             $('#temperature').text(temperature + '°C');
-            $('#temperaturecondition').text('Brr!');
+            //$('#temperaturecondition').text('Brr! ');
             $('#hot').text("best to bring a winter jacket!");
             $('#weatherCommentary').addClass('is-hidden');
 
@@ -344,7 +349,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
                 $('.tile-weather').addClass('clouds');
                 $('#weathercondition').text(weatherCondition);
-                $('#weatherCommentary').text(" an average, grey day in London.");
+                $('#weatherCommentary').text(' an average, grey day in London.');
 
                 break;
 
@@ -396,14 +401,21 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
         }
 
-    var temperatureString = '' + temperature;
+    console.log(temperature);
+    console.log(feelsLike);
 
-    if (feelsLike === temperatureString) {
+    if (feelsLike === temperature) {
             $('#feelslike').text('Feels similar');
-        } else {
-            $('#feelslike').text('Feels like ' + feelsLike + '°C');
+        } else  if (feelsLike <= temperature) {
+            $('#feelslike').text('Feels cooler');
+        } else  if (feelsLike >= temperature) {
+            $('#feelslike').text('Feels warmer');
+            //$('#feelslike').text('Feels like ' + feelsLike + '°C');
+            //else  if (Math.abs(temperature - feelsLike) <= 2) {
         }
     };    
+
+
 
 //Display Asteroids
 
