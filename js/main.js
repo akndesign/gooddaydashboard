@@ -526,7 +526,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
     } else if (reallyBadDay.length === 4) {
         $('#overallCommentary').text("It's not the best day! :(");
     } else if (reallyBadDay.length >= 5) {
-        $('#overallCommentary').text("Good luck with today! :(");
+        $('#overallCommentary').text("Oh biscuits! It's a crummy day, today, isn't it? :(");
     }
 
     };
