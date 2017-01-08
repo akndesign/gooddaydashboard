@@ -370,8 +370,8 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Thunderstorm':
 
                 $('.tile-weather').addClass('rain');
-                $('#weathercondition').text(weatherCondition);
-                $('#temperaturecondition').text(':(');
+                $('#weathercondition').text(weatherCondition + ' :(');
+                $('#weatherStart').addClass('is-hidden');
                 $('#weatherStart').addClass('is-hidden');
                 $('#weatherCommentary').text(' best to bring an umbrella!');
 
