@@ -114,8 +114,8 @@ footer a {
 }
 
 .interruptions-text-title {
-  font-size: 5em!important;
-  line-height: 1.0!important;
+  font-size: 5em;
+  line-height: 1.0;
   list-style: none;
   padding-top: 25px;
   padding-bottom: 10px;
@@ -234,14 +234,43 @@ footer a {
 /* -- Dashboard --------------------------------------- */
 
 
-.dashboard > * {
-  display: block;
-  float: left;
-  margin: 5px;
-  width: 1vw;
-  justify-content: center;
-  overflow-x: hidden;
+.dashboard {
+  width:100%;
 }
+
+.dashboard-1 {
+  order: 1;
+  -ms-box-orient: horizontal;
+   display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -moz-flex;
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-wrap: wrap;
+   flex-wrap: wrap;
+   text-align: center;
+   align-items: center;
+  justify-content: center;
+}
+
+.dashboard-2 {
+  order: 2;
+  flex-direction: column;
+  -ms-box-orient: horizontal;
+   display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -moz-flex;
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-wrap: wrap;
+   flex-wrap: wrap;
+   text-align: center;
+   align-items: center;
+  justify-content: space-around;
+}
+
 
 .widget-window {
    flex-direction: row;
@@ -257,7 +286,7 @@ footer a {
     height: 100%;
     text-align: center;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
    /* TO READJUST TILE SIZE
    -webkit-transform:scale(0.75);
    -moz-transform:scale(0.75);
@@ -342,7 +371,6 @@ footer a {
     line-height:115px;
 
 }
-
 
 #interruptions-title {
    list-style-type: none;
@@ -726,6 +754,9 @@ footer a {
 }
 /* -- Tiles color ------------------------------------- */
 .tile-calendar {
+  order: 3;
+  flex-grow: 1;
+  align-self: flex-end;
   background-color: #e74c3c;
   box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
   color: white;
@@ -747,6 +778,9 @@ footer a {
 }
 
 .tile-asteroid {
+  order: 3;
+  flex-grow: 1;
+  align-self: flex-start;
   background-color: #2980b9;
 }
 .tile-asteroid  .tile-content,
@@ -966,6 +1000,7 @@ footer a {
 .tile {
   width: 290px;
   height: 290px;
+  margin: 10px;
 }
 .tile .content-wrapper .tile-content {
   padding: 10px;
@@ -973,12 +1008,15 @@ footer a {
 }
 
 .tile-tfl {
+  order: 1;
   width: 34.375em;
   height: 36.875em;
   border-radius: 4px;
+  margin: 10px;
 }
 
 .tile-weather {
+  order: 2;
   width: 305px;
   height: 590px;
   color: white;
@@ -987,7 +1025,8 @@ footer a {
 }
 
 .tile-message {
-  width: 72.813em;
+  order: 17;
+  width: 85%;
   height: 80px;
   border-radius: 4px;
   background-color: rgb(249, 249, 249);
@@ -995,60 +1034,61 @@ footer a {
 }
 
 @media (max-device-width: 1280px) {
-.widget-window {
-    width: 90%;  
-}
+ 
+ .dashboard-2 {
+      flex-direction: row;
+    }
 }
 
 @media (max-device-width: 668px) {
 
-.tile-tfl {
+    .tile-tfl {
+        height: 350px;
         width: 100%;
-        height: 305px;
-    }  
-
-#good-service {
-    font-weight: 400;
-    line-height: .2em;
-    font-size: 5em;
-    padding-top: 25px;
-    
     }
 
+    .overlay {
+      height: 100%;
+    }
+
+    .interruptions-text-title {
+        font-size: 2em;
+    }
+    .interruptions {
+        font-size: .9em;
+    }
+    #service-closed {
+        font-size: .9em;
+    }
+    #good-service {
+        font-weight: 400;
+        line-height: .2em;
+        font-size: 5em;
+        padding-top: 25px;
+    }
     #good-title {
-    white-space: nowrap; 
-    font-size: .8em;
+        white-space: nowrap;
+        font-size: .8em;
     }
-    
     h4 {
-      font-size: 10px!important;
+        font-size: 10px!important;
+    }
+
+    .tile-message{
+      width: 97%;
     }
 
     .tile-weather {
-        width: 100%!important;
-        height: 200px!important; 
+        flex-grow: 1;
+        height: 250px;
         color: white;
         font-size: 30px;
     }
-
     .weather-content {
-      height: 0%;
-      margin: 0;
-    }
-
-    .tile-asteroid {
-        width: 100%!important;
-        height: 300px!important;
-    }
-    .tile-calendar {
-        width: 100%!important;
-        height: 400px!important;
-    }
-    .tile-message {
-        width: 100%!important;
+        height: 0%;
+        margin: 0;
     }
 };
-
 /*-- Display animation -------------------------------- */
 
 .display-animation > * {
