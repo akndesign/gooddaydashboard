@@ -544,7 +544,7 @@ app.runClock = function() {
     if (daylightSavings) {    
         $('.clock-label').text('British Summer Time');
         } else {
-        $('.clock-label').text('Greenwhich Mean Time');
+        $('.clock-label').text('Greenwich Mean Time');
     }
 
     var dialLines = document.getElementsByClassName('diallines');
