@@ -175,7 +175,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
             case 'Service Closed':
 
                 serviceClosed.push(undergroundName);
-                console.log(serviceClosed);
 
                 if ($(serviceClosed).length === 1) {
 
@@ -304,14 +303,10 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
 app.displayWeather = function(weatherCondition, weatherResponse) {
 
-
-    console.log(weatherResponse);
-
     var city = weatherResponse[0].current_observation.display_location.city;
     var temperature = Math.round(weatherResponse[0].current_observation.temp_c);
     var feelsLike = Math.round(weatherResponse[0].current_observation.feelslike_c);
 
-    console.log(city);
     //weatherandAsteroidArray = [];
 
     $('#city').text(city);
@@ -405,9 +400,6 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 $('#weathercondition').text(weatherCondition);
 
         }
-
-    console.log(temperature);
-    console.log(feelsLike);
 
     if (feelsLike === temperature) {
             $('#feelslike').text('Feels similar');
@@ -511,18 +503,15 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
     if (asteriodWeather.length === 2) {
         $('#overallCommentary').text("Don't curse Mother Nature anymore than you have to today!");
     }
-    console.log(asteriodUnderground);
-    
+
     if (asteriodUnderground.length >= 4) {
         $('#overallCommentary').text("You'd think you could hide from nearby asteroids, but TfL said no!");
     }
 
-    console.log (undergroundWeather);
+
     if (undergroundWeather.length >= 4) {
         $('#overallCommentary').text("Hey, at least there's no asteriods coming your way... ");
     }
-
-    console.log(reallyBadDay);
 
     if (reallyBadDay.length === 3) {
         $('#overallCommentary').text("Today could've been a bit better!");
