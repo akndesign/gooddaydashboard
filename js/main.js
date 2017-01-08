@@ -33,8 +33,10 @@ app.getAJAX = function() {
 
         var weatherCondition = weatherResponse[0].current_observation.weather;
 
-        moment.tz.add('America/Los_Angeles|PST PDT|80 70|01010101010|1Lzm0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0');
-            var nasaAPIDay = moment.tz('America/Los_ Angeles').format('YYYY-MM-DD');
+        
+        moment.tz.add('America/Los_Angeles|PST PDT PWT PPT|80 70 70 70|010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261q0 1nX0 11B0 1nX0 SgN0 8x10 iy0 5Wp1 1VaX 3dA0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1a00 1fA0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0|15e6');
+        moment.tz.setDefault('America/Los_Angeles');
+            var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
             var asteroid = asteroidResponse[0].near_earth_objects[nasaAPIDay];
         
         for (var i = 0; i < asteroid.length; i++) {
@@ -231,7 +233,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#partclosure').text('Part Closure on the ' + partclosureSingleLine);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
-                        console.log('Part Closure on the', partclosureSingleLine);
+                    
 
                     } else if ($(partClosure).length === 2) {
 
@@ -240,6 +242,9 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#partclosure').text('Part or Planned Closures on the ' + partclosurePluralLines);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
+                        $('#interruptions-title').text('Planned or Part Closures');
+                        $('#good-service').addClass('is-hidden');
+                        $('#interruptions-title').addClass('interruptions-text-title');
                         //$(interruptionPluralLine.push('and'));
 
                     } else {
@@ -249,6 +254,9 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#partclosure').text('Part or Planned Closures on the ' + partclosureOtherLines);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
+                        $('#interruptions-title').text('Planned or Part Closures');
+                        $('#good-service').addClass('is-hidden');
+                        $('#interruptions-title').addClass('interruptions-text-title');
 
                     } break;
 
@@ -282,7 +290,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     $('#good-service').addClass('is-hidden');
                     $('#interruptions').text('Interruptions on the ' + interruptionOtherLines);
-                    $('#interruptions-title').text('Interrupted Service ');
+                    $('#interruptions-title').text('Interrupted Service');
                     $('#interruptions-title').addClass('interruptions-text-title');
                     $('#weatherStart').addClass('is-hidden');
                     $('#tflCommentary').text("The Underground looks a bit broken today – otherwise it's");
@@ -526,7 +534,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
     } else if (reallyBadDay.length === 4) {
         $('#overallCommentary').text("It's not the best day! :(");
     } else if (reallyBadDay.length >= 5) {
-        $('#overallCommentary').text("Oh biscuits! It's a crummy day, today, isn't it? :(");
+        $('#overallCommentary').text("Oh biscuits! It's a crummy day, isn't it? :(");
     }
 
     };
