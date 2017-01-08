@@ -55,7 +55,7 @@ app.getAJAX = function() {
 
       });
   
-app.getGoogleCalendar = function() {
+/*app.getGoogleCalendar = function() {
 
     $('#noGoogle' ).addClass('is-hidden');
 
@@ -74,7 +74,7 @@ app.getGoogleCalendar = function() {
        * Print the summary and start datetime/date of the next ten events in
        * the authorized user's calendar. If no events are found an
        * appropriate message is printed.
-       */
+       
       function listUpcomingEvents() {
         var request = gapi.client.calendar.events.list({
           'calendarId': 'primary',
@@ -106,7 +106,7 @@ app.getGoogleCalendar = function() {
 
         });
       }
-};
+};*/
 
 //Hide Underground Overlay, on Hover
 
@@ -264,10 +264,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 interruption.push(undergroundName);
 
-                /*tflAsteroidArray = interruption.concat(weatherandAsteriodArray);
-                app.displayBadDay(interruption);
-                //app.displayBadDay(tflAsteroidArray);*/
-
+            
                 if ($(interruption).length === 1) {
 
                     var interruptionSingleLine = interruption.join(' ').concat(singleLine);
@@ -282,7 +279,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
                     $('#weatherStart').addClass('is-hidden');
                     $('#tflCommentary').text('Replan travels on the Underground if needed, otherwise');
-                    //$(interruptionPluralLine.push('and'));
+
 
                 } else {
 
@@ -340,7 +337,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             $('#temperature').text(temperature + '°C');
         }
 
-    var lightWeather = weatherCondition.includes('Light');
+    //var lightWeather = weatherCondition.includes('Light');
 
     switch (weatherCondition) {
 
@@ -422,8 +419,6 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             //else  if (Math.abs(temperature - feelsLike) <= 2) {
         }
     };    
-
-
 
 //Display Asteroids
 
@@ -539,13 +534,13 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
 
     };
 
-app.displayClock = function() {
+/*app.displayClock = function() {
     
     $('#arrow' ).on('click', function() {
         $('.google').addClass('is-hidden').fadeOut('slow');
         $('.clock').fadeIn('slow').removeClass('is-hidden');
     }); app.runClock();
-};
+};*/
 
 app.runClock = function() {
 
@@ -603,8 +598,7 @@ app.runClock = function() {
 
 app.init = function() {
     app.getAJAX();
-    app.displayClock();
-    $('.footer').removeClass('is-hidden');
+    app.runClock();
 };
 
 $(document).ready(app.init);

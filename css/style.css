@@ -1047,6 +1047,10 @@ footer a {
         width: 100%;
     }
 
+    .tile-message{
+      order: 2!important;
+    }
+
     .overlay {
       height: 100%;
     }
