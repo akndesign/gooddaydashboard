@@ -203,16 +203,16 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         $('#good-service').addClass('is-hidden');
                         $('#service-closed').text('Service Closed on the ');
-                        $('#service-closed').append(serviceSlice);
+                        $('#service-closed').text(serviceSlice);
                         $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
                         $('#weatherStart').addClass('is-hidden');
                         $('#tflCommentary').text("Woohoo, Night Tube – Party On! Otherwise, it's");
 
                     } else {
                         $('#good-service').addClass('is-hidden');
-                        $('#service-closed').text('Service Closed');
-                        $('#service-closed').addClass('text-title');
-                        $('#weatherStart').addClass('is-hidden');
+                        $('#interruptions-title').addClass('text-title');
+                        $('#interruptions-title').text('Service Closed');
+                        $('#service-closed').addClass('is-hidden');
                         $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
                     }
 
