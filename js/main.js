@@ -214,6 +214,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('#interruptions-title').text('Service Closed');
                         $('#service-closed').addClass('is-hidden');
                         $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
+                        $('#weatherStart').addClass('is-hidden');
                     }
 
                 }
