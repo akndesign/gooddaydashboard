@@ -306,13 +306,25 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
     var city = weatherResponse[0].current_observation.display_location.city;
     var temperature = Math.round(weatherResponse[0].current_observation.temp_c);
+    var tempFahrenheit = Math.round(weatherResponse[0].current_observation.temp_f);
     var feelsLike = Math.round(weatherResponse[0].current_observation.feelslike_c);
 
     //weatherandAsteroidArray = [];
 
     $('#city').text(city);
 
-    //console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
+    /*$('#tempCheck').change(function() {
+        if (this.checked) {
+            $('#temperature').animate({'opacity': 100}, 100).text(temperature + '°C');
+            $('#tempFahrenheit').animate({'opacity': 0}, 500);
+        } else {
+            $('#temperature').animate({'opacity': 0}, 500);
+            $('#tempFahrenheit').animate({'opacity': 100}, 100).text(tempFahrenheit + '°F');
+            
+        }
+    });*/
+
+    console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
 
     if (temperature >= 29) {
 
@@ -366,6 +378,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
             case 'Light Rain':
             case 'Heavy Rain':
+            case 'Rain':
             case 'Light Drizzle':
             case 'Heavy Drizzle':
             case 'Thunderstorm':

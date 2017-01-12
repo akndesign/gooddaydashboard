@@ -106,8 +106,17 @@
       </div>
       
       <div class="tile tile-weather ripple-effect">
+      <div class="toggles">
+            <span class="temp-f">°F</span>
+              <input type="checkbox" id="tempCheck" checked/>
+                  <label for="tempCheck">
+                  <div class="handle"></div>
+               </label>
+               <span class="temp-c">°C</span>
+          </div>
          <div class="weather-content">
             <span id="temperature"></span>
+            <div id="tempFahrenheit"></div>
             <div id="city"></div>
             <div id="location"></div>
             <div><span id="temperaturecondition"></span><span id="feelslike"></span></div>
