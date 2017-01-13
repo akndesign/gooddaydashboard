@@ -119,9 +119,19 @@ footer a {
 
 }
 
+.remove-item {
+  position:absolute;
+  top:0;
+  right:0;
+  display:none;
+  padding:0.5em;
+  color:#999;
+  text-decoration:none;
+}
+
 .text-title {
-  font-size: 6.25em!important;
-  line-height: 1.1!important;
+  font-size: 6.25em;
+  line-height: 1.1;
   list-style: none;
 }
 
@@ -147,6 +157,24 @@ footer a {
 
 .asteroid-near {
     background-color: #34495e!important;
+
+}
+
+#closeMessage, #closeMessage:active {
+  font-size: 1.5em;
+  padding: 0 5px 0 0;
+  background:none;
+  border:none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  position: absolute;
+  top: -5;
+  right: 0;
+  color: #999;
+  text-decoration: none;
 
 }
 
@@ -342,12 +370,13 @@ footer a {
 }
 
 .overlay {
+    height: 36.875em;
     position: absolute;
     top: 0;
     left:0;
     right:0;
     bottom:0;
-    margin: auto;
+    margin: 0 auto;
     padding-top: 5em;
     background-image: -moz-linear-gradient( 115deg, rgba(255,252,0, .5) 0%, rgba(255,0,0,.3) 50%, rgba(2,0,37,.4) 100%);
     background-image: -webkit-linear-gradient( 115deg, rgba(255,252,0,.5) 0%, rgba(255,0,0,.3) 50%, rgba(2,0,37,.4) 100%);
@@ -555,7 +584,7 @@ footer a {
 }
 
 
-.toggles {
+.toggles, .closeMessage {
    text-align: right;
    margin-right: 15px;
 }
@@ -1121,17 +1150,35 @@ input[type="checkbox"]:checked + label:before {
 
 @media (max-device-width: 668px) {
 
+    .overlay {
+      height:  98%;
+    }
+
     .tile-tfl {
         height: 350px;
         width: 100%;
     }
 
-    .tile-message{
-      order: 2!important;
+    .tile-message {
+      order: 2;
+      width: 97%;
+      height: 90px;
     }
 
-    .overlay {
-      height: 100%;
+    .tile-weather {
+      flex-grow: 1;
+      order: 3;
+      height: 250px;
+      color: white;
+      font-size: 30px;
+    }
+    .weather-content {
+        height: 0%;
+        margin: 0;
+    }
+
+    .dashboard-2 {
+      order: 4;
     }
 
     .interruptions-text-title {
@@ -1140,10 +1187,15 @@ input[type="checkbox"]:checked + label:before {
     .interruptions {
         font-size: .9em;
     }
-    #service-closed {
-        font-size: .9em;
+
+    #service-closed, .text-title {
+        font-weight: 400;
+        font-size: 5em;
+        padding-top: 0px;
+        line-height: .9em!important;
     }
-    #good-service {
+
+    #good-service, {
         font-weight: 400;
         line-height: .2em;
         font-size: 5em;
@@ -1153,24 +1205,11 @@ input[type="checkbox"]:checked + label:before {
         white-space: nowrap;
         font-size: .8em;
     }
+
     h4 {
         font-size: 10px!important;
     }
 
-    .tile-message{
-      width: 97%;
-    }
-
-    .tile-weather {
-        flex-grow: 1;
-        height: 250px;
-        color: white;
-        font-size: 30px;
-    }
-    .weather-content {
-        height: 0%;
-        margin: 0;
-    }
 };
 /*-- Display animation -------------------------------- */
 

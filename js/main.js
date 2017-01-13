@@ -313,7 +313,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
     $('#city').text(city);
 
-    /*$('#tempCheck').change(function() {
+    $('#tempCheck').change(function() {
         if (this.checked) {
             $('#temperature').animate({'opacity': 100}, 100).text(temperature + '°C');
             $('#tempFahrenheit').animate({'opacity': 0}, 500);
@@ -322,7 +322,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             $('#tempFahrenheit').animate({'opacity': 100}, 100).text(tempFahrenheit + '°F');
             
         }
-    });*/
+    });
 
     console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
 
@@ -599,9 +599,18 @@ app.runClock = function() {
 
 }; 
 
+app.removeWidget = function(){
+
+    $('#closeMessage').on('click', function(c){
+        $(this).parent().fadeOut('slow', function(c){
+        });
+    }); 
+};
+
 app.init = function() {
     app.getAJAX();
     app.runClock();
+    app.removeWidget();
 };
 
 $(document).ready(app.init);

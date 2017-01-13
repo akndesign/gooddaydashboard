@@ -296,8 +296,7 @@ select {
 button,
 html input[type="button"], /* 1 */
 input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button; /* 2 */
+input[type="submit"] { /* 2 */
   cursor: pointer; /* 3 */
 }
 
