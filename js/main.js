@@ -313,7 +313,19 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
     $('#city').text(city);
 
-    $('#tempCheck').change(function() {
+    $('#tempCheck').change(function(e) {
+        if (this.checked) {    
+        $('#tempFahrenheit').fadeOut('slow', function(){
+            $('#temperature').fadeIn('slow');
+        });
+    } else { 
+        $('#temperature').fadeOut('slow', function(){
+        $('#tempFahrenheit').fadeIn('slow');
+                });
+        }
+    });
+
+   /* $('#tempCheck').change(function() {
         if (this.checked) {
             $('#temperature').animate({'opacity': 100}, 100).text(temperature + '°C');
             $('#tempFahrenheit').animate({'opacity': 0}, 500);
@@ -322,7 +334,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             $('#tempFahrenheit').animate({'opacity': 100}, 100).text(tempFahrenheit + '°F');
             
         }
-    });
+    });*/
 
     console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
 
@@ -330,6 +342,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
             $('.tile-weather').addClass('hot');
             $('#temperature').text(temperature + '°C');
+            $('#tempFahrenheit').text(tempFahrenheit + '°F');
             //$('#temperaturecondition').text("It's hot! ");
             $('#hot').text(" a hot day! ");
             $('#weatherCommentary').addClass('is-hidden');
@@ -337,12 +350,14 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
         } else if (temperature <= 5) {
 
             $('#temperature').text(temperature + '°C');
+            $('#tempFahrenheit').text(tempFahrenheit + '°F');
             //$('#temperaturecondition').text('Brr! ');
             $('#hot').text("best to bring a winter jacket!");
             $('#weatherCommentary').addClass('is-hidden');
 
         } else {
             $('#temperature').text(temperature + '°C');
+            $('#tempFahrenheit').text(tempFahrenheit + '°F');
         }
 
     //var lightWeather = weatherCondition.includes('Light');
@@ -528,9 +543,9 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
     }
 
     if (reallyBadDay.length === 3) {
-        $('#overallCommentary').text("Today could've been a bit better!");
+        $('#overallCommentary').text("Today is just okay");
     } else if (reallyBadDay.length === 4) {
-        $('#overallCommentary').text("It's not the best day! :(");
+        $('#overallCommentary').text("Today could've been a bit better!");
     } else if (reallyBadDay.length >= 5) {
         $('#overallCommentary').text("Oh biscuits! It's a crummy day, isn't it? :(");
     }
