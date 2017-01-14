@@ -306,19 +306,19 @@ footer a {
    flex-wrap: wrap;
    text-align: center;
    align-items: center;
-  justify-content: center;
+   justify-content: center;
 }
 
 .dashboard-2 {
   order: 2;
   flex-direction: column;
   -ms-box-orient: horizontal;
-   display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
    display: -moz-box;
    display: -ms-flexbox;
    display: -moz-flex;
-   display: -webkit-flex;
-   display: flex;
+   -webkit-flex-direction: column;
    -webkit-flex-wrap: wrap;
    flex-wrap: wrap;
    text-align: center;
@@ -1170,7 +1170,7 @@ input[type="checkbox"]:checked + label:before {
         height: 350px;
         width: 100%;
     }
-    
+
     .tile-message {
       order: 2;
       width: 97%;
@@ -1191,6 +1191,9 @@ input[type="checkbox"]:checked + label:before {
 
     .dashboard-2 {
       order: 4;
+      display: -webkit-flex;
+      display: flex;
+      flex-grow: 1;
     }
 
     .interruptions-text-title {
