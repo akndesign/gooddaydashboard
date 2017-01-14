@@ -34,8 +34,6 @@ font-family: "sofia-pro";
     top: 50%;
 }
 
-#tempFahrenheit {display:none;}
-
 /* -- Base style -------------------------------------- */
 html {
   position: relative;
@@ -577,6 +575,10 @@ footer a {
 .tram {
     color: rgba(250,250,250,.75);
     background: #6c0
+}
+
+#tempFahrenheit {
+  display:none;
 }
 
 #temperature, #tempFahrenheit {
