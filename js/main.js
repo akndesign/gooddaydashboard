@@ -542,11 +542,11 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
         $('#overallCommentary').text("Hey, at least there's no asteriods coming your way... ");
     }
 
-    if (reallyBadDay.length === 3) {
-        $('#overallCommentary').text("Today is just okay");
-    } else if (reallyBadDay.length === 4) {
+    if (reallyBadDay.length === 4) {
+        $('#overallCommentary').text("As the French say, 'Comme ci, comme ça', ha!");
+    } else if (reallyBadDay.length === 5) {
         $('#overallCommentary').text("Today could've been a bit better!");
-    } else if (reallyBadDay.length >= 5) {
+    } else if (reallyBadDay.length >= 6) {
         $('#overallCommentary').text("Oh biscuits! It's a crummy day, isn't it? :(");
     }
 
