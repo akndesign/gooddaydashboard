@@ -65,10 +65,10 @@ h1 {
   margin:0;
 }
 
-h4 {
+h3 {
   font-style: normal;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 1.25em;
 }
 
 footer {
@@ -113,7 +113,7 @@ footer a {
   overflow: hidden;
 }
 
-.text-hidden h4 {
+.text-hidden h3 {
   opacity: 0;
   transition: all 0.15s ease-in-out;
 
@@ -186,7 +186,7 @@ footer a {
   -webkit-border-radius: 0;
   border-radius: 0;
   position: absolute;
-  top: -5;
+  top: -10;
   right: 0;
   text-decoration: none;
 
@@ -434,23 +434,54 @@ footer a {
     line-height: 1.4em;
 }
 
+#undergroundStatus {
+  line-height: 3;
+  vertical-align: middle; 
+  text-align:right;
+  float: right;
+  padding-right: .5em;
+}
+
+.good-icon, .closed-icon {
+  text-align:right;
+  float: right;
+  position: relative;
+  top: 16px;
+  height:20px;
+  background-repeat: no-repeat;
+  line-height: 30px;
+  padding-left: 40px;
+}
+
+.good-icon {
+background-image: url("../img/goodservice.svg");
+}
+
+.closed-icon {
+background-image: url("../img/serviceclosed.svg");
+}
+
+.undergroundName {
+  line-height: 3;
+  vertical-align: middle; 
+  text-align:left;
+  float: left;
+
+}
 
 #lines {
-    display: inline-block;
-    font-size: 20px;
+    font-size: 1em;
     padding: 0;
     border-radius: 4px;
     z-index: 1;
-    height: 100%;
 }
 
 #lines li {
+    display: block;
     list-style-type: none;
-    float: left;
-    width: 100%;
-    height: 9.17%;
+    height: 54px;
+    line-height: 60px;
     transition: .12s ease-in-out;
-    line-height: 0;
     text-align: left;
     padding-left: 2em;
 
@@ -502,7 +533,6 @@ footer a {
 }
 
 .bakerloo {
-    font-weight: 200;
     color: rgba(250,250,250,.75);
     background: #ae6118
 }
@@ -514,7 +544,7 @@ footer a {
 
 .circle {
     color:rgba(250,250,250,.75);
-    background: #f8d42d
+    background: #ffce00
 }
 
 .district {
@@ -1169,8 +1199,16 @@ input[type="checkbox"]:checked + label:before {
 
 
     .tile-tfl {
-        height: 350px;
+        height: 650px;
         width: 100%;
+    }
+
+    .overlay {
+      height: 650px;
+    }
+
+    .good-icon, .closed-icon {
+      padding-left: 30px;
     }
 
     .tile-message {
@@ -1186,6 +1224,7 @@ input[type="checkbox"]:checked + label:before {
       color: white;
       font-size: 30px;
     }
+
     .weather-content {
         height: 0%;
         margin: 0;
@@ -1233,6 +1272,14 @@ input[type="checkbox"]:checked + label:before {
     }
 
 };
+
+@media (hover:none), (hover:on-demand) {
+    
+    .tile-weather:hover{
+        background: none;
+    }
+};
+
 /*-- Display animation -------------------------------- */
 
 .display-animation > * {
