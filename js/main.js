@@ -21,7 +21,7 @@ app.getAJAX = function() {
         $.get(weatherUrl + apiWeatherKey + conditions + city),
         //$.getJSON('js/dummy-json/weather/rain.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
-        //$.getJSON('js/dummy-json/tube/twodelayedservices.json'),
+        //$.getJSON('js/dummy-json/tube/mixedservice.json'),
         $.get(asteroidUrl + apiKey)
         //$.getJSON('js/dummy-json/asteroidtrue.json')
         //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA
@@ -44,16 +44,21 @@ app.getAJAX = function() {
             asteroidArray.push(asteroidData);
         }
 
+        $('.service-board').hover(function() {
+            $('#service-notifications').fadeOut();
+        }, function() { 
+            $('#service-notifications').fadeIn();
+        });
+
         //weatherandAsteriodArray = asteroidArray.concat(weatherCondition);
         //console.log(weatherandAsteriodArray); 
-
-        app.displayWeather(weatherCondition, weatherResponse);
-        app.undergroundOverlay(undergroundResponse);
         app.displayUndergroundOverlay(undergroundResponse);
+        app.displayWeather(weatherCondition, weatherResponse);
         app.displayAsteroids(asteroidArray);
         app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
 
       });
+ };
   
 /*app.getGoogleCalendar = function() {
 
@@ -108,50 +113,12 @@ app.getAJAX = function() {
       }
 };*/
 
-//Hide Underground Overlay, on Hover
-
-app.undergroundOverlay = function(undergroundResponse) {
-
-      undergroundResponse[0].forEach(function(line) {
-
-        var undergroundID = line.id;
-        var undergroundName = line.name;
-        var undergroundStatus = line.lineStatuses[0].statusSeverityDescription;
-
-        var addLineID = $('#tfl').attr('id', undergroundID);
-        var addLine = '<span class="undergroundName">' + undergroundName + '</span>';
-        var addStatus = '<span id="undergroundStatus">' + undergroundStatus + '</span>';
-
-        $(addLineID).append(addLine);
-
-
-        $('#service-board').hover(function() { 
-            $('service-notifications').fadeOut();
-            $(addLineID).fadeIn(addLine);
-        }, function() { 
-            $('#service-notifications').fadeIn();
-            $(addLineID).fadeOut(); 
-        });
-
-        app.displayUndergroundOverlay(undergroundStatus, addLineID);
-        //$('#lines h6').fadeOut('fast');
-
-
-    /*setTimeout(function() {
-        if ($('#lines').removeClass('text-hidden')) {
-            $('#service-notifications').fadeIn('fast');
-            $('#lines').addClass('text-hidden');
-        }
-    }, 10);*/
-    }); 
-};
-
 //Display Underground, Per-Line, display Underground Overlay
 
-app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
+app.displayUndergroundOverlay = function(undergroundResponse) {
 
-    if (!undergroundStatus) {
-        undergroundStatus = [];
+    if (!undergroundResponse) {
+        undergroundResponse = [];
     }
 
     var goodService = [];
@@ -164,27 +131,33 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
     var pluralLines = [' lines'];
     var singleLine = [' line'];
 
-    //THIS IS A DUPLICATION OF YOUR PROCESSING ABOVE
+    undergroundResponse[0].forEach(function(line) {
 
-        //$('#lines h6').fadeOut('fast');
-
-    /*setTimeout(function() {
-        if ($('#lines').removeClass('text-hidden')) {
-            $('#service-notifications').fadeIn('fast');
-            $('#lines').addClass('text-hidden');
-        }
-    }, 10);*/
+         var undergroundID = line.id;
+         var undergroundName = line.name;
+         var undergroundStatus = line.lineStatuses[0].statusSeverityDescription;
+         var addLineID = $('#undergroundStatus').attr('id', undergroundID);
 
         switch (undergroundStatus) {
 
             case 'Good Service':
 
-                $('#good-service').text('Good').append("<div id='good-title'></div>");
+                $('#good-service').text('Good').append('<div id="good-title"></div>');
                 $('#good-title').text('service');
                 $('#weatherStart').addClass('is-hidden');
-                $(addLineID).append('<img class="good-icon">');
-                $(addLineID).append(addStatus);
-                
+               
+                $('.service-board').hover(function() {
+                        $(addLineID).removeClass('is-trans-hidden');
+                        $('.undergroundStatus').removeClass('is-trans-hidden');
+                        $(addLineID).text(undergroundName); 
+                        $(addLineID).append('<img class="good-icon">');
+                        $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                    }, function() { 
+                        $('.undergroundStatus').addClass('is-trans-hidden');
+                        $(addLineID).addClass('is-trans-hidden');
+
+                        });
+
                 break;
 
             case 'Service Closed':
@@ -193,12 +166,24 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
 
                 if ($(serviceClosed).length === 1) {
 
+                      console.log(serviceClosed);
+
                     var serviceClosedSingle = serviceClosed.concat(singleLine);
 
                     $('#service-closed').text('Service Closed on the ');
                     $('#service-closed').append(serviceClosedSingle);
-                    $(addLineID).append('<img class="closed-icon">');
-                    $(addLineID).append(addStatus);
+
+                    $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="closed-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                    });
+
                     //$(serviceClosedString.push('and'));
 
                 } else if ($(serviceClosed).length === 2) {
@@ -207,8 +192,18 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
 
                     $('#service-closed').text('Service Closed on the ');
                     $('#service-closed').append(serviceClosedPlural);
-                    $(addLineID).append('<img class="closed-icon">');
-                    $(addLineID).append(addStatus);
+                    //$(addLineID).append('<img class="closed-icon">');
+
+                    $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="closed-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
                     //$(serviceClosedString.push('and'));
 
                 } else {
@@ -221,25 +216,47 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
                         var serviceSlice = serviceClosedOtherLines.slice(0, 26).concat(severalOtherLines);
 
                         $('#good-service').addClass('is-hidden');
-                        $('#service-closed').text('Service Closed on the ');
-                        $('#service-closed').text(serviceSlice);
-                        $('#interruptions-title').text('Night Tube Available').addClass('interruptions-text-title');
+                        $('#service-closed').addClass('closure-interruptions');
+                        $('#interruptions-title').text('Night Tube Service').addClass('night');
                         $('#weatherStart').addClass('is-hidden');
                         $('#tflCommentary').text("Woohoo, Night Tube – Party On! Otherwise, it's");
 
+                        $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="closed-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
+
                     } else {
+
+                        console.log(serviceClosed);
+
                         $('#good-service').addClass('is-hidden');
                         $('#interruptions-title').addClass('text-title');
                         $('#interruptions-title').text('Service Closed');
                         $('#service-closed').addClass('is-hidden');
                         $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
                         $('#weatherStart').addClass('is-hidden');
-                        $(addLineID).append('<img class="closed-icon">');
-                        $(addLineID).append(addStatus);
+
+                       $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="closed-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
                     }
 
                 }
-
+               
                 break;
 
                 case 'Part Closure': 
@@ -254,6 +271,15 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
                         $('#partclosure').text('Part Closure on the ' + partclosureSingleLine);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
+
+                        $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
                     
 
                     } else if ($(partClosure).length === 2) {
@@ -266,6 +292,18 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
                         $('#interruptions-title').text('Planned or Part Closures');
                         $('#good-service').addClass('is-hidden');
                         $('#interruptions-title').addClass('interruptions-text-title');
+
+                        $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                           
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
                         //$(interruptionPluralLine.push('and'));
 
                     } else {
@@ -279,18 +317,43 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
                         $('#good-service').addClass('is-hidden');
                         $('#interruptions-title').addClass('interruptions-text-title');
 
+                        $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+
+                        });
+
+
+
                     } break;
 
             default:
 
                 interruption.push(undergroundName);
 
-            
+           
                 if ($(interruption).length === 1) {
 
                     var interruptionSingleLine = interruption.join(' ').concat(singleLine);
 
                     $('#interruptions').text('Interruption on the ' + interruptionSingleLine);
+
+                    $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                            
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
                     //$(interruptionSingleLine.push('and'));
 
                 } else if ($(interruption).length === 2) {
@@ -301,6 +364,16 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
                     $('#weatherStart').addClass('is-hidden');
                     $('#tflCommentary').text('Replan travels on the Underground if needed, otherwise');
 
+                      $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                            
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
 
                 } else {
 
@@ -312,12 +385,22 @@ app.displayUndergroundOverlay = function(undergroundStatus, addLineID) {
                     $('#interruptions-title').addClass('interruptions-text-title');
                     $('#weatherStart').addClass('is-hidden');
                     $('#tflCommentary').text("The Underground looks a bit broken today – otherwise it's");
+
+                    $('.service-board').hover(function() {
+                        $(addLineID).removeClass('is-trans-hidden');
+                        $(addLineID).text(undergroundName); 
+                        $(addLineID).append('<img class="interruptions-icon">');
+                        $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        
+                    }, function() { 
+                        $('.undergroundStatus').addClass('is-trans-hidden');
+                        $(addLineID).addClass('is-trans-hidden');
+                    });
                 }
                 
                 break;
-            }
-
-        }; //app.displayBadDay(tflAsteroidArray);
+        }
+    });
 };
 
 //Display Weather 
@@ -533,6 +616,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
             weather.push(weatherCondition);
             asteriodWeather.push(weatherCondition);
             undergroundWeather.push(weatherCondition);
+            console.log(undergroundWeather);
             reallyBadDay.push(weatherCondition);
     break;
     
@@ -637,8 +721,7 @@ app.runClock = function() {
 app.removeWidget = function(){
 
     $('#closeMessage').on('click', function(c){
-        $(this).parent().fadeOut('slow', function(c){
-        });
+        $('#tile-message').fadeOut('slow');
     }); 
 };
 

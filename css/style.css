@@ -94,17 +94,19 @@ footer a {
 
 .is-hidden {
      display: none!important;
+
 }
 
 .is-trans-hidden {
      
-  -webkit-transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -ms-transition: opacity 1s ease-in-out;
-  -o-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 2s ease-in-out;
+  -moz-transition: opacity 2s ease-in-out;
+  -ms-transition: opacity 2s ease-in-out;
+  -o-transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
   white-space: nowrap;
   overflow: hidden;
+  opacity: 0;
 }
 
 
@@ -434,7 +436,7 @@ footer a {
     line-height: 1.4em;
 }
 
-#undergroundStatus {
+.undergroundStatus {
   line-height: 3;
   vertical-align: middle; 
   text-align:right;
@@ -442,7 +444,7 @@ footer a {
   padding-right: .5em;
 }
 
-.good-icon, .closed-icon {
+.good-icon, .closed-icon, .interruptions-icon {
   text-align:right;
   float: right;
   position: relative;
@@ -459,6 +461,10 @@ background-image: url("../img/goodservice.svg");
 
 .closed-icon {
 background-image: url("../img/serviceclosed.svg");
+}
+
+.interruptions-icon {
+background-image: url("../img/interruptions.svg");
 }
 
 .undergroundName {
@@ -1199,7 +1205,6 @@ input[type="checkbox"]:checked + label:before {
 
 
     .tile-tfl {
-        height: 650px;
         width: 100%;
     }
 
@@ -1214,7 +1219,7 @@ input[type="checkbox"]:checked + label:before {
     .tile-message {
       order: 2;
       width: 97%;
-      height: 90px;
+      height: 120px;
     }
 
     .tile-weather {
@@ -1249,11 +1254,18 @@ input[type="checkbox"]:checked + label:before {
       line-height: 1.2em!important; 
     }
 
-    #service-closed, .text-title {
+    .text-title {
         font-weight: 400;
         font-size: 5em;
         padding-top: 0px;
         line-height: .9em!important;
+    }
+
+    .night {
+        font-weight: 400;
+        line-height: 1em!important;
+        font-size: 4em;
+        padding-top: 50px;
     }
 
     #good-service {
