@@ -721,7 +721,7 @@ app.runClock = function() {
 app.removeWidget = function(){
 
     $('#closeMessage').on('click', function(c){
-        $('#tile-message').fadeOut('slow');
+        $(this).closest('.tile-message').fadeOut('slow');
     }); 
 };
 
