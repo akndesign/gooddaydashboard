@@ -477,6 +477,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Mostly Cloudy' : 
             case 'Scattered Clouds':
             case 'Overcast':
+            case 'Haze':
 
                 $('.tile-weather').addClass('clouds');
                 $('#weathercondition').text(weatherCondition);

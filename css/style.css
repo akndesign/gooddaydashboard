@@ -98,7 +98,6 @@ footer a {
 }
 
 .is-trans-hidden {
-     
   -webkit-transition: opacity 2s ease-in-out;
   -moz-transition: opacity 2s ease-in-out;
   -ms-transition: opacity 2s ease-in-out;
@@ -919,7 +918,6 @@ input[type="checkbox"]:checked + label:before {
   text-align: center;
 }
 
-}
 .tile-calendar .tile-content,
 .tile-calendar .title {
   color: #eceff1;
@@ -1019,7 +1017,6 @@ input[type="checkbox"]:checked + label:before {
     cursor: pointer;
 }
 
-}
 .tile-weather .tile-content,
 .tile-weather .title {
   color: #eceff1;
@@ -1072,7 +1069,7 @@ input[type="checkbox"]:checked + label:before {
 }
 
 
-.tile-weather::after {
+.tile-weather:after {
     content: "";
     z-index: -1;
     position: absolute;
