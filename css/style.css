@@ -1087,10 +1087,6 @@ input[type="checkbox"]:checked + label:before {
     transition: opacity 1s;
 }
 
-.tile-weather:active {
-  transform: scale(.96);
-}
-
 .tile-weather::before {
     content: "";
     z-index: 0;
@@ -1225,14 +1221,14 @@ input[type="checkbox"]:checked + label:before {
     .tile-weather {
       flex-grow: 1;
       order: 3;
-      height: 250px;
+      height: 300px;
       color: white;
       font-size: 30px;
     }
 
     .weather-content {
         height: 0%;
-        margin: 0;
+        margin: 40;
     }
 
     .dashboard-2 {
