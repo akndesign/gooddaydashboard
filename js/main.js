@@ -22,9 +22,10 @@ app.getAJAX = function() {
         //$.getJSON('js/dummy-json/weather/rain.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
         //$.getJSON('js/dummy-json/tube/mixedservice.json'),
+        //$.get(asteroidUrl + apiKey)
+        //OR $.getJSON(js/dummy-json/asteroidtrue.json)
         $.get(asteroidUrl + apiKey)
-        //$.getJSON('js/dummy-json/asteroidtrue.json')
-        //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA
+        //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA, OR CHANGE TO LIVE VERSION
 
      ).done(function(weatherResponse, undergroundResponse, asteroidResponse) {
 
@@ -117,6 +118,7 @@ app.getAJAX = function() {
 
 app.displayUndergroundOverlay = function(undergroundResponse) {
 
+
     if (!undergroundResponse) {
         undergroundResponse = [];
     }
@@ -137,6 +139,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
          var undergroundName = line.name;
          var undergroundStatus = line.lineStatuses[0].statusSeverityDescription;
          var addLineID = $('#undergroundStatus').attr('id', undergroundID);
+
+         var dayorEvening = moment().add('Europe/London').format('e');
 
         switch (undergroundStatus) {
 
@@ -447,7 +451,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             $('#temperature').text(temperature + '°C');
             $('#tempFahrenheit').text(tempFahrenheit + '°F');
             //$('#temperaturecondition').text("It's hot! ");
-            $('#hot').text(" a hot day! ");
+            $('#hot').text(' a hot day!');
             $('#weatherCommentary').addClass('is-hidden');
 
         } else if (temperature <= 5) {
@@ -473,7 +477,6 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Shallow Fog':
             case 'Partial Fog':
             case 'Light Freezing Fog':
-            case 'Partly Cloudy': 
             case 'Mostly Cloudy' : 
             case 'Scattered Clouds':
             case 'Overcast':
@@ -482,6 +485,14 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 $('.tile-weather').addClass('clouds');
                 $('#weathercondition').text(weatherCondition);
                 $('#weatherCommentary').text(' an average, grey day in London.');
+
+                break;
+
+            case 'Partly Cloudy': 
+
+            $('.tile-weather').addClass('clear');
+            $('#weathercondition').text(weatherCondition);
+            $('#weatherCommentary').text(' an alright day in London.');
 
                 break;
 
@@ -545,6 +556,20 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
         }
     };    
 
+/*
+    if (feelsLike === temperature) {
+            $('#feelslike').text('Feels similar');
+        } else  if (feelsLike >= (temperature + 2)) { 
+            $('#feelslike').text('Feels warmer');
+        } else  if (feelsLike < (temperature + 2)) {
+            $('#feelslike').text('Feels like ' + feelsLike + '°C');    
+        } else  if (feelsLike >= (temperature + -2)) { 
+            $('#feelslike').text('Feels cooler');
+        } else  if (feelsLike < (temperature + -2)) {
+            $('#feelslike').text('Feels like ' + feelsLike + '°C');
+        }
+    };    
+*/
 //Display Asteroids
 
 app.displayAsteroids = function(asteroidArray) {
@@ -603,6 +628,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
 
     switch (weatherCondition) {
 
+            case 'Partly Cloudly':
             case 'Light Rain':
             case 'Heavy Rain':
             case 'Light Drizzle':
@@ -693,6 +719,16 @@ app.runClock = function() {
         var seconds = moment.tz(londonTime).format('ss');
         var minutes = moment.tz(londonTime).format('mm');
         var hours = moment.tz('Europe/London').format('hh');
+        var twentyFourHours = moment.tz('Europe/London').format('HH');
+        var timeofDay = '';
+
+        if (twentyFourHours >= 3 && twentyFourHours < 12 ) {
+            timeofDay = 'morning'; 
+        } else if (twentyFourHours >= 12 && twentyFourHours < 17) {
+            timeofDay = 'afternoon'; 
+        } else if (twentyFourHours >= 17 || twentyFourHours < 3) {
+            timeofDay = 'evening';
+        }
 
         var secAngle = seconds * 6;
         var minAngle = minutes * 6 + seconds * (360 / 3600);
@@ -727,8 +763,8 @@ app.removeWidget = function(){
 };
 
 app.init = function() {
-    app.getAJAX();
     app.runClock();
+    app.getAJAX();
     app.removeWidget();
 };
 

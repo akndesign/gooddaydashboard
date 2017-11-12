@@ -943,11 +943,20 @@ input[type="checkbox"]:checked + label:before {
 .tile-asteroid  .title {
   color: #fff;
 }
-.tile-asteroid :hover,
-.tile-asteroid :active,
-.tile-asteroid .active {
+
+.tile-asteroid:hover,
+.tile-asteroid:active,
+.tile-asteroid.active {
   background-color: #3949ab;
 }
+
+.asteroid-near:hover,
+.asteroid-near:hover,
+.asteroid-near:active,
+.asteroid-near.active {
+  background-color: #3949ab;
+}
+
 .tile-asteroid :focus {
   background-color: #303f9f;
 }
