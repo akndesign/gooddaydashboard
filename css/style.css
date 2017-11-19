@@ -341,7 +341,6 @@ footer a {
     display: flex;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
-    height: 100%;
     text-align: center;
     align-items: center;
     justify-content: space-around;
@@ -1211,6 +1210,15 @@ input[type="checkbox"]:checked + label:before {
       flex-direction: row;
     }
 }
+
+
+@media (min-device-width: 669px) {
+ 
+ .widget-window {
+      height: 100%;
+    }
+}
+
 
 @media (max-device-width: 668px) {
 
