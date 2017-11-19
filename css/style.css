@@ -79,6 +79,8 @@ footer a {
   color: #bbbfc7;
   text-decoration: none;
 }
+
+
 #akndesign {
   display: inline-block;
   background-size: contain;
@@ -403,6 +405,13 @@ footer a {
     z-index:1;
     color:white;
     border-radius: 4px;
+}
+
+.night {
+        font-weight: 400;
+        line-height: 1em!important;
+        font-size: 3em;
+        padding-top: 50px;
 }
 
 #good-service,
@@ -1263,12 +1272,7 @@ input[type="checkbox"]:checked + label:before {
         line-height: .9em!important;
     }
 
-    .night {
-        font-weight: 400;
-        line-height: 1em!important;
-        font-size: 4em;
-        padding-top: 50px;
-    }
+
 
     #good-service {
         font-weight: 400;
