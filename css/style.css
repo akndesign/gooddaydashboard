@@ -407,10 +407,9 @@ footer a {
 }
 
 .night {
-        font-weight: 400;
-        line-height: 1em!important;
-        font-size: 3em;
-        padding-top: 50px;
+    font-weight: 400;
+    font-size: 3.5em;
+    padding-top: 50px;
 }
 
 #good-service,
@@ -1217,14 +1216,24 @@ input[type="checkbox"]:checked + label:before {
  .widget-window {
       height: 100%;
     }
-}
 
+ .night {
+  line-height: 1.5em!important;
+ }
+
+}
 
 @media (max-device-width: 668px) {
 
 
     .tile-tfl {
         width: 100%;
+    }
+
+    .night {
+    
+    line-height: 1em!important;
+    
     }
 
     .overlay {
