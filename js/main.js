@@ -531,6 +531,14 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
                 break;
 
+            case 'Ice Pellets': 
+            
+            $('.tile-weather').addClass('snow');
+                $('#weathercondition').text(weatherCondition);
+                $('#weatherStart').addClass('is-hidden');
+            
+            break;
+            
             case 'Mist':
 
                 $('.tile-weather').addClass('mist');
