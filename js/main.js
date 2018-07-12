@@ -5,7 +5,7 @@ app.getAJAX = function() {
     var weatherUrl = 'https://api.wunderground.com/api/';
     var apiWeatherKey = 'c2ca7887db0ced3d';
     var conditions = '/conditions/q/';
-    var city = 'zmw:00000.6.71042.json';
+    var city = 'UK/London.json';
     
     var tflUrl = 'https://api.tfl.gov.uk/line/mode/tube/status?';
     var app_id = 'app_id=2a49b2c6';
@@ -34,6 +34,7 @@ app.getAJAX = function() {
 
         var weatherCondition = weatherResponse[0].current_observation.weather;
 
+        
         moment.tz.add('America/Los_Angeles|PST PDT PWT PPT|80 70 70 70|010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261q0 1nX0 11B0 1nX0 SgN0 8x10 iy0 5Wp1 1VaX 3dA0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1a00 1fA0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0|15e6');
         moment.tz.setDefault('America/Los_Angeles');
             var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
@@ -411,14 +412,13 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 app.displayWeather = function(weatherCondition, weatherResponse) {
 
     var city = weatherResponse[0].current_observation.display_location.city;
-    var state = weatherResponse[0].current_observation.display_location.state;
     var temperature = Math.round(weatherResponse[0].current_observation.temp_c);
     var tempFahrenheit = Math.round(weatherResponse[0].current_observation.temp_f);
     var feelsLike = Math.round(weatherResponse[0].current_observation.feelslike_c);
 
     //weatherandAsteroidArray = [];
-    
-    $('#city').text(city +', '+ state);
+
+    $('#city').text(city);
 
     $('#tempCheck').change(function(e) {
         if (this.checked) {    
@@ -484,7 +484,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
                 $('.tile-weather').addClass('clouds');
                 $('#weathercondition').text(weatherCondition);
-                $('#weatherCommentary').text(' an average day in Vancouver.');
+                $('#weatherCommentary').text(' an average, grey day in London.');
 
                 break;
 
@@ -492,7 +492,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
             $('.tile-weather').addClass('clear');
             $('#weathercondition').text(weatherCondition);
-            $('#weatherCommentary').text(' an alright day in Vancouver.');
+            $('#weatherCommentary').text(' an alright day in London.');
 
                 break;
 
@@ -500,7 +500,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
                 $('.tile-weather').addClass('clear');
                 $('#weathercondition').text(weatherCondition);
-                $('#weatherCommentary').text(' a good day in Vancouver.');
+                $('#weatherCommentary').text(' a good day in London.');
 
                 //app.displayBadDay(weatherCondition);
 
@@ -527,7 +527,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 $('.tile-weather').addClass('snow');
                 $('#weathercondition').text(weatherCondition);
                 $('#weatherStart').addClass('is-hidden');
-                $('#hot').append(' (Snowing in Vancouver?? Madness!)');
+                $('#hot').append(' (Snowing in London?? Madness!)');
 
                 break;
 
@@ -673,7 +673,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
     }
 
     if (asteriodUnderground.length >= 4) {
-        $('#overallCommentary').text("You'd think you could hide from nearby asteroids, but the Skytrain said no!");
+        $('#overallCommentary').text("You'd think you could hide from nearby asteroids, but TfL said no!");
     }
 
 
