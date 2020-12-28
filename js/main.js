@@ -2,40 +2,44 @@ var app = {};
 
 app.getAJAX = function() {
 
-    var weatherUrl = 'https://api.wunderground.com/api/';
-    var apiWeatherKey = 'c2ca7887db0ced3d';
-    var conditions = '/conditions/q/';
-    var city = 'UK/London.json';
+    var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London&appid=';
+    var apiWeatherKey = 'ea43d349fe09f49a0d21b5607b77208c';
+    /*var conditions = '/conditions/q/';
+    var city = 'UK/London.json';*/
+
+    console.log(weatherUrl+apiWeatherKey)
     
     var tflUrl = 'https://api.tfl.gov.uk/line/mode/tube/status?';
     var app_id = 'app_id=2a49b2c6';
     var apiUndergroundKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
     var asteroidUrl = 'https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false';
-    var apiKey = '&api_key=PT3Ux5XFGFqnK869ovrGVMS5SBciZGmQ0I0LnkrC';
+    var apiKey = '&Dql0MChZo6DTWIblAp5lbSqWUevLEXninNUtxfGe';
 
     console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
     $.when(
         
-        $.get(weatherUrl + apiWeatherKey + conditions + city),
+        $.get(weatherUrl + apiWeatherKey),
         //$.getJSON('js/dummy-json/weather/rain.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
         //$.getJSON('js/dummy-json/tube/mixedservice.json'),
         //$.get(asteroidUrl + apiKey)
         //OR $.getJSON(js/dummy-json/asteroidtrue.json)
-        $.get(asteroidUrl + apiKey)
+        //$.get(asteroidUrl + apiKey)
         //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA, OR CHANGE TO LIVE VERSION
 
      ).done(function(weatherResponse, undergroundResponse, asteroidResponse) {
 
         //var weatherandAsteroidArray = [];
-        var asteroidArray = [];
-
-        var weatherCondition = weatherResponse[0].current_observation.weather;
+        /*var asteroidArray = [];
+        console.log(asteroidArray);*/
+       
+        var weatherCondition = weatherResponse[0];
+        console.log(weatherCondition);
 
         
-        moment.tz.add('America/Los_Angeles|PST PDT PWT PPT|80 70 70 70|010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261q0 1nX0 11B0 1nX0 SgN0 8x10 iy0 5Wp1 1VaX 3dA0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1a00 1fA0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0|15e6');
+       /* moment.tz.add('America/Los_Angeles|PST PDT PWT PPT|80 70 70 70|010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261q0 1nX0 11B0 1nX0 SgN0 8x10 iy0 5Wp1 1VaX 3dA0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1a00 1fA0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0|15e6');
         moment.tz.setDefault('America/Los_Angeles');
             var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
             var asteroid = asteroidResponse[0].near_earth_objects[nasaAPIDay];
@@ -43,7 +47,7 @@ app.getAJAX = function() {
         for (var i = 0; i < asteroid.length; i++) {
             var asteroidData = asteroid[i].is_potentially_hazardous_asteroid;
             asteroidArray.push(asteroidData);
-        }
+        }*/
 
         $('.service-board').hover(function() {
             $('#service-notifications').fadeOut();
@@ -55,7 +59,7 @@ app.getAJAX = function() {
         //console.log(weatherandAsteriodArray); 
         app.displayUndergroundOverlay(undergroundResponse);
         app.displayWeather(weatherCondition, weatherResponse);
-        app.displayAsteroids(asteroidArray);
+        //app.displayAsteroids(asteroidArray);
         app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
 
       });
@@ -129,7 +133,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
     var interruption = [];
 
     var severalOtherLines = [' and several other lines'];
-    var otherLines = [' other lines'];
+    var otherLines = [' lines'];
     var pluralLines = [' lines'];
     var singleLine = [' line'];
 
@@ -290,10 +294,10 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         var partclosurePluralLines = partClosure.join(' & ').concat(pluralLines);
 
-                        $('#partclosure').text('Part or Planned Closures on the ' + partclosurePluralLines);
+                        $('#partclosure').text('Closures on the ' + partclosurePluralLines);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
-                        $('#interruptions-title').text('Planned or Part Closures');
+                        $('#interruptions-title').text('Closures');
                         $('#good-service').addClass('is-hidden');
                         $('#interruptions-title').addClass('interruptions-text-title');
 
@@ -314,7 +318,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         var partclosureOtherLines = partClosure.join(', ').concat(otherLines);
 
-                        $('#partclosure').text('Part or Planned Closures on the ' + partclosureOtherLines);
+                        $('#partclosure').text('Closures on the ' + partclosureOtherLines);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
                         $('#interruptions-title').text('Planned or Part Closures');
@@ -411,10 +415,12 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
 app.displayWeather = function(weatherCondition, weatherResponse) {
 
-    var city = weatherResponse[0].current_observation.display_location.city;
-    var temperature = Math.round(weatherResponse[0].current_observation.temp_c);
-    var tempFahrenheit = Math.round(weatherResponse[0].current_observation.temp_f);
-    var feelsLike = Math.round(weatherResponse[0].current_observation.feelslike_c);
+    var city = weatherResponse[0].name;
+    var temperature = Math.round(weatherResponse[0].main.temp-273.15);
+    var tempFahrenheit = Math.round((weatherResponse[0].main.temp)*9/5 - 459.67);
+    var feelsLike = Math.round(weatherResponse[0].main.feels_like-273.15);
+    var currentCondition = weatherResponse[0].weather[0].main;
+    console.log(currentCondition);
 
     //weatherandAsteroidArray = [];
 
@@ -469,7 +475,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
     //var lightWeather = weatherCondition.includes('Light');
 
-    switch (weatherCondition) {
+    switch (currentCondition) {
 
             case 'Clouds':
             case 'Fog':
@@ -479,11 +485,12 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Light Freezing Fog':
             case 'Mostly Cloudy' : 
             case 'Scattered Clouds':
+            case 'Overcast Clouds':
             case 'Overcast':
             case 'Haze':
 
                 $('.tile-weather').addClass('clouds');
-                $('#weathercondition').text(weatherCondition);
+                $('#weathercondition').text(currentCondition);
                 $('#weatherCommentary').text(' an average, grey day in London.');
 
                 break;
@@ -491,7 +498,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Partly Cloudy': 
 
             $('.tile-weather').addClass('clear');
-            $('#weathercondition').text(weatherCondition);
+            $('#weathercondition').text(currentCondition);
             $('#weatherCommentary').text(' an alright day in London.');
 
                 break;
@@ -499,7 +506,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Clear':
 
                 $('.tile-weather').addClass('clear');
-                $('#weathercondition').text(weatherCondition);
+                $('#weathercondition').text(currentCondition);
                 $('#weatherCommentary').text(' a good day in London.');
 
                 //app.displayBadDay(weatherCondition);
@@ -514,7 +521,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Thunderstorm':
 
                 $('.tile-weather').addClass('rain');
-                $('#weathercondition').text(weatherCondition + ' :(');
+                $('#weathercondition').text(currentCondition + ' :(');
                 $('#weatherStart').addClass('is-hidden');
                 $('#weatherStart').addClass('is-hidden');
                 $('#weatherCommentary').text(' best to bring an umbrella!');
@@ -525,7 +532,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Snow':
 
                 $('.tile-weather').addClass('snow');
-                $('#weathercondition').text(weatherCondition);
+                $('#weathercondition').text(currentCondition);
                 $('#weatherStart').addClass('is-hidden');
                 $('#hot').append(' (Snowing in London?? Madness!)');
 
@@ -534,7 +541,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Ice Pellets': 
             
             $('.tile-weather').addClass('snow');
-                $('#weathercondition').text(weatherCondition);
+                $('#weathercondition').text(currentCondition);
                 $('#weatherStart').addClass('is-hidden');
             
             break;
@@ -542,14 +549,14 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
             case 'Mist':
 
                 $('.tile-weather').addClass('mist');
-                $('#weathercondition').text(weatherCondition);
+                $('#weathercondition').text(currentCondition);
                 $('#weatherStart').addClass('is-hidden');
                 $('#weatherCommentary').text(' weather that is like your eyes watching Jack slip in ocean (spoiler!)');
 
                 break;
 
             default:
-                $('#weathercondition').text(weatherCondition);
+                $('#weathercondition').text(currentCondition);
 
         }
 
