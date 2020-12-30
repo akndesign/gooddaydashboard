@@ -158,8 +158,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $(addLineID).removeClass('is-trans-hidden');
                         $('.undergroundStatus').removeClass('is-trans-hidden');
                         $(addLineID).text(undergroundName); 
-                        $(addLineID).append('<img class="good-icon">');
-                        $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        //$(addLineID).append('<img class="good-icon">');
+                        $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '<img class="good-icon">' + '</span>');
                     }, function() { 
                         $('.undergroundStatus').addClass('is-trans-hidden');
                         $(addLineID).addClass('is-trans-hidden');
@@ -185,8 +185,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         $('.service-board').hover(function() {
                             $(addLineID).removeClass('is-trans-hidden');
                             $(addLineID).text(undergroundName); 
-                            $(addLineID).append('<img class="interruptions-icon">');
-                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                            //$(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '<img class="interruptions-icon">' + '</span>');
                         }, function() { 
                             $(addLineID).addClass('is-trans-hidden');
                         });
@@ -208,8 +208,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                             $(addLineID).removeClass('is-trans-hidden');
                             $('.undergroundStatus').removeClass('is-trans-hidden');
                             $(addLineID).text(undergroundName); 
-                            $(addLineID).append('<img class="interruptions-icon">');
-                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                            //$(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '<img class="interruptions-icon">' + '</span>');
                            
                         }, function() { 
                             $('.undergroundStatus').addClass('is-trans-hidden');
@@ -237,8 +237,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                             $(addLineID).removeClass('is-trans-hidden');
                             $('.undergroundStatus').removeClass('is-trans-hidden');
                             $(addLineID).text(undergroundName); 
-                            $(addLineID).append('<img class="interruptions-icon">');
-                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                            //$(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '<img class="interruptions-icon">' + '</span>');
                         }, function() { 
                             $('.undergroundStatus').addClass('is-trans-hidden');
                             $(addLineID).addClass('is-trans-hidden');
