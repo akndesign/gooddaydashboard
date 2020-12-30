@@ -21,9 +21,9 @@ app.getAJAX = function() {
     $.when(
         
         $.get(weatherUrl + apiWeatherKey),
-        //$.getJSON('js/dummy-json/weather/rain.json'),
+        //$.getJSON('js/dummy-json/weather/wackyweather-sand.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
-        //$.getJSON('js/dummy-json/tube/mixedservice.json'),
+        //$.getJSON('js/dummy-json/tube/serviceclosed.json'),
         //$.get(asteroidUrl + apiKey)
         //OR $.getJSON(js/dummy-json/asteroidtrue.json)
         //$.get(asteroidUrl + apiKey)
@@ -60,7 +60,7 @@ app.getAJAX = function() {
         app.displayUndergroundOverlay(undergroundResponse);
         app.displayWeather(weatherCondition, weatherResponse);
         //app.displayAsteroids(asteroidArray);
-        app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
+        //app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
 
       });
  };
@@ -168,6 +168,87 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 break;
 
+             case 'Part Closure': 
+             case 'Planned Closure':   
+
+                    partClosure.push(undergroundName);
+
+                    if ($(partClosure).length === 1) {
+
+                        var partclosureSingleLine = partClosure.join(', ').concat(singleLine);
+
+                        $('#partclosure').text('Closure on the ' + partclosureSingleLine);
+                        $('#partclosure').addClass('interruptions');
+                        $('#interruptions').addClass('closure-interruptions');
+                        $('#closed-title').addClass('is-hidden');
+
+                        $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
+                    
+
+                    } else if ($(partClosure).length === 2) {
+
+                        var partclosurePluralLines = partClosure.join(' & ').concat(pluralLines);
+                        
+
+                        $('#partclosure').text('Closures on the ' + partclosurePluralLines);
+                        $('#partclosure').addClass('interruptions');
+                        $('#interruptions').addClass('closure-interruptions');
+                        $('#interruptions-title').text('Closures');
+                        $('#good-service').addClass('is-hidden');
+                        $('#interruptions-title').addClass('interruptions-text-title');
+
+                        $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                           
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+                        });
+                        //$(interruptionPluralLine.push('and'));
+
+                    } else {
+
+
+                        var partclosureOtherLines = //partClosure.join(', ').concat(otherLines).last('hello');
+                        [partClosure.slice(0, -1).join(', '), partClosure.slice(-1)[0]].join(partClosure.length < 2 ? '' : ' and ').concat(otherLines);
+                        console.log(partclosureOtherLines);
+
+                        $('#partclosure').text('Planned Closures on the ' + partclosureOtherLines);
+                        $('#partclosure').addClass('interruptions');
+                        $('#interruptions').addClass('closure-interruptions');
+                        $('#interruptions-title').text('Some').append('<div id="interruptions-subtitle"></div>');
+                        $('#interruptions-subtitle').text('Closures');
+                        
+                        //$('#closed-title').removeClass('is-hidden').text('Closures');
+                        $('#interruptions-title').addClass('interruptions-text-title');
+
+                        $('.service-board').hover(function() {
+                            $(addLineID).removeClass('is-trans-hidden');
+                            $('.undergroundStatus').removeClass('is-trans-hidden');
+                            $(addLineID).text(undergroundName); 
+                            $(addLineID).append('<img class="interruptions-icon">');
+                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
+                        }, function() { 
+                            $('.undergroundStatus').addClass('is-trans-hidden');
+                            $(addLineID).addClass('is-trans-hidden');
+
+                        });
+
+
+
+                    } break;
+
             case 'Service Closed':
 
                 serviceClosed.push(undergroundName);
@@ -196,7 +277,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 } else if ($(serviceClosed).length === 2) {
 
-                    var serviceClosedPlural = serviceClosed.join(', ').concat(pluralLines);
+                    var serviceClosedPlural = serviceClosed.join(' and ').concat(pluralLines);
 
                     $('#service-closed').text('Service Closed on the ');
                     $('#service-closed').append(serviceClosedPlural);
@@ -246,7 +327,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         $('#good-service').addClass('is-hidden');
                         $('#interruptions-title').addClass('text-title');
-                        $('#interruptions-title').text('Service Closed');
+                        $('#interruptions-title').text('Service');
+                        $('#closed-title').text('closed');
                         $('#service-closed').addClass('is-hidden');
                         $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
                         $('#weatherStart').addClass('is-hidden');
@@ -265,81 +347,9 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 }
                
-                break;
+            break;
 
-                case 'Part Closure': 
-                case 'Planned Closure':   
-
-                    partClosure.push(undergroundName);
-
-                    if ($(partClosure).length === 1) {
-
-                        var partclosureSingleLine = partClosure.join(', ').concat(singleLine);
-
-                        $('#partclosure').text('Part Closure on the ' + partclosureSingleLine);
-                        $('#partclosure').addClass('interruptions');
-                        $('#interruptions').addClass('closure-interruptions');
-
-                        $('.service-board').hover(function() {
-                            $(addLineID).removeClass('is-trans-hidden');
-                            $(addLineID).text(undergroundName); 
-                            $(addLineID).append('<img class="interruptions-icon">');
-                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
-                        }, function() { 
-                            $(addLineID).addClass('is-trans-hidden');
-                        });
-                    
-
-                    } else if ($(partClosure).length === 2) {
-
-                        var partclosurePluralLines = partClosure.join(' & ').concat(pluralLines);
-
-                        $('#partclosure').text('Closures on the ' + partclosurePluralLines);
-                        $('#partclosure').addClass('interruptions');
-                        $('#interruptions').addClass('closure-interruptions');
-                        $('#interruptions-title').text('Closures');
-                        $('#good-service').addClass('is-hidden');
-                        $('#interruptions-title').addClass('interruptions-text-title');
-
-                        $('.service-board').hover(function() {
-                            $(addLineID).removeClass('is-trans-hidden');
-                            $('.undergroundStatus').removeClass('is-trans-hidden');
-                            $(addLineID).text(undergroundName); 
-                            $(addLineID).append('<img class="interruptions-icon">');
-                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
-                           
-                        }, function() { 
-                            $('.undergroundStatus').addClass('is-trans-hidden');
-                            $(addLineID).addClass('is-trans-hidden');
-                        });
-                        //$(interruptionPluralLine.push('and'));
-
-                    } else {
-
-                        var partclosureOtherLines = partClosure.join(', ').concat(otherLines);
-
-                        $('#partclosure').text('Closures on the ' + partclosureOtherLines);
-                        $('#partclosure').addClass('interruptions');
-                        $('#interruptions').addClass('closure-interruptions');
-                        $('#interruptions-title').text('Planned or Part Closures');
-                        $('#good-service').addClass('is-hidden');
-                        $('#interruptions-title').addClass('interruptions-text-title');
-
-                        $('.service-board').hover(function() {
-                            $(addLineID).removeClass('is-trans-hidden');
-                            $('.undergroundStatus').removeClass('is-trans-hidden');
-                            $(addLineID).text(undergroundName); 
-                            $(addLineID).append('<img class="interruptions-icon">');
-                            $(addLineID).append('<span class="undergroundStatus">' + undergroundStatus + '</span>');
-                        }, function() { 
-                            $('.undergroundStatus').addClass('is-trans-hidden');
-                            $(addLineID).addClass('is-trans-hidden');
-
-                        });
-
-
-
-                    } break;
+               
 
             default:
 
@@ -477,48 +487,39 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
     switch (currentCondition) {
 
-            case 'Clouds':
-            case 'Fog':
-            case 'Patches of Fog':
-            case 'Shallow Fog':
-            case 'Partial Fog':
-            case 'Light Freezing Fog':
-            case 'Mostly Cloudy' : 
-            case 'Scattered Clouds':
-            case 'Overcast Clouds':
-            case 'Overcast':
             case 'Haze':
+            case 'Fog':
+            case 'Clouds':
 
-                $('.tile-weather').addClass('clouds');
-                $('#weathercondition').text(currentCondition);
-                $('#weatherCommentary').text(' an average, grey day in London.');
+            $('.tile-weather').addClass('clouds');
+            $('#weathercondition').text(currentCondition);
+            $('#weatherCommentary').text(' an average, grey day in London.');
 
-                break;
+            break;
 
+            /* DOESN'T WORK WITH USING 'MAIN' DESCRIPTION FROM NEW WEATHER API
             case 'Partly Cloudy': 
 
             $('.tile-weather').addClass('clear');
             $('#weathercondition').text(currentCondition);
             $('#weatherCommentary').text(' an alright day in London.');
 
-                break;
+                break;*/
 
             case 'Clear':
 
-                $('.tile-weather').addClass('clear');
-                $('#weathercondition').text(currentCondition);
-                $('#weatherCommentary').text(' a good day in London.');
+            $('.tile-weather').addClass('clear');
+            $('#weathercondition').text(currentCondition);
+            $('#weatherCommentary').text(' a good day in London.');
 
                 //app.displayBadDay(weatherCondition);
 
                 break;
 
+            case 'Rain':
             case 'Light Rain':
             case 'Heavy Rain':
-            case 'Rain':
-            case 'Light Drizzle':
-            case 'Heavy Drizzle':
-            case 'Thunderstorm':
+            
 
                 $('.tile-weather').addClass('rain');
                 $('#weathercondition').text(currentCondition + ' :(');
@@ -529,6 +530,16 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 
                 break;
 
+            case 'Thunderstorm': 
+            
+            $('.tile-weather').addClass('thunderstorm');
+            $('#weathercondition').text(currentCondition + ' ⚡');
+            $('#weatherStart').addClass('is-hidden');
+            $('#weatherStart').addClass('is-hidden');
+            $('#weatherCommentary').text(' best to stay indoors!');  
+
+            break; 
+
             case 'Snow':
 
                 $('.tile-weather').addClass('snow');
@@ -537,16 +548,9 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 $('#hot').append(' (Snowing in London?? Madness!)');
 
                 break;
-
-            case 'Ice Pellets': 
-            
-            $('.tile-weather').addClass('snow');
-                $('#weathercondition').text(currentCondition);
-                $('#weatherStart').addClass('is-hidden');
-            
-            break;
             
             case 'Mist':
+            case 'Drizzle':
 
                 $('.tile-weather').addClass('mist');
                 $('#weathercondition').text(currentCondition);
@@ -554,6 +558,18 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 $('#weatherCommentary').text(' weather that is like your eyes watching Jack slip in ocean (spoiler!)');
 
                 break;
+
+            case 'Smoke':    
+            case 'Ash':
+            case 'Squall':
+            case 'Tornado': 
+            case 'Dust':
+            case 'Sand':
+        
+                $('.tile-weather').addClass('hot');
+                $('#weathercondition').text(currentCondition);
+                $('#weatherStart').addClass('is-hidden');
+                $('#weatherCommentary').text(' a pretty unusual day out there, stay safe mate!');
 
             default:
                 $('#weathercondition').text(currentCondition);
@@ -643,17 +659,15 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
 
     switch (weatherCondition) {
 
-            case 'Partly Cloudly':
-            case 'Light Rain':
-            case 'Heavy Rain':
-            case 'Light Drizzle':
-            case 'Heavy Drizzle':
+            case 'Rain':
+            case 'Smoke':    
+            case 'Ash':
+            case 'Squall':
+            case 'Tornado': 
+            case 'Dust':
+            case 'Sand':
             case 'Thunderstorm':
             case 'Fog':
-            case 'Patches of Fog':
-            case 'Shallow Fog':
-            case 'Partial Fog':
-            case 'Light Freezing Fog':
             
             weather.push(weatherCondition);
             asteriodWeather.push(weatherCondition);
@@ -770,6 +784,18 @@ app.runClock = function() {
 
 }; 
 
+app.loaderFadeOut = function(){
+
+setTimeout(function() {
+       $('.loading-text').removeClass("fadeInUp");
+       $('.loading-text').addClass("fadeOutUp");
+       $('#loader-1').removeClass("fadeInUp");
+       $('#loader-1').addClass("fadeOutUp");
+       $('.loading-header').addClass("animated animatedFadeInUp fadeOutUp");
+   } .bind(this), 1000);
+
+} 
+
 app.removeWidget = function(){
 
     $('#closeMessage').on('click', function(c){
@@ -778,6 +804,7 @@ app.removeWidget = function(){
 };
 
 app.init = function() {
+    app.loaderFadeOut();
     app.runClock();
     app.getAJAX();
     app.removeWidget();

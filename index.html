@@ -1,7 +1,7 @@
 <html lang="en">
    <head>
       <meta charset="utf-8">
-      <title>Is it a Good Day? - London </title>
+      <title>Good Day Dashboard - London </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://use.typekit.net/zuj4wwv.css">
       <script>try{Typekit.load({ async: true });}catch(e){}</script>
@@ -15,10 +15,13 @@
       <script type="text/javascript">
 
       $(window).load(function() {
-        setTimeout(function() {
-            $('#loading').remove();
-        }, 2000);
+        $('#loading-bg').delay(3500).fadeOut(500);
       });
+
+      /*setTimeout(function() {
+            $('#loading').remove();
+        }, 3500);
+      */
 
       (function(i, s, o, g, r, a, m) {
           i['GoogleAnalyticsObject'] = r;
@@ -64,7 +67,14 @@
 
    <body>
       <div class="widget-window flex-container wrap">
-      <div id="loading">
+      <div id="loading-bg"> 
+      <div class="loading-content">
+        <div class="loading-header">
+          <img class="gooddaydashboard-icon" src="img/gooddaydashboard_icon-02.svg" alt="Good Day Dashboard Icon">
+          <h1>Good Day Dashboard</h1>
+        </div>
+        <div class="loading-text animated animatedFadeInUp fadeInUp">Hang tight mate, we're compiling current conditions in London..</div>
+         <div class="loading-text animated animatedFadeInUp fadeInUp">
          <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
             <path fill="#fff" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
@@ -78,6 +88,8 @@
             </path>
          </svg>
       </div>
+      </div>
+      </div>
       <div class="dashboard display-animation">
       <div class="dashboard-1 display-animation">
       <div class="tile-tfl ripple-effect">
@@ -87,6 +99,7 @@
                <li id="interruptions-title"></li>
                <li id="partclosure"></li>
                <li id="service-closed"></li>
+               <li id="closed-title"></li>
                <li id="interruptions"></li>
             </div>
             <div id="lines">
