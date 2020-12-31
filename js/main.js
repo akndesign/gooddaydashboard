@@ -4,50 +4,38 @@ app.getAJAX = function() {
 
     var weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London&appid=';
     var apiWeatherKey = 'ea43d349fe09f49a0d21b5607b77208c';
-    /*var conditions = '/conditions/q/';
-    var city = 'UK/London.json';*/
-
-    console.log(weatherUrl+apiWeatherKey)
     
     var tflUrl = 'https://api.tfl.gov.uk/line/mode/tube/status?';
     var app_id = 'app_id=2a49b2c6';
     var apiUndergroundKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
-    var asteroidUrl = 'https://api.nasa.gov/neo/rest/v1/feed/today?detailed=false';
-    var apiKey = '&Dql0MChZo6DTWIblAp5lbSqWUevLEXninNUtxfGe';
+    var asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
+    var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
+
+    var asteriodURL = (asteroidUrl + nasaAPIDay); 
+    console.log (asteriodURL);
 
     console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
     $.when(
         
         $.get(weatherUrl + apiWeatherKey),
-        //$.getJSON('js/dummy-json/weather/wackyweather-sand.json'),
+        //$.getJSON('js/dummy-json/weather/clouds.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
-        //$.getJSON('js/dummy-json/tube/serviceclosed.json'),
-        //$.get(asteroidUrl + apiKey)
-        //OR $.getJSON(js/dummy-json/asteroidtrue.json)
+        //$.getJSON('js/dummy-json/tube/partclosure&serviceclosed.json'), <-- this causes a huge bug!
+        $.get(asteroidUrl + nasaAPIDay),
+        //$.getJSON('js/dummy-json/asteroidtrue.json'),
         //$.get(asteroidUrl + apiKey)
         //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA, OR CHANGE TO LIVE VERSION
 
      ).done(function(weatherResponse, undergroundResponse, asteroidResponse) {
 
-        //var weatherandAsteroidArray = [];
-        /*var asteroidArray = [];
-        console.log(asteroidArray);*/
-       
-        var weatherCondition = weatherResponse[0];
-        console.log(weatherCondition);
+        var weatherandAsteroidArray = [];
+        var asteroidArray = [];
+        var weatherCondition = weatherResponse[0].weather[0].main;
+        var asteroidCount = asteroidResponse[0].count;
 
-        
-       /* moment.tz.add('America/Los_Angeles|PST PDT PWT PPT|80 70 70 70|010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261q0 1nX0 11B0 1nX0 SgN0 8x10 iy0 5Wp1 1VaX 3dA0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1a00 1fA0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0|15e6');
-        moment.tz.setDefault('America/Los_Angeles');
-            var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
-            var asteroid = asteroidResponse[0].near_earth_objects[nasaAPIDay];
-        
-        for (var i = 0; i < asteroid.length; i++) {
-            var asteroidData = asteroid[i].is_potentially_hazardous_asteroid;
-            asteroidArray.push(asteroidData);
-        }*/
+        asteroidArray.push(asteroidCount);
 
         $('.service-board').hover(function() {
             $('#service-notifications').fadeOut();
@@ -55,12 +43,13 @@ app.getAJAX = function() {
             $('#service-notifications').fadeIn();
         });
 
-        //weatherandAsteriodArray = asteroidArray.concat(weatherCondition);
-        //console.log(weatherandAsteriodArray); 
+        weatherandAsteriodArray = asteroidArray.concat(weatherCondition);
+        console.log(weatherandAsteriodArray);
+
         app.displayUndergroundOverlay(undergroundResponse);
         app.displayWeather(weatherCondition, weatherResponse);
-        //app.displayAsteroids(asteroidArray);
-        //app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
+        app.displayAsteroids(asteroidArray);
+        app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
 
       });
  };
@@ -194,7 +183,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     } else if ($(partClosure).length === 2) {
 
-                        var partclosurePluralLines = partClosure.join(' & ').concat(pluralLines);
+                        var partclosurePluralLines = partClosure.join(' and ').concat(pluralLines);
                         
 
                         $('#partclosure').text('Closures on the ' + partclosurePluralLines);
@@ -376,7 +365,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 } else if ($(interruption).length === 2) {
 
-                    var interruptionPluralLines = interruption.join(', ').concat(pluralLines);
+                    var interruptionPluralLines = interruption.join(' and ').concat(pluralLines);
 
                     $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
                     $('#weatherStart').addClass('is-hidden');
@@ -395,7 +384,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 } else {
 
-                    var interruptionOtherLines = interruption.join(', ').concat(otherLines);
+                    var interruptionOtherLines = [interruption.slice(0, -1).join(', '), interruption.slice(-1)[0]].join(interruption.length < 2 ? '' : ' and ').concat(otherLines);
 
                     $('#good-service').addClass('is-hidden');
                     $('#interruptions').text('Interruptions on the ' + interruptionOtherLines);
@@ -571,6 +560,8 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 $('#weatherStart').addClass('is-hidden');
                 $('#weatherCommentary').text(' a pretty unusual day out there, stay safe mate!');
 
+            break;
+
             default:
                 $('#weathercondition').text(currentCondition);
 
@@ -605,22 +596,27 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
 app.displayAsteroids = function(asteroidArray) {
 
-    //console.log('Any Hazardous Asteroids? ' + asteroidArray);
+    console.log('Any Hazardous Asteroids? ' + asteroidArray);
 
-    if ( $.inArray(true, asteroidArray) > -1 ){
+    if (asteroidArray > 0 ){
 
         $('#asteroid').text('Nearby');
         $('#asteroid-title').text('Asteroids');
         $('#asteroid-svg').attr('src', 'img/asteroid2.svg');
         $('.tile-asteroid').addClass('asteroid-near');
     
-    } else { $('#asteroid').text('No Near');
+    } else {
+
+    { $('#asteroid').text('No Near');
             $('#asteroid-svg').attr('src', 'img/asteroid.svg');
             $('#asteroid-title').text('Asteroids');
     } 
+}
 };
 
 app.displayBadDay = function(weatherCondition, asteroidArray, undergroundResponse) {
+
+    console.log(weatherCondition);
 
     if (!undergroundResponse) {
         undergroundResponse = [];
@@ -634,11 +630,23 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
     undergroundWeather = [];
     reallyBadDay = [];
 
+    if (asteroidArray >= 1 ){
+
+            asteroidArraySimplified = 'Nearby Asteroids';
+    
+            asteroid.push(asteroidArraySimplified);
+            asteriodWeather.push(asteroidArraySimplified);
+            asteriodUnderground.push(asteroidArraySimplified);
+            reallyBadDay.push(asteroidArraySimplified); 
+            console.log(asteriodWeather);
+
+    };
+
     for (var i = 0; i < undergroundResponse.length; i++) {
             
     var undergroundStatus = undergroundResponse[i].lineStatuses[0].statusSeverityDescription;
 
-     switch (undergroundStatus) {
+    switch (undergroundStatus) {
 
             case 'Part Closure': 
             case 'Planned Closure':   
@@ -652,10 +660,12 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
             undergroundWeather.push(undergroundStatus);
             reallyBadDay.push(undergroundStatus); 
 
+            console.log(asteriodUnderground);
+
     break;
     
         }
-    }
+    };
 
     switch (weatherCondition) {
 
@@ -668,25 +678,15 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
             case 'Sand':
             case 'Thunderstorm':
             case 'Fog':
-            
+
             weather.push(weatherCondition);
             asteriodWeather.push(weatherCondition);
             undergroundWeather.push(weatherCondition);
-            console.log(undergroundWeather);
             reallyBadDay.push(weatherCondition);
+
+            console.log(asteriodWeather);
     break;
     
-    }
-
-    if ( $.inArray(true, asteroidArray) > -1 ){
-
-            asteroidArraySimplified = 'true';
-    
-            asteroid.push(asteroidArraySimplified);
-            asteriodWeather.push(asteroidArraySimplified);
-            asteriodUnderground.push(asteroidArraySimplified);
-            reallyBadDay.push(asteroidArraySimplified); 
-
     }
 
     if (asteriodWeather.length === 2) {
@@ -794,7 +794,7 @@ setTimeout(function() {
        $('.loading-header').addClass("animated animatedFadeInUp fadeOutUp");
    } .bind(this), 1000);
 
-} 
+}; 
 
 app.removeWidget = function(){
 
