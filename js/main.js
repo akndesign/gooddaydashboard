@@ -476,7 +476,6 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
     switch (currentCondition) {
 
-            case 'Haze':
             case 'Fog':
             case 'Clouds':
 
@@ -486,14 +485,13 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
             break;
 
-            /* DOESN'T WORK WITH USING 'MAIN' DESCRIPTION FROM NEW WEATHER API
-            case 'Partly Cloudy': 
+            case 'Haze':
 
-            $('.tile-weather').addClass('clear');
+            $('.tile-weather').addClass('haze');
             $('#weathercondition').text(currentCondition);
-            $('#weatherCommentary').text(' an alright day in London.');
+            $('#weatherCommentary').text(' an average day in London.');
 
-                break;*/
+            break;
 
             case 'Clear':
 

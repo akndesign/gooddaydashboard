@@ -297,6 +297,10 @@ footer a {
 
 }
 
+.asteroid {
+  margin-top: 15px;
+}
+
 #overallCommentary {
   cursor: pointer;
 }
@@ -1183,6 +1187,8 @@ input[type="checkbox"]:checked + label:before {
     border-image-slice: 1;
     transition: transform .25s;
 }
+
+
 .rain {
   background-image: -moz-linear-gradient( 115deg, rgb(52,73,94) 0%, rgb(168,202,225) 100%);
   background-image: -webkit-linear-gradient( 115deg, rgb(52,73,94) 0%, rgb(168,202,225) 100%);
@@ -1195,6 +1201,12 @@ input[type="checkbox"]:checked + label:before {
   background-image: -ms-linear-gradient( 115deg, rgb(8,25,43) 0%, rgb(228,227,211) 100%);
 }
 
+
+.haze {
+  background-image: -moz-linear-gradient( 115deg, rgb(187,188,190) 0%, rgb(215,208,184) 70%, rgb(243,227,178) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(187,188,190) 0%, rgb(215,208,184) 70%, rgb(243,227,178) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(187,188,190) 0%, rgb(215,208,184) 70%, rgb(243,227,178) 100%);
+}
 
 .clouds {
   background-image: -moz-linear-gradient( 115deg, rgb(173,178,188) 0%, rgb(235,236,238) 100%);
