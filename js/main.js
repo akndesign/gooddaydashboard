@@ -729,14 +729,12 @@ app.runClock = function(weatherResponse) {
     var sunriseDataEpoch = weatherResponse[0].sys.sunrise;
     var sunsetDataEpoch = weatherResponse[0].sys.sunset;
     
-    var sunriseDifferenceinSeconds = (1609661127 - (+1609632927));
-//(sunriseDataEpoch - (+londonEpoch));14400
+    var sunriseDifferenceinSeconds = (sunriseDataEpoch - (+londonEpoch));
+        //(sunriseDataEpoch - (+londonEpoch));
     var sunriseinHours = Math.round(sunriseDifferenceinSeconds / 3600);
 
-    var sunsetDifferenceinSeconds = (1609689927 - (+1609632927));
+    var sunsetDifferenceinSeconds = (sunsetDataEpoch - (+londonEpoch));
     var sunsetinHours = Math.round(sunsetDifferenceinSeconds / 3600);
-
-    console.log(londonEpoch);
 
     $('#day-label').text(londonDate);
 
