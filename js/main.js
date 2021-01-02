@@ -13,7 +13,6 @@ app.getAJAX = function() {
     var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
 
     var asteriodURL = (asteroidUrl + nasaAPIDay); 
-    console.log (asteriodURL);
 
     console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
@@ -46,8 +45,7 @@ app.getAJAX = function() {
         });
 
         weatherandAsteriodArray = asteroidArray.concat(weatherCondition);
-        console.log(weatherandAsteriodArray);
-
+        
         app.displayUndergroundOverlay(undergroundResponse);
         app.displayWeather(weatherCondition, weatherResponse);
         app.displayAsteroids(asteroidArray);
@@ -214,7 +212,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         var partclosureOtherLines = //partClosure.join(', ').concat(otherLines).last('hello');
                         [partClosure.slice(0, -1).join(', '), partClosure.slice(-1)[0]].join(partClosure.length < 2 ? '' : ' and ').concat(otherLines);
-                        console.log(partclosureOtherLines);
+                        
 
                         $('#partclosure').text('Planned Closures on the ' + partclosureOtherLines);
                         $('#partclosure').addClass('interruptions');
@@ -246,8 +244,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                 serviceClosed.push(undergroundName);
 
                 if ($(serviceClosed).length === 1) {
-
-                      console.log(serviceClosed);
 
                     var serviceClosedSingle = serviceClosed.concat(singleLine);
 
@@ -420,8 +416,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
     var tempFahrenheit = Math.round((weatherResponse[0].main.temp)*9/5 - 459.67);
     var feelsLike = Math.round(weatherResponse[0].main.feels_like-273.15);
     var currentCondition = weatherResponse[0].weather[0].main;
-    console.log(weatherResponse);
-
+    
     //weatherandAsteroidArray = [];
 
     $('#city').text(city);
@@ -449,7 +444,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
         }
     });*/
 
-    console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
+    //console.log('Actual Temperature ', temperature,'°C',';', 'Feels Like', feelsLike,'°C');
 
     if (temperature >= 29) {
 
@@ -595,7 +590,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
 app.displayAsteroids = function(asteroidArray) {
 
-    console.log('Any Hazardous Asteroids? ' + asteroidArray);
+    //console.log('Any Hazardous Asteroids? ' + asteroidArray);
 
     if (asteroidArray > 0 ){
 
@@ -615,7 +610,7 @@ app.displayAsteroids = function(asteroidArray) {
 
 app.displayBadDay = function(weatherCondition, asteroidArray, undergroundResponse) {
 
-    console.log(weatherCondition);
+    //console.log(weatherCondition);
 
     if (!undergroundResponse) {
         undergroundResponse = [];
@@ -637,7 +632,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
             asteriodWeather.push(asteroidArraySimplified);
             asteriodUnderground.push(asteroidArraySimplified);
             reallyBadDay.push(asteroidArraySimplified); 
-            console.log(asteriodWeather);
+            //console.log(asteriodWeather);
 
     };
 
@@ -659,7 +654,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
             undergroundWeather.push(undergroundStatus);
             reallyBadDay.push(undergroundStatus); 
 
-            console.log(asteriodUnderground);
+            //console.log(asteriodUnderground);
 
     break;
     
@@ -683,7 +678,7 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
             undergroundWeather.push(weatherCondition);
             reallyBadDay.push(weatherCondition);
 
-            console.log(asteriodWeather);
+            //console.log(asteriodWeather);
     break;
     
     }
@@ -725,21 +720,22 @@ app.runClock = function(weatherResponse) {
 
     londonTime = moment.tz.add('Europe/London|BST BDST GMT|0 -10 -20|0101010101010101010101010101010101010101010101010121212121210101210101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-2axa0 Rc0 1fA0 14M0 1fc0 1g00 1co0 1dc0 1co0 1oo0 1400 1dc0 19A0 1io0 1io0 WM0 1o00 14o0 1o00 17c0 1io0 17c0 1fA0 1a00 1lc0 17c0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1cM0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1io0 1qM0 Dc0 2Rz0 Dc0 1zc0 Oo0 1zc0 Rc0 1wo0 17c0 1iM0 FA0 xB0 1fA0 1a00 14o0 bb0 LA0 xB0 Rc0 1wo0 11A0 1o00 17c0 1fA0 1a00 1fA0 1cM0 1fA0 1a00 17c0 1fA0 1a00 1io0 17c0 1lc0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1a00 1qM0 WM0 1qM0 11A0 1o00 WM0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1tA0 IM0 90o0 U00 1tA0 U00 1tA0 U00 1tA0 U00 1tA0 WM0 1qM0 WM0 1qM0 WM0 1tA0 U00 1tA0 U00 1tA0 11z0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 14o0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00');
 
-    var londonDate = moment.tz(londonTime).format('dddd, MMMM Do, YYYY');
-    
-   
     var hours = moment.tz('Europe/London').format('hh');
     var daylightSavings = moment.tz('Europe/London').isDST();
 
-    var sunriseDataEpoch = weatherResponse[0].sys.sunrise;
-
-    console.log(sunriseDataEpoch);
-
+    var londonDate = moment.tz(londonTime).format('dddd, MMMM Do, YYYY');
     var londonEpoch = moment.tz(londonTime).format('X');
-    var sunriseDifferenceinSeconds = (sunriseDataEpoch - (+londonEpoch));
+
+    var sunriseDataEpoch = weatherResponse[0].sys.sunrise;
+    var sunsetDataEpoch = weatherResponse[0].sys.sunset;
+    
+    var sunriseDifferenceinSeconds = (sunriseDataEpoch - (+londonEpoch+3600*12));
     var sunriseinHours = Math.round(sunriseDifferenceinSeconds / 3600);
 
-    console.log(sunriseDataEpoch);
+    var sunsetDifferenceinSeconds = (sunsetDataEpoch - (+londonEpoch +3600*12));
+    var sunsetinHours = Math.round(sunsetDifferenceinSeconds / 3600);
+
+    console.log(londonEpoch);
 
     $('#day-label').text(londonDate);
 
@@ -749,73 +745,74 @@ app.runClock = function(weatherResponse) {
         $('#currenttimezone').text(' GMT');
     } 
     
-    //var sunset = sunStatus.sunset;
-
     (function sunRise () {
-    
-        if (sunriseDifferenceinSeconds > 3600 ) {
+                    
+        if (sunriseDifferenceinSeconds <= 29400 && sunriseDifferenceinSeconds > 3600 ) {
+            $('#sunset').addClass('is-hidden');
             $('#sunrise').text('Sunrise is in ' + sunriseinHours + ' hours '); 
             
         } else if (sunriseDifferenceinSeconds === 3600) {
+            $('#sunset').addClass('is-hidden');
             $('#sunrise').text('Sunrise is in an hour '); 
 
         } else if (sunriseDifferenceinSeconds < 3600 && sunriseDifferenceinSeconds >= 500) {
+            $('#sunset').addClass('is-hidden');
             $('#sunrise').text('Sunrise is soon'); 
 
         }  else if (sunriseDifferenceinSeconds < 500 && sunriseDifferenceinSeconds >= ~3600 ) { 
+            $('#sunset').addClass('is-hidden');
             $('#sunrise').text('Dawn'); 
 
-        } else { $('#sunrise').text('Sunrise was ' + (sunriseinHours * -1) + ' hours ago '); 
+        } else if (sunriseDifferenceinSeconds < ~3600 && sunriseDifferenceinSeconds >= ~18000 ) { 
+            $('#sunset').addClass('is-hidden');
+            $('#sunrise').text('Sunrise was ' + (sunriseinHours * -1) + ' hours ago '); 
 
-          }
+        } else $('#sunrise').text('Midday');  
 
     setTimeout(sunRise, 1000);
 
     })(); 
 
 
-   /* (function sunSet () {
+   (function sunSet () {
     
-        if (sunriseDifferenceinSeconds > 3600 ) {
-            $('#sunrise').text('Sunrise is in ' + sunriseinHours + ' hours '); 
+        if (sunsetDifferenceinSeconds <= 10800 && sunsetDifferenceinSeconds > 3600 ) {
+            $('#sunrise').addClass('is-hidden');
+            $('#sunset').text('Sunset is in ' + sunsetinHours + ' hours '); 
             
-        } else if (sunriseDifferenceinSeconds === 3600) {
-            $('#sunrise').text('Sunrise is in an hour '); 
+        } else if (sunsetDifferenceinSeconds === 3600) {
+            $('.tile-clock').addClass('sunset-before');
+            $('#sunset').text('Sunset is in an hour '); 
 
-        } else if (sunriseDifferenceinSeconds < 3600 && sunriseDifferenceinSeconds >= 500) {
-            $('#sunrise').text('Sunrise is soon'); 
+        } else if (sunsetDifferenceinSeconds < 3600 && sunsetDifferenceinSeconds >= 500) {
+            $('#sunrise').addClass('is-hidden');
+            $('.tile-clock').removeClass('sunset').addClass('sunset-before');
+            $('#sunset').text('Sunset is soon'); 
 
-        }  else if (sunriseDifferenceinSeconds < 500 && sunriseDifferenceinSeconds >= ~3600 ) { 
-            $('#sunrise').text('Dawn'); 
+        }  else if (sunsetDifferenceinSeconds < 500 && sunsetDifferenceinSeconds >= ~3600 ) { 
+            $('#sunrise').addClass('is-hidden');
+            $('.tile-clock').removeClass('sunset-before').addClass('sunset');
+            $('#sunset').text('Sunset'); 
 
-        } else { $('#sunrise').text('Sunrise was ' + (sunriseinHours * -1) + ' hours ago '); 
+        } else if (sunsetDifferenceinSeconds < ~3600 && sunsetDifferenceinSeconds > ~7200) {
+            $('.tile-clock').removeClass('sunset').addClass('sunset-after');
+            $('#sunrise').text('Sunset was an hour ago '); 
+        } 
 
-          }
+        else if (sunsetDifferenceinSeconds <= ~7200 && sunsetDifferenceinSeconds >= ~ 10800) {
+            $('.tile-clock').removeClass('sunset-after').addClass('nightime');
+            $('#sunrise').text('Sunset was ' + (sunsetinHours * -1) + ' hours ago '); 
 
-    setTimeout(sunRise, 1000);
+        } else  {
+            $('.tile-clock').removeClass('sunset-after').addClass('nightime');
+            $('#sunrise').addClass('is-hidden');
+            $('#sunset').text('Nightime 🌙✨');  
 
-    })(); */
-        //if epochDifference is >= 3000
-    //setTimeout(dayorNight, 1000);
+        }
 
+    setTimeout(sunSet, 1000);
 
-    /*(function timeofDay () {
-
-    if (twentyFourHours >= 3 && twentyFourHours < 12 ) {
-        $('.timeofday').text('Good Morning');
-
-
-    } else if (twentyFourHours >= 12 && twentyFourHours < 17) {
-             $('.timeofday').text('Good Afternoon');
-
-    } else if (twentyFourHours >= 17 || twentyFourHours < 3) {
-            $('.timeofday').text('Good Evening');
-            
-    }
-
-    setTimeout(timeofDay, 5000);
-    
-    })();*/
+    })(); 
 
     var dialLines = $('.diallines');
 
@@ -899,7 +896,6 @@ app.removeWidget = function(){
 app.init = function() {
     app.loaderFadeOut();
     app.getAJAX();
-    app.runClock();
     app.removeWidget();
 };
 

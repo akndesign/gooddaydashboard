@@ -881,7 +881,7 @@ input[type="checkbox"]:checked + label:before {
    justify-content: center;/* add this to contain floated children */
 }
 
-#sunrise, #bullet, #currenttimezone {
+#sunrise, #sunset, #bullet, #currenttimezone {
   font-size: .85em;
   font-weight: 200;
     /*border: 1px solid green;*/
@@ -1088,7 +1088,7 @@ input[type="checkbox"]:checked + label:before {
   padding: 0;
 }
 /* -- Tiles color ------------------------------------- */
-.tile-calendar {
+.tile-clock {
   order: 3;
   flex-grow: 1;
   align-self: flex-end;
@@ -1098,16 +1098,45 @@ input[type="checkbox"]:checked + label:before {
   text-align: center;
 }
 
-.tile-calendar .tile-content,
-.tile-calendar .title {
+.sunset-before {
+  background-image: -moz-linear-gradient( 115deg, rgb(231,76,60) 40%, rgb(208,29,102) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(231,76,60) 40%, rgb(208,29,102) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(231,76,60) 40%, rgb(208,29,102) 100%);
+
+}
+
+
+.sunset {
+  background-image: -moz-linear-gradient( 115deg, rgb(255,142,68) 0%, rgb(231,76,60) 50%, rgb(53,18,106) 130%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(255,142,68) 0%, rgb(231,76,60) 50%, rgb(53,18,106) 130%);
+  background-image: -ms-linear-gradient( 115deg, rgb(255,142,68) 0%, rgb(231,76,60) 50%, rgb(53,18,106) 130%);
+
+}
+
+.sunset-after {
+  background-image: -moz-linear-gradient( 115deg, rgb(255,142,68) 0%, rgb(139,42,83) 0%, rgb(53,18,106) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(255,142,68) 0%, rgb(139,42,83) 0%, rgb(53,18,106) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(255,142,68) 0%, rgb(139,42,83) 0%, rgb(53,18,106) 100%);
+
+}
+
+.nightime {
+  background-image: -moz-linear-gradient( 115deg, rgb(45,51,80) 0%, rgb(63,40,94) 76%, rgb(81,28,107) 100%);
+  background-image: -webkit-linear-gradient( 115deg, rgb(45,51,80) 0%, rgb(63,40,94) 76%, rgb(81,28,107) 100%);
+  background-image: -ms-linear-gradient( 115deg, rgb(45,51,80) 0%, rgb(63,40,94) 76%, rgb(81,28,107) 100%);
+
+}
+
+.tile-clock .tile-content,
+.tile-clock .title {
   color: #eceff1;
 }
-.tile-calendar:hover,
-.tile-calendar:active,
-.tile-calendar.active {
+.tile-clock:hover,
+.tile-clock:active,
+.tile-clock.active {
   background-color: #dd191d;
 }
-.tile-calendar:focus {
+.tile-clock:focus {
   background-color: #d01716;
 }
 
