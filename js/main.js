@@ -729,10 +729,11 @@ app.runClock = function(weatherResponse) {
     var sunriseDataEpoch = weatherResponse[0].sys.sunrise;
     var sunsetDataEpoch = weatherResponse[0].sys.sunset;
     
-    var sunriseDifferenceinSeconds = (sunriseDataEpoch - (+londonEpoch+3600*12));
+    var sunriseDifferenceinSeconds = (1609661127 - (+1609632927));
+//(sunriseDataEpoch - (+londonEpoch));14400
     var sunriseinHours = Math.round(sunriseDifferenceinSeconds / 3600);
 
-    var sunsetDifferenceinSeconds = (sunsetDataEpoch - (+londonEpoch +3600*12));
+    var sunsetDifferenceinSeconds = (1609689927 - (+1609632927));
     var sunsetinHours = Math.round(sunsetDifferenceinSeconds / 3600);
 
     console.log(londonEpoch);
@@ -748,31 +749,49 @@ app.runClock = function(weatherResponse) {
     (function sunRise () {
                     
         if (sunriseDifferenceinSeconds <= 29400 && sunriseDifferenceinSeconds > 3600 ) {
+            $('.tile-clock').addClass('nightime');
+            $('#moon-svg').attr('src', 'img/moon.svg');
+            $('#sunrise').removeClass('is-hidden');
             $('#sunset').addClass('is-hidden');
+            $('#moon-svg').attr('src', 'img/moon.svg');
             $('#sunrise').text('Sunrise is in ' + sunriseinHours + ' hours '); 
             
         } else if (sunriseDifferenceinSeconds === 3600) {
+            $('.tile-clock').removeClass('nightime').addClass('sunset-after');
+            $('#sunrise').removeClass('is-hidden');
             $('#sunset').addClass('is-hidden');
+            $('#moon-svg').addClass('is-hidden');
             $('#sunrise').text('Sunrise is in an hour '); 
 
         } else if (sunriseDifferenceinSeconds < 3600 && sunriseDifferenceinSeconds >= 500) {
+            $('#sunrise').removeClass('is-hidden');
             $('#sunset').addClass('is-hidden');
+            $('#moon-svg').addClass('is-hidden');
+            $('.tile-clock').addClass('sunset-after');
             $('#sunrise').text('Sunrise is soon'); 
 
-        }  else if (sunriseDifferenceinSeconds < 500 && sunriseDifferenceinSeconds >= ~3600 ) { 
+        }  else if (sunriseDifferenceinSeconds < 500 && sunriseDifferenceinSeconds >= ~7200 ) { 
+            $('#sunrise').removeClass('is-hidden');
             $('#sunset').addClass('is-hidden');
+            $('#moon-svg').addClass('is-hidden');
+            $('.tile-clock').addClass('sunset');
             $('#sunrise').text('Dawn'); 
 
-        } else if (sunriseDifferenceinSeconds < ~3600 && sunriseDifferenceinSeconds >= ~18000 ) { 
+        } else if (sunriseDifferenceinSeconds < ~7200 && sunriseDifferenceinSeconds >= ~18000 ) { 
             $('#sunset').addClass('is-hidden');
+            $('#moon-svg').addClass('is-hidden');
+            $('.tile-clock').removeClass('sunset');
             $('#sunrise').text('Sunrise was ' + (sunriseinHours * -1) + ' hours ago '); 
 
-        } else $('#sunrise').text('Midday');  
+        } else if (sunriseDifferenceinSeconds < ~18000 && sunriseDifferenceinSeconds >= ~21600 ) { 
+            $('#sunrise').text('Midday');
+            $('#moon-svg').addClass('is-hidden');  
+            $('.tile-clock').removeClass('sunset');
+        }
 
     setTimeout(sunRise, 1000);
 
     })(); 
-
 
    (function sunSet () {
     
@@ -799,14 +818,18 @@ app.runClock = function(weatherResponse) {
             $('#sunrise').text('Sunset was an hour ago '); 
         } 
 
-        else if (sunsetDifferenceinSeconds <= ~7200 && sunsetDifferenceinSeconds >= ~ 10800) {
+        else if (sunsetDifferenceinSeconds <= ~7200 && sunsetDifferenceinSeconds >= ~10800) {
             $('.tile-clock').removeClass('sunset-after').addClass('nightime');
             $('#sunrise').text('Sunset was ' + (sunsetinHours * -1) + ' hours ago '); 
+            $('#moon-svg').attr('src', 'img/moon.svg');
 
-        } else  {
-            $('.tile-clock').removeClass('sunset-after').addClass('nightime');
+        } 
+
+        else if (sunsetDifferenceinSeconds < ~10800 && sunsetDifferenceinSeconds > ~29400) {
+            $('.tile-clock').addClass('nightime');
             $('#sunrise').addClass('is-hidden');
-            $('#sunset').text('Nightime 🌙✨');  
+            $('#sunset').text('Nightime ');
+            $('#moon-svg').attr('src', 'img/moon.svg');
 
         }
 
@@ -869,7 +892,7 @@ if (userTimeZonetwentyFourHours >= 0 && userTimeZonetwentyFourHours < 5 ) {
     $('.loader-greeting').text('Afternoon');
 
 } else if (userTimeZonetwentyFourHours >= 17 || userTimeZonetwentyFourHours < 0) {
-    $('.loader-greeting').text('Good Evening');
+    $('.loader-greeting').text('Good evening');
             
 }
     setTimeout(loaderGreeting, 5000);
