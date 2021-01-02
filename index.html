@@ -74,7 +74,7 @@
           <img class="gooddaydashboard-icon" src="img/gooddaydashboard_icon-02.svg" alt="Good Day Dashboard Icon">
           <h1>Good Day Dashboard</h1>
         </div>
-        <div class="loading-text animated animatedFadeInUp fadeInUp">Hang tight, we're looking up the current conditions in London..</div>
+        <div class="loading-text animated animatedFadeInUp fadeInUp"><span class="loader-greeting"></span>, we're looking up the current conditions in London..</div>
          <div class="loading-text animated animatedFadeInUp fadeInUp">
          <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -152,7 +152,7 @@
 
       <div class="tile tile-calendar ripple-effect">
       <div class="clock">
-      <div class="clock-label">British Summer Time</div>
+        <div id="day-label" class=""></div>
          <div class="clockface">
          <div class="dial">
             <div class="dot"></div>
@@ -162,17 +162,30 @@
             <div class="diallines"></div> 
          </div>
          </div>
-         <div id="day-label" class=""></div>
-         </div>
-        <!-- <span class="google content-wrapper">
+          
+        
+        <!-- <img id="sunrise-svg" alt="Sunrise Icon" height="25" width="25"> -->
+       <div class="sunrise-content">
+        <div id="sunrise" class="sunrise"></div>
+        <div id="bullet">•</div>
+        <div id="currenttimezone"></div>
+      </div>
+       </div>
+      <!--
+        
+      
+       
+     
+      <span class="google content-wrapper">
             <div id="googletitle"></div>
             <pre id="googleCalendar" style="font-family:'sofia-pro'"></pre>
             <div id="authorize-div">Show Google Calendar?<button id="authorize-button" onclick="app.getGoogleCalendar()"> Authorize </button>
             </div>
             <div id="noGoogle">Don't use Google Calendar?<button id="arrow">></button></div>
          </span>-->
+      
       </div>
-      </div>
+    </div>
       <div class="tile-message tile-white ripple-effect">
          <span class="content-wrapper">
          <h3 style="font-weight: 400";>

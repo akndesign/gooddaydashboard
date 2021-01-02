@@ -33,7 +33,9 @@ app.getAJAX = function() {
         var weatherandAsteroidArray = [];
         var asteroidArray = [];
         var weatherCondition = weatherResponse[0].weather[0].main;
+
         var asteroidCount = asteroidResponse[0].count;
+
 
         asteroidArray.push(asteroidCount);
 
@@ -50,6 +52,7 @@ app.getAJAX = function() {
         app.displayWeather(weatherCondition, weatherResponse);
         app.displayAsteroids(asteroidArray);
         app.displayBadDay(weatherCondition, asteroidArray, undergroundResponse[0]);
+        app.runClock(weatherResponse);
 
       });
  };
@@ -166,7 +169,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         var partclosureSingleLine = partClosure.join(', ').concat(singleLine);
 
-                        $('#partclosure').text('Closure on the ' + partclosureSingleLine);
+                        $('#partclosure').text('Planned closure on the ' + partclosureSingleLine);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
                         $('#closed-title').addClass('is-hidden');
@@ -186,7 +189,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                         var partclosurePluralLines = partClosure.join(' and ').concat(pluralLines);
                         
 
-                        $('#partclosure').text('Closures on the ' + partclosurePluralLines);
+                        $('#partclosure').text('Planned Closures on the ' + partclosurePluralLines);
                         $('#partclosure').addClass('interruptions');
                         $('#interruptions').addClass('closure-interruptions');
                         $('#interruptions-title').text('Closures');
@@ -286,6 +289,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 } else {
 
+                    /* COMMENT THIS BACK IN ONCE NIGHT TUBE SERVICE IS AVAILABLE
+
                     var today = moment().add('Europe/London').format('e');
 
                     if (today === '5' || today === '6') {
@@ -310,14 +315,12 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                             $(addLineID).addClass('is-trans-hidden');
                         });
 
-                    } else {
-
-                        console.log(serviceClosed);
+                    } else {*/
 
                         $('#good-service').addClass('is-hidden');
                         $('#interruptions-title').addClass('text-title');
-                        $('#interruptions-title').text('Service');
-                        $('#closed-title').text('closed');
+                        $('#interruptions-title').text('Service Closed');
+                        //$('#closed-title').text('closed');
                         $('#service-closed').addClass('is-hidden');
                         $('#tflCommentary').text("Night Bus Hour :( Otherwise it's");
                         $('#weatherStart').addClass('is-hidden');
@@ -332,9 +335,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                             $('.undergroundStatus').addClass('is-trans-hidden');
                             $(addLineID).addClass('is-trans-hidden');
                         });
-                    }
-
-                }
+                    };
                
             break;
 
@@ -419,7 +420,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
     var tempFahrenheit = Math.round((weatherResponse[0].main.temp)*9/5 - 459.67);
     var feelsLike = Math.round(weatherResponse[0].main.feels_like-273.15);
     var currentCondition = weatherResponse[0].weather[0].main;
-    console.log(currentCondition);
+    console.log(weatherResponse);
 
     //weatherandAsteroidArray = [];
 
@@ -718,23 +719,105 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
     }); app.runClock();
 };*/
 
-app.runClock = function() {
+
+app.runClock = function(weatherResponse) {
+
 
     londonTime = moment.tz.add('Europe/London|BST BDST GMT|0 -10 -20|0101010101010101010101010101010101010101010101010121212121210101210101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-2axa0 Rc0 1fA0 14M0 1fc0 1g00 1co0 1dc0 1co0 1oo0 1400 1dc0 19A0 1io0 1io0 WM0 1o00 14o0 1o00 17c0 1io0 17c0 1fA0 1a00 1lc0 17c0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1cM0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1io0 1qM0 Dc0 2Rz0 Dc0 1zc0 Oo0 1zc0 Rc0 1wo0 17c0 1iM0 FA0 xB0 1fA0 1a00 14o0 bb0 LA0 xB0 Rc0 1wo0 11A0 1o00 17c0 1fA0 1a00 1fA0 1cM0 1fA0 1a00 17c0 1fA0 1a00 1io0 17c0 1lc0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1a00 1qM0 WM0 1qM0 11A0 1o00 WM0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1tA0 IM0 90o0 U00 1tA0 U00 1tA0 U00 1tA0 U00 1tA0 WM0 1qM0 WM0 1qM0 WM0 1tA0 U00 1tA0 U00 1tA0 11z0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 14o0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00');
 
     var londonDate = moment.tz(londonTime).format('dddd, MMMM Do, YYYY');
+    
+   
     var hours = moment.tz('Europe/London').format('hh');
     var daylightSavings = moment.tz('Europe/London').isDST();
 
-    $('#day-label').append(londonDate);
+    var sunriseDataEpoch = weatherResponse[0].sys.sunrise;
 
-    if (daylightSavings) {    
-        $('.clock-label').text('British Summer Time');
+    console.log(sunriseDataEpoch);
+
+    var londonEpoch = moment.tz(londonTime).format('X');
+    var sunriseDifferenceinSeconds = (sunriseDataEpoch - (+londonEpoch));
+    var sunriseinHours = Math.round(sunriseDifferenceinSeconds / 3600);
+
+    console.log(sunriseDataEpoch);
+
+    $('#day-label').text(londonDate);
+
+    if (daylightSavings) {   
+        $('#currenttimezone').text('BST');
         } else {
-        $('.clock-label').text('Greenwich Mean Time');
+        $('#currenttimezone').text(' GMT');
+    } 
+    
+    //var sunset = sunStatus.sunset;
+
+    (function sunRise () {
+    
+        if (sunriseDifferenceinSeconds > 3600 ) {
+            $('#sunrise').text('Sunrise is in ' + sunriseinHours + ' hours '); 
+            
+        } else if (sunriseDifferenceinSeconds === 3600) {
+            $('#sunrise').text('Sunrise is in an hour '); 
+
+        } else if (sunriseDifferenceinSeconds < 3600 && sunriseDifferenceinSeconds >= 500) {
+            $('#sunrise').text('Sunrise is soon'); 
+
+        }  else if (sunriseDifferenceinSeconds < 500 && sunriseDifferenceinSeconds >= ~3600 ) { 
+            $('#sunrise').text('Dawn'); 
+
+        } else { $('#sunrise').text('Sunrise was ' + (sunriseinHours * -1) + ' hours ago '); 
+
+          }
+
+    setTimeout(sunRise, 1000);
+
+    })(); 
+
+
+   /* (function sunSet () {
+    
+        if (sunriseDifferenceinSeconds > 3600 ) {
+            $('#sunrise').text('Sunrise is in ' + sunriseinHours + ' hours '); 
+            
+        } else if (sunriseDifferenceinSeconds === 3600) {
+            $('#sunrise').text('Sunrise is in an hour '); 
+
+        } else if (sunriseDifferenceinSeconds < 3600 && sunriseDifferenceinSeconds >= 500) {
+            $('#sunrise').text('Sunrise is soon'); 
+
+        }  else if (sunriseDifferenceinSeconds < 500 && sunriseDifferenceinSeconds >= ~3600 ) { 
+            $('#sunrise').text('Dawn'); 
+
+        } else { $('#sunrise').text('Sunrise was ' + (sunriseinHours * -1) + ' hours ago '); 
+
+          }
+
+    setTimeout(sunRise, 1000);
+
+    })(); */
+        //if epochDifference is >= 3000
+    //setTimeout(dayorNight, 1000);
+
+
+    /*(function timeofDay () {
+
+    if (twentyFourHours >= 3 && twentyFourHours < 12 ) {
+        $('.timeofday').text('Good Morning');
+
+
+    } else if (twentyFourHours >= 12 && twentyFourHours < 17) {
+             $('.timeofday').text('Good Afternoon');
+
+    } else if (twentyFourHours >= 17 || twentyFourHours < 3) {
+            $('.timeofday').text('Good Evening');
+            
     }
 
-    var dialLines = document.getElementsByClassName('diallines');
+    setTimeout(timeofDay, 5000);
+    
+    })();*/
+
+    var dialLines = $('.diallines');
 
     for (var i = 1; i <= 60; i++) {
         dialLines[i] = $(dialLines[i - 1]).clone().insertAfter($(dialLines[i - 1]));
@@ -743,39 +826,28 @@ app.runClock = function() {
 
     function tick() {
 
-        var seconds = moment.tz(londonTime).format('ss');
-        var minutes = moment.tz(londonTime).format('mm');
-        var hours = moment.tz('Europe/London').format('hh');
-        var twentyFourHours = moment.tz('Europe/London').format('HH');
-        var timeofDay = '';
+    var seconds = moment.tz(londonTime).format('ss');
+    var minutes = moment.tz(londonTime).format('mm');
+    var hours = moment.tz('Europe/London').format('hh');
+    
+    var secAngle = seconds * 6;
+    var minAngle = minutes * 6 + seconds * (360 / 3600);
+    var hourAngle = hours * 30 + minutes * (360 / 720);
 
-        if (twentyFourHours >= 3 && twentyFourHours < 12 ) {
-            timeofDay = 'morning'; 
-        } else if (twentyFourHours >= 12 && twentyFourHours < 17) {
-            timeofDay = 'afternoon'; 
-        } else if (twentyFourHours >= 17 || twentyFourHours < 3) {
-            timeofDay = 'evening';
-        }
+    if (secAngle === 0 ) {
+        $('.sec-hand').removeClass('hand-movement');     
+    } else {
+        $('.sec-hand').addClass('hand-movement');
+    }
+    if (minAngle === 0 ) {
+        $('.min-hand').removeClass('hand-movement');
+    } else {
+        $('.min-hand').addClass('hand-movement');
+    }
+    $('.sec-hand').css('transform', 'rotate(' + secAngle + 'deg)');
+    $('.min-hand').css('transform', 'rotate(' + minAngle + 'deg)');
+    $('.hour-hand').css('transform', 'rotate(' + hourAngle + 'deg)');
 
-        var secAngle = seconds * 6;
-        var minAngle = minutes * 6 + seconds * (360 / 3600);
-        var hourAngle = hours * 30 + minutes * (360 / 720);
-
-        if (secAngle === 0 ) {
-            $('.sec-hand').removeClass('hand-movement');     
-        } else {
-            $('.sec-hand').addClass('hand-movement');
-        }
-
-        if (minAngle === 0 ) {
-            $('.min-hand').removeClass('hand-movement');
-        } else {
-            $('.min-hand').addClass('hand-movement');
-        }
-
-        $('.sec-hand').css('transform', 'rotate(' + secAngle + 'deg)');
-        $('.min-hand').css('transform', 'rotate(' + minAngle + 'deg)');
-        $('.hour-hand').css('transform', 'rotate(' + hourAngle + 'deg)');
     }
 
     setInterval(tick, 100);
@@ -783,6 +855,29 @@ app.runClock = function() {
 }; 
 
 app.loaderFadeOut = function(){
+
+var twentyFourHours = moment.tz('Europe/London').format('HH');
+var userTimeZone = moment.tz.guess(true);
+var userTimeZonetwentyFourHours = moment.tz("'" + userTimeZone + "'").format('HH');
+
+(function loaderGreeting () {
+
+if (userTimeZonetwentyFourHours >= 0 && userTimeZonetwentyFourHours < 5 ) {
+    $('.loader-greeting').text('Hello night owl');
+
+} else if (userTimeZonetwentyFourHours >= 5 && userTimeZonetwentyFourHours < 12) {
+    $('.loader-greeting').text('Morning');
+
+} else if (userTimeZonetwentyFourHours >= 12 && userTimeZonetwentyFourHours < 17) {
+    $('.loader-greeting').text('Afternoon');
+
+} else if (userTimeZonetwentyFourHours >= 17 || userTimeZonetwentyFourHours < 0) {
+    $('.loader-greeting').text('Good Evening');
+            
+}
+    setTimeout(loaderGreeting, 5000);
+    
+})();
 
 setTimeout(function() {
        $('.loading-text').removeClass("fadeInUp");
@@ -803,8 +898,8 @@ app.removeWidget = function(){
 
 app.init = function() {
     app.loaderFadeOut();
-    app.runClock();
     app.getAJAX();
+    app.runClock();
     app.removeWidget();
 };
 
