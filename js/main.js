@@ -809,6 +809,7 @@ app.runClock = function(weatherResponse) {
         }  else if (sunsetDifferenceinSeconds < 500 && sunsetDifferenceinSeconds >= ~3600 ) { 
             $('#sunrise').addClass('is-hidden');
             $('.tile-clock').removeClass('sunset-before').addClass('sunset');
+             $('#moon-svg').addClass('is-hidden');
             $('#sunset').text('Sunset'); 
 
         } else if (sunsetDifferenceinSeconds < ~3600 && sunsetDifferenceinSeconds > ~7200) {
