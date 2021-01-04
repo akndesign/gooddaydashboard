@@ -796,25 +796,29 @@ app.runClock = function(weatherResponse) {
         if (sunsetDifferenceinSeconds <= 10800 && sunsetDifferenceinSeconds > 3600 ) {
             $('#sunrise').addClass('is-hidden');
             $('#sunset').text('Sunset is in ' + sunsetinHours + ' hours '); 
+            $('#moon-svg').addClass('is-hidden');
             
         } else if (sunsetDifferenceinSeconds === 3600) {
             $('.tile-clock').addClass('sunset-before');
+            $('#moon-svg').addClass('is-hidden');
             $('#sunset').text('Sunset is in an hour '); 
 
         } else if (sunsetDifferenceinSeconds < 3600 && sunsetDifferenceinSeconds >= 500) {
             $('#sunrise').addClass('is-hidden');
             $('.tile-clock').removeClass('sunset').addClass('sunset-before');
+            $('#moon-svg').addClass('is-hidden');
             $('#sunset').text('Sunset is soon'); 
 
         }  else if (sunsetDifferenceinSeconds < 500 && sunsetDifferenceinSeconds >= ~3600 ) { 
             $('#sunrise').addClass('is-hidden');
             $('.tile-clock').removeClass('sunset-before').addClass('sunset');
-             $('#moon-svg').addClass('is-hidden');
+            $('#moon-svg').addClass('is-hidden');
             $('#sunset').text('Sunset'); 
 
         } else if (sunsetDifferenceinSeconds < ~3600 && sunsetDifferenceinSeconds > ~7200) {
             $('.tile-clock').removeClass('sunset').addClass('sunset-after');
             $('#sunrise').text('Sunset was an hour ago '); 
+            $('#moon-svg').addClass('is-hidden');
         } 
 
         else if (sunsetDifferenceinSeconds <= ~7200 && sunsetDifferenceinSeconds >= ~10800) {
