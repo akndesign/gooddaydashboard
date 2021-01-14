@@ -20,8 +20,8 @@ app.getAJAX = function() {
         
         $.get(weatherUrl + apiWeatherKey),
         //$.getJSON('js/dummy-json/weather/clouds.json'),
-        $.get(tflUrl + app_id + apiUndergroundKey),
-        //$.getJSON('js/dummy-json/tube/partclosure&serviceclosed.json'), <-- this causes a huge bug!
+        //$.get(tflUrl + app_id + apiUndergroundKey),
+        $.getJSON('js/dummy-json/tube/nighttube.json'), //<-- this causes a huge bug!
         $.get(asteroidUrl + nasaAPIDay),
         //$.getJSON('js/dummy-json/asteroidtrue.json'),
         //$.get(asteroidUrl + apiKey)
@@ -140,6 +140,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
             case 'Good Service':
 
+            goodService.push(undergroundName);
+
                 $('#good-service').text('Good').append('<div id="good-title"></div>');
                 $('#good-title').text('service');
                 $('#weatherStart').addClass('is-hidden');
@@ -169,7 +171,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         $('#partclosure').text('Planned closure on the ' + partclosureSingleLine);
                         $('#partclosure').addClass('interruptions');
-                        $('#interruptions').addClass('closure-interruptions');
+                        $('#interruptions').removeClass('interruptions').addClass('closure-interruptions');
+
                         $('#closed-title').addClass('is-hidden');
 
                         $('.service-board').hover(function() {
@@ -189,10 +192,10 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         $('#partclosure').text('Planned Closures on the ' + partclosurePluralLines);
                         $('#partclosure').addClass('interruptions');
-                        $('#interruptions').addClass('closure-interruptions');
+                        $('#interruptions').removeClass('interruptions').addClass('closure-interruptions');
                         $('#interruptions-title').text('Closures');
                         $('#good-service').addClass('is-hidden');
-                        $('#interruptions-title').addClass('interruptions-text-title');
+                        //$('#interruptions-title').addClass('interruptions-text-title');
 
                         $('.service-board').hover(function() {
                             $(addLineID).removeClass('is-trans-hidden');
@@ -216,12 +219,12 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                         $('#partclosure').text('Planned Closures on the ' + partclosureOtherLines);
                         $('#partclosure').addClass('interruptions');
-                        $('#interruptions').addClass('closure-interruptions');
+                        $('#interruptions').removeClass('interruptions').addClass('closure-interruptions');
                         $('#interruptions-title').text('Some').append('<div id="interruptions-subtitle"></div>');
                         $('#interruptions-subtitle').text('Closures');
                         
                         //$('#closed-title').removeClass('is-hidden').text('Closures');
-                        $('#interruptions-title').addClass('interruptions-text-title');
+                        //$('#interruptions-title').addClass('interruptions-text-title');
 
                         $('.service-board').hover(function() {
                             $(addLineID).removeClass('is-trans-hidden');
@@ -247,7 +250,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     var serviceClosedSingle = serviceClosed.concat(singleLine);
 
-                    $('#service-closed').text('Service Closed on the ');
+                    $('#service-closed').text('Service Closed on the ').addClass('interruptions');
                     $('#service-closed').append(serviceClosedSingle);
 
                     $('.service-board').hover(function() {
@@ -267,7 +270,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     var serviceClosedPlural = serviceClosed.join(' and ').concat(pluralLines);
 
-                    $('#service-closed').text('Service Closed on the ');
+                    $('#service-closed').text('Service Closed on the ').addClass('closure-interruptions');
                     $('#service-closed').append(serviceClosedPlural);
                     //$(addLineID).append('<img class="closed-icon">');
 
@@ -285,18 +288,18 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                 } else {
 
-                    /* COMMENT THIS BACK IN ONCE NIGHT TUBE SERVICE IS AVAILABLE
+                    //COMMENT THIS BACK IN ONCE NIGHT TUBE SERVICE IS AVAILABLE
 
-                    var today = moment().add('Europe/London').format('e');
+                    /*var today = moment().add('Europe/London').format('e');
 
                     if (today === '5' || today === '6') {
 
-                        var serviceClosedOtherLines = serviceClosed.join(', ');
-                        var serviceSlice = serviceClosedOtherLines.slice(0, 26).concat(severalOtherLines);
+                        var nightTubeGoodService = [goodService.slice(0, -1).join(', '), goodService.slice(-1)[0]].join(goodService.length < 2 ? '' : ' and ').concat(otherLines);
 
+                        $('#night-tube').text('Good Service on the ' + nightTubeGoodService).addClass('interruptions');
                         $('#good-service').addClass('is-hidden');
-                        $('#service-closed').addClass('closure-interruptions');
-                        $('#interruptions-title').text('Night Tube Service').addClass('night');
+                        $('#interruptions-title').text('Night Tube Service').addClass('interruptions-text-title');
+                        $('#service-closed').addClass('is-hidden');
                         $('#weatherStart').addClass('is-hidden');
                         $('#tflCommentary').text("Woohoo, Night Tube – Party On! Otherwise, it's");
 
@@ -347,6 +350,7 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     var interruptionSingleLine = interruption.join(' ').concat(singleLine);
 
                     $('#interruptions').text('Interruption on the ' + interruptionSingleLine);
+                    $('#service-closed').removeClass('interruptions').addClass('closure-interruptions');
 
                     $('.service-board').hover(function() {
                             $(addLineID).removeClass('is-trans-hidden');
@@ -364,7 +368,8 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
 
                     var interruptionPluralLines = interruption.join(' and ').concat(pluralLines);
 
-                    $('#interruptions').text('Interruptions on the ' + interruptionPluralLines);
+                    $('#interruptions').text('Interruptions on the ' + interruptionPluralLines).addClass('interruptions');
+                    $('#service-closed').removeClass('interruptions').addClass('closure-interruptions');
                     $('#weatherStart').addClass('is-hidden');
                     $('#tflCommentary').text('Replan travels on the Underground if needed, otherwise');
 
@@ -384,9 +389,9 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
                     var interruptionOtherLines = [interruption.slice(0, -1).join(', '), interruption.slice(-1)[0]].join(interruption.length < 2 ? '' : ' and ').concat(otherLines);
 
                     $('#good-service').addClass('is-hidden');
-                    $('#interruptions').text('Interruptions on the ' + interruptionOtherLines);
-                    $('#interruptions-title').text('Interrupted Service');
-                    $('#interruptions-title').addClass('interruptions-text-title');
+                    $('#service-closed').removeClass('interruptions').addClass('closure-interruptions');
+                    $('#interruptions').text('Interruptions on the ' + interruptionOtherLines).addClass('interruptions');
+                    $('#interruptions-title').text('Interrupted Service').addClass('interruptions-text-title');
                     $('#weatherStart').addClass('is-hidden');
                     $('#tflCommentary').text("The Underground looks a bit broken today – otherwise it's");
 
@@ -528,7 +533,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
                 $('.tile-weather').addClass('snow');
                 $('#weathercondition').text(currentCondition);
                 $('#weatherStart').addClass('is-hidden');
-                $('#hot').append(' (Snowing in London?? Madness!)');
+                $('#hot').append(' snowing in London?? Madness!');
 
                 break;
             
@@ -885,7 +890,7 @@ var userTimeZonetwentyFourHours = moment.tz("'" + userTimeZone + "'").format('HH
 
 (function loaderGreeting () {
 
-if (userTimeZonetwentyFourHours >= 0 && userTimeZonetwentyFourHours < 5 ) {
+if (userTimeZonetwentyFourHours >= 1 && userTimeZonetwentyFourHours < 5 ) {
     $('.loader-greeting').text('Hello night owl');
 
 } else if (userTimeZonetwentyFourHours >= 5 && userTimeZonetwentyFourHours < 12) {
@@ -894,7 +899,7 @@ if (userTimeZonetwentyFourHours >= 0 && userTimeZonetwentyFourHours < 5 ) {
 } else if (userTimeZonetwentyFourHours >= 12 && userTimeZonetwentyFourHours < 17) {
     $('.loader-greeting').text('Afternoon');
 
-} else if (userTimeZonetwentyFourHours >= 17 || userTimeZonetwentyFourHours < 0) {
+} else if (userTimeZonetwentyFourHours >= 17 || userTimeZonetwentyFourHours < 1) {
     $('.loader-greeting').text('Good evening');
             
 }

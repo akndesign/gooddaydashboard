@@ -1,74 +1,27 @@
 {
-  "name": "yes",
+  "name": "gooddaydashboard",
+  "description": "npm install for gooddaydashboard",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
-  "keywords": [
-    "ui",
-    "flat",
-    "bootstrap"
-  ],
-<<<<<<< HEAD
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "moment": "^2.14.1",
-    "moment-timezone": "^0.5.5"
-  },
-  "style": "/css/flat-ui.css",
-  "less": "less/flat-ui.less",
   "repository": {
     "type": "git",
-    "url": "https://github.com/designmodo/Flat-UI.git"
+    "url": "git+https://github.com/akndesign/my_package.git"
   },
-  "bugs": {
-    "url": "https://github.com/designmodo/Flat-UI/issues"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "jshint": "^2.9.2",
-    "gulp-connect": "^5.0.0",
-    "gulp-jshint": "^2.0.1",
-  },
-  "engines": {
-    "node": "~0.10.31"
-=======
-=======
->>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
-  "author": "",
+  "keywords": [],
+  "author": "alexander neumann",
   "license": "ISC",
-  "dependencies": {
-    "moment": "^2.14.1",
-    "moment-timezone": "^0.5.5"
-  },
-  "style": "/css/flat-ui.css",
-  "less": "less/flat-ui.less",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/designmodo/Flat-UI.git"
-  },
   "bugs": {
-    "url": "https://github.com/designmodo/Flat-UI/issues"
+    "url": "https://github.com/akndesign/my_package/issues"
+  },
+  "homepage": "https://github.com/akndesign/my_package",
+  "dependencies": {
+    "gulp-watch": "^5.0.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "jshint": "^2.9.2",
-    "gulp-connect": "^5.0.0",
-<<<<<<< HEAD
-    "gulp-jshint": "^2.0.1"
->>>>>>> old_a/master
-=======
-    "gulp-jshint": "^2.0.1",
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2"
   },
-  "engines": {
-    "node": "~0.10.31"
->>>>>>> c41fcdd157e90916361f592c8424ed4c573c97e0
-  }
+  "main": "gulpfile.js"
 }

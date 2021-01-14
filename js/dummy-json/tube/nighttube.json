@@ -386,7 +386,7 @@
 				"id": 0,
 				"lineId": "piccadilly",
 				"statusSeverity": 20,
-				"statusSeverityDescription": "Service Closed",
+				"statusSeverityDescription": "Good Service",
 				"reason": "Piccadilly Line: Train service resumes later this morning. ",
 				"created": "0001-01-01T00:00:00",
 				"validityPeriods": [
