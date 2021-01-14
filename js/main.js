@@ -20,8 +20,8 @@ app.getAJAX = function() {
         
         $.get(weatherUrl + apiWeatherKey),
         //$.getJSON('js/dummy-json/weather/clouds.json'),
-        //$.get(tflUrl + app_id + apiUndergroundKey),
-        $.getJSON('js/dummy-json/tube/nighttube.json'), //<-- this causes a huge bug!
+        $.get(tflUrl + app_id + apiUndergroundKey),
+        //$.getJSON('js/dummy-json/tube/nighttube.json'), //<-- this causes a huge bug!
         $.get(asteroidUrl + nasaAPIDay),
         //$.getJSON('js/dummy-json/asteroidtrue.json'),
         //$.get(asteroidUrl + apiKey)
