@@ -9,10 +9,10 @@ app.getAJAX = function() {
     var app_id = 'app_id=2a49b2c6';
     var apiUndergroundKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
-    var asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
-    var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
+    
+    //var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
 
-    var asteriodURL = (asteroidUrl + nasaAPIDay); 
+    //var asteriodURL = (asteroidUrl + nasaAPIDay); 
 
     console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
@@ -22,8 +22,8 @@ app.getAJAX = function() {
         //$.getJSON('js/dummy-json/weather/clouds.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
         //$.getJSON('js/dummy-json/tube/nighttube.json'), //<-- this causes a huge bug!
-        $.get(asteroidUrl + nasaAPIDay),
-        //$.getJSON('js/dummy-json/asteroidtrue.json'),
+        //$.get(asteroidUrl + nasaAPIDay),
+        $.getJSON('js/dummy-json/asteroidfalse.json'),
         //$.get(asteroidUrl + apiKey)
         //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA, OR CHANGE TO LIVE VERSION
 
@@ -55,58 +55,6 @@ app.getAJAX = function() {
       });
  };
   
-/*app.getGoogleCalendar = function() {
-
-    $('#noGoogle' ).addClass('is-hidden');
-
-    var CLIENT_ID = '898526595344-15r6oqg7ibui899rt34ieha6l0ilkoqk.apps.googleusercontent.com';
-    var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-
-    var googleResponse = gapi.auth.authorize({
-        client_id: CLIENT_ID,
-        scope: SCOPES.join(' '),
-        immediate: false
-    });
-
-    gapi.client.load('calendar', 'v3', listUpcomingEvents);
-
-      /**
-       * Print the summary and start datetime/date of the next ten events in
-       * the authorized user's calendar. If no events are found an
-       * appropriate message is printed.
-       
-      function listUpcomingEvents() {
-        var request = gapi.client.calendar.events.list({
-          'calendarId': 'primary',
-          'timeMin': (new Date()).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          'maxResults': 10,
-          'orderBy': 'startTime'
-        });
-      
-    request.execute(function(resp) {
-        var events = resp.items;
-
-        if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-              var event = events[i];
-              var when = event.start.dateTime;
-              if (!when) {
-                when = event.start.date;
-              }
-               $('#googleCalendar').append(event.summary + ' (' + when + ')');
-               console.log(events);
-            }
-          } else {
-            $('#googleCalendar').append('No upcoming events found.');
-          }
-
-           $('#googletitle').text('Upcoming events:');
-
-        });
-      }
-};*/
 
 //Display Underground, Per-Line, display Underground Overlay
 
