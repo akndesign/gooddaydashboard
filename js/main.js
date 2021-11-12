@@ -670,7 +670,6 @@ app.displayBadDay = function(weatherCondition, asteroidArray, undergroundRespons
 
 app.runClock = function(weatherResponse) {
 
-
     londonTime = moment.tz.add('Europe/London|BST BDST GMT|0 -10 -20|0101010101010101010101010101010101010101010101010121212121210101210101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-2axa0 Rc0 1fA0 14M0 1fc0 1g00 1co0 1dc0 1co0 1oo0 1400 1dc0 19A0 1io0 1io0 WM0 1o00 14o0 1o00 17c0 1io0 17c0 1fA0 1a00 1lc0 17c0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1cM0 1io0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1io0 1qM0 Dc0 2Rz0 Dc0 1zc0 Oo0 1zc0 Rc0 1wo0 17c0 1iM0 FA0 xB0 1fA0 1a00 14o0 bb0 LA0 xB0 Rc0 1wo0 11A0 1o00 17c0 1fA0 1a00 1fA0 1cM0 1fA0 1a00 17c0 1fA0 1a00 1io0 17c0 1lc0 17c0 1fA0 1a00 1io0 17c0 1io0 17c0 1fA0 1a00 1a00 1qM0 WM0 1qM0 11A0 1o00 WM0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1tA0 IM0 90o0 U00 1tA0 U00 1tA0 U00 1tA0 U00 1tA0 WM0 1qM0 WM0 1qM0 WM0 1tA0 U00 1tA0 U00 1tA0 11z0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1o00 14o0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00');
 
     var hours = moment.tz('Europe/London').format('hh');
@@ -686,6 +685,9 @@ app.runClock = function(weatherResponse) {
         //(sunriseDataEpoch - (+londonEpoch));
     var sunriseinHours = Math.round(sunriseDifferenceinSeconds / 3600);
 
+    console.log(sunriseDifferenceinSeconds);
+
+
     var sunsetDifferenceinSeconds = (sunsetDataEpoch - (+londonEpoch));
     var sunsetinHours = Math.round(sunsetDifferenceinSeconds / 3600);
 
@@ -698,8 +700,10 @@ app.runClock = function(weatherResponse) {
     } 
     
     (function sunRise () {
+
+        console.log(sunriseinHours);
                     
-        if (sunriseDifferenceinSeconds <= 29400 && sunriseDifferenceinSeconds > 3600 ) {
+        if (sunriseDifferenceinSeconds <= 29400 && sunriseDifferenceinSeconds > 3600 && sunriseinHours !== 1) {
             $('.tile-clock').addClass('nightime');
             $('#moon-svg').attr('src', 'img/moon.svg');
             $('#sunrise').removeClass('is-hidden');
@@ -707,7 +711,7 @@ app.runClock = function(weatherResponse) {
             $('#moon-svg').attr('src', 'img/moon.svg');
             $('#sunrise').text('Sunrise is in ' + sunriseinHours + ' hours '); 
             
-        } else if (sunriseDifferenceinSeconds === 3600) {
+        } else if (sunriseinHours === 1 ) {
             $('.tile-clock').removeClass('nightime').addClass('sunset-after');
             $('#sunrise').removeClass('is-hidden');
             $('#sunset').addClass('is-hidden');
@@ -728,7 +732,7 @@ app.runClock = function(weatherResponse) {
             $('.tile-clock').addClass('sunset');
             $('#sunrise').text('Dawn'); 
 
-        } else if (sunriseDifferenceinSeconds < ~7200 && sunriseDifferenceinSeconds >= ~18000 ) { 
+        } else if (sunriseDifferenceinSeconds < ~7200 && sunriseDifferenceinSeconds >= ~18000 && sunriseinHours !== -1) { 
             $('#sunset').addClass('is-hidden');
             $('#moon-svg').addClass('is-hidden');
             $('.tile-clock').removeClass('sunset');
@@ -833,21 +837,24 @@ app.runClock = function(weatherResponse) {
 app.loaderFadeOut = function(){
 
 var twentyFourHours = moment.tz('Europe/London').format('HH');
-var userTimeZone = moment.tz.guess(true);
-var userTimeZonetwentyFourHours = moment.tz("'" + userTimeZone + "'").format('HH');
+var timedifference = new Date().getTimezoneOffset();
+
+console.log(timedifference);
+
+var userTime = new Date().getHours();
 
 (function loaderGreeting () {
 
-if (userTimeZonetwentyFourHours >= 1 && userTimeZonetwentyFourHours < 5 ) {
+if (userTime >= 1 && userTime < 5 ) {
     $('.loader-greeting').text('Hello night owl');
 
-} else if (userTimeZonetwentyFourHours >= 5 && userTimeZonetwentyFourHours < 12) {
+} else if (userTime >= 5 && userTime < 12) {
     $('.loader-greeting').text('Morning');
 
-} else if (userTimeZonetwentyFourHours >= 12 && userTimeZonetwentyFourHours < 17) {
+} else if (userTime >= 12 && userTime < 17) {
     $('.loader-greeting').text('Afternoon');
 
-} else if (userTimeZonetwentyFourHours >= 17 || userTimeZonetwentyFourHours < 1) {
+} else if (userTime >= 17 || userTime < 1) {
     $('.loader-greeting').text('Good evening');
             
 }
