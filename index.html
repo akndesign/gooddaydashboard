@@ -7,13 +7,21 @@
       <script>try{Typekit.load({ async: true });}catch(e){}</script>
        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-       <script type="text/javascript" src="moment.min.js"></script>
-      <script type="text/javascript" src="moment-timezone-with-data.js"></script>
+       <script type="text/javascript" src="js/moment.min.js"></script>
+      <script type="text/javascript" src="js/moment-timezone-with-data.js"></script>
       <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
       <!--<script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>-->
       <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 
       <script type="text/javascript">
+ 
+    $.ajax({
+         url: '/nasa',
+         complete: function(data) {
+               console.log(data);
+            }
+         });
+
         
       $(window).on('load', function(){
         $('#loading-bg').delay(3500).fadeOut(500);
@@ -39,11 +47,12 @@
       ga('create', 'UA-89992569-1', 'auto');
       ga('send', 'pageview');
 
+     
 
     </script>
 
-      <link rel="stylesheet" type="text/css" href="normalize.css">
-      <link rel="stylesheet"type="text/css" href="style.css">
+      <link rel="stylesheet" type="text/css" href="public/css/normalize.css">
+      <link rel="stylesheet"type="text/css" href="public/css/style.css">
       <link rel="apple-touch-icon" sizes="57x57" href="fav/apple-icon-57x57.png">
       <link rel="apple-touch-icon" sizes="60x60" href="fav/apple-icon-60x60.png">
       <link rel="apple-touch-icon" sizes="72x72" href="fav/apple-icon-72x72.png">
@@ -64,6 +73,8 @@
       <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
       <meta name="theme-color" content="#ffffff">
       
+     
+
    </head>
 
    <body>
