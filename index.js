@@ -7,7 +7,8 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/public'))); 
+app.use(express.static(path.join(__dirname + '/')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -22,7 +23,7 @@ console.log(nasaAPIDay, nasaAPIURL);
 
 app.get('/nasa-asteriods/', (req, res, next) => {
   request(
-    {url: nasaAPIURL},
+    {url: "https://ssd-api.jpl.nasa.gov/fireball.api?"},
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: 'error', message: err.message });
