@@ -9,32 +9,38 @@ app.getAJAX = function() {
     var app_id = 'app_id=2a49b2c6';
     var apiUndergroundKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
-    
-    //var nasaAPIDay = moment.tz('America/Los_Angeles').format('YYYY-MM-DD');
+    var asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
+    var nasaAPIDay = new Date().toISOString({timeZone: "America/Los_Angeles"}).split("T")[0];
 
-    //var asteriodURL = (asteroidUrl + nasaAPIDay); 
+    var nasaAPIURL = (asteroidUrl + nasaAPIDay); 
 
     console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
+    /*$.ajax({
+         url: '/nasa',
+         complete: function(asteroidResponse) {
+               console.log(asteroidResponse);
+            }
+         });*/
+
     $.when(
-        
         $.get(weatherUrl + apiWeatherKey),
         //$.getJSON('js/dummy-json/weather/clouds.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
         //$.getJSON('js/dummy-json/tube/nighttube.json'), //<-- this causes a huge bug!
-        //$.get(asteroidUrl + nasaAPIDay),
-        $.getJSON('js/dummy-json/asteroidfalse.json'),
+        $.getJSON("/nasa")
+
+        //$.getJSON('js/dummy-json/asteroidfalse.json'),
         //$.get(asteroidUrl + apiKey)
         //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA, OR CHANGE TO LIVE VERSION
 
-     ).done(function(weatherResponse, undergroundResponse, asteroidResponse) {
+    ).done(function(weatherResponse, undergroundResponse, asteroidResponse) {
+
 
         var weatherandAsteroidArray = [];
         var asteroidArray = [];
         var weatherCondition = weatherResponse[0].weather[0].main;
-
         var asteroidCount = asteroidResponse[0].count;
-
 
         asteroidArray.push(asteroidCount);
 
@@ -81,8 +87,6 @@ app.displayUndergroundOverlay = function(undergroundResponse) {
          var undergroundName = line.name;
          var undergroundStatus = line.lineStatuses[0].statusSeverityDescription;
          var addLineID = $('#undergroundStatus').attr('id', undergroundID);
-
-         var dayorEvening = moment().add('Europe/London').format('e');
 
         switch (undergroundStatus) {
 
@@ -543,7 +547,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
 app.displayAsteroids = function(asteroidArray) {
 
-    //console.log('Any Hazardous Asteroids? ' + asteroidArray);
+    console.log('Any Hazardous Asteroids? ' + asteroidArray);
 
     if (asteroidArray > 0 ){
 

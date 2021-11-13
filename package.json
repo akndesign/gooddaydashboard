@@ -1,28 +1,17 @@
 {
-  "name": "gooddaydashboard",
-  "description": "npm install for gooddaydashboard",
+  "name": "beat-cors-server",
   "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akndesign/my_package.git"
+    "start": "node ./"
   },
   "keywords": [],
-  "author": "alexander neumann",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/akndesign/my_package/issues"
-  },
-  "homepage": "https://github.com/akndesign/my_package",
   "dependencies": {
-    "gulp-watch": "^5.0.1",
-    "moment-timezone": "^0.5.34"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.26.13",
-    "gulp": "^4.0.2"
-  },
-  "main": "gulpfile.js"
+    "express": "^4.16.4",
+    "jquery": "^3.6.0",
+    "request": "^2.88.0"
+  }
 }
