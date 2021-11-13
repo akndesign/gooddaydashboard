@@ -15,14 +15,7 @@
 
       <script type="text/javascript">
  
-    $.ajax({
-         url: '/nasa',
-         complete: function(data) {
-               console.log(data);
-            }
-         });
-
-        
+   
       $(window).on('load', function(){
         $('#loading-bg').delay(3500).fadeOut(500);
       });
@@ -80,7 +73,7 @@
       <div id="loading-bg"> 
       <div class="loading-content">
         <div class="loading-header">
-          <img class="gooddaydashboard-icon" src="img/gooddaydashboard_icon-02.svg" alt="Good Day Dashboard Icon">
+          <img class="gooddaydashboard-icon" src="public/img/gooddaydashboard_icon-02.svg" alt="Good Day Dashboard Icon">
           <h1>Good Day Dashboard</h1>
         </div>
         <div class="loading-text animated animatedFadeInUp fadeInUp"><span class="loader-greeting"></span>, we're looking up the current conditions in London..</div>
@@ -214,7 +207,7 @@
       </div>
       </div>
       
-      <footer class="footer"><a target="_blank" href="https://akndesign.com">Made with <img src="img/hearticon-01.svg" id="hearticon" alt="Heart" height="16" width="16"> by <img src="img/akndesign2-01.svg" id="akndesign" alt="aknDesign" height="50" width="50"></a>
+      <footer class="footer"><a target="_blank" href="https://akndesign.com">Made with <img src="public/img/hearticon-01.svg" id="hearticon" alt="Heart" height="16" width="16"> by <img src="public/img/akndesign2-01.svg" id="akndesign" alt="aknDesign" height="50" width="50"></a>
       </footer>
       </div>
       <script src="js/rippleeffect.js" type="text/javascript" charset="utf-8"></script>
