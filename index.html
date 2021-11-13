@@ -14,8 +14,14 @@
       <script src="public/js/main.js" type="text/javascript" charset="utf-8"></script>
 
       <script type="text/javascript">
- 
-   
+      
+      $.ajax({
+         url: '/nasa-asteriods',
+         complete: function(data) {
+               console.log(data);
+            }
+         });
+
       $(window).on('load', function(){
         $('#loading-bg').delay(3500).fadeOut(500);
       });
