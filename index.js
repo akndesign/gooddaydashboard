@@ -15,15 +15,15 @@ app.use((req, res, next) => {
   next();
 });
 
-const asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
+/*const asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
 const nasaAPIDay = new Date().toLocaleString({timeZone: "America/Los_Angeles"}).split("T")[0];
 const nasaAPIURL = (asteroidUrl + nasaAPIDay); 
 
-console.log(nasaAPIDay, nasaAPIURL);
+console.log(nasaAPIDay, nasaAPIURL);*/
 
 app.get('/nasa-asteriods/', (req, res, next) => {
   request(
-    {url: "https://ssd-api.jpl.nasa.gov/fireball.api?"},
+    {url: "https://ssd-api.jpl.nasa.gov/fireball.api"},
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: 'error', message: err.message });
