@@ -28,14 +28,11 @@ app.getAJAX = function() {
         //$.getJSON('js/dummy-json/weather/clouds.json'),
         $.get(tflUrl + app_id + apiUndergroundKey),
         //$.getJSON('js/dummy-json/tube/nighttube.json'), //<-- this causes a huge bug!
-        $.getJSON("/nasa")
-
+        $.getJSON("/nasa-asteriods")
         //$.getJSON('js/dummy-json/asteroidfalse.json'),
-        //$.get(asteroidUrl + apiKey)
         //MAKE SURE TO MANUALLY CHANGE TO THE CURRENT DATE IN CALIFORNIA, OR CHANGE TO LIVE VERSION
 
     ).done(function(weatherResponse, undergroundResponse, asteroidResponse) {
-
 
         var weatherandAsteroidArray = [];
         var asteroidArray = [];
@@ -689,9 +686,6 @@ app.runClock = function(weatherResponse) {
         //(sunriseDataEpoch - (+londonEpoch));
     var sunriseinHours = Math.round(sunriseDifferenceinSeconds / 3600);
 
-    console.log(sunriseDifferenceinSeconds);
-
-
     var sunsetDifferenceinSeconds = (sunsetDataEpoch - (+londonEpoch));
     var sunsetinHours = Math.round(sunsetDifferenceinSeconds / 3600);
 
@@ -842,8 +836,6 @@ app.loaderFadeOut = function(){
 
 var twentyFourHours = moment.tz('Europe/London').format('HH');
 var timedifference = new Date().getTimezoneOffset();
-
-console.log(timedifference);
 
 var userTime = new Date().getHours();
 
