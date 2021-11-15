@@ -16,11 +16,11 @@ app.use((req, res, next) => {
   next();
 });
 
-const asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
-const nasaAPIDay = new Date().toLocaleString({timeZone: "America/Los_Angeles"}).split("T")[0];
-const nasaAPIURL = (asteroidUrl + nasaAPIDay); 
+//const asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
+//const nasaAPIDay = new Date().toLocaleString({timeZone: "America/Los_Angeles"}).split("T")[0];
+//const nasaAPIURL = (asteroidUrl + nasaAPIDay); 
 
-console.log(nasaAPIDay, nasaAPIURL);
+//console.log(nasaAPIDay, nasaAPIURL);
 
 app.get('/nasa-asteriods/', (req, res, next) => {
   request(
@@ -35,6 +35,7 @@ app.get('/nasa-asteriods/', (req, res, next) => {
   )
 });
 
+const PORT = process.env.PORT || 5000;
 express().listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 /*const server = http.createServer(app);
