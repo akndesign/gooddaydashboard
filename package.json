@@ -14,5 +14,9 @@
     "express": "^4.16.4",
     "jquery": "^3.6.0",
     "request": "^2.88.0"
-  }
+  },
+  "scripts": {
+   "start": "node index.js"
+}
+
 }
