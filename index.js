@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+
 const http = require('http');
 const path = require('path');
 const request = require('request');
@@ -26,8 +27,6 @@ app.get('/', function (req, res) {
 });
 
 app.use(express.static(__dirname + "/public"));
-
-app.use(express.static(__dirname + "/public/img"));
 
 app.listen(process.env.PORT || 5000, function () {
     console.log('Node app is working!');
