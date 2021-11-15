@@ -9,11 +9,6 @@ app.getAJAX = function() {
     var app_id = 'app_id=2a49b2c6';
     var apiUndergroundKey = '&app_key=19d97bbedc6a5b79a885b824afc220c3';
 
-    var asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
-    var nasaAPIDay = new Date().toISOString({timeZone: "America/Los_Angeles"}).split("T")[0];
-
-    var nasaAPIURL = (asteroidUrl + nasaAPIDay); 
-
     console.log("Looking at my code, are we? ;) Why don't we have a chat -- email me at alexander@akndesign.com");
 
     /*$.ajax({
@@ -544,7 +539,7 @@ app.displayWeather = function(weatherCondition, weatherResponse) {
 
 app.displayAsteroids = function(asteroidArray) {
 
-    console.log('Any Hazardous Asteroids? ' + asteroidArray);
+    console.log('Any Hazardous Asteroids? ' + asteroidArray + ' at this time');
 
     if (asteroidArray > 0 ){
 
@@ -698,8 +693,6 @@ app.runClock = function(weatherResponse) {
     } 
     
     (function sunRise () {
-
-        console.log(sunriseinHours);
                     
         if (sunriseDifferenceinSeconds <= 29400 && sunriseDifferenceinSeconds > 3600 && sunriseinHours !== 1) {
             $('.tile-clock').addClass('nightime');

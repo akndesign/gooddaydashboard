@@ -13,8 +13,6 @@ const asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
 const nasaAPIDay = new Date().toLocaleDateString('sv', {timeZone: 'America/Los_Angeles'});
 const nasaAPIURL = (asteroidUrl + nasaAPIDay); 
 
-console.log(nasaAPIURL);
-
 app.get('/nasa-asteriods/', (req, res) => {
   request(
     {url: nasaAPIURL},
