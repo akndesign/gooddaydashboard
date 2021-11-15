@@ -19,7 +19,8 @@
       "engines": {
         "node": "v16.13.0",
         "npm": "8.1.0"
-      }
+      },
+      "scripts": "index.js"
     },
     "node_modules/accepts": {
       "version": "1.3.7",
