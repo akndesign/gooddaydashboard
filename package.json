@@ -940,5 +940,9 @@
     "url": "https://github.com/akndesign/gooddaydashboard/issues"
   },
   "homepage": "https://github.com/akndesign/gooddaydashboard#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.2"
+  }
 }
