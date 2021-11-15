@@ -7,6 +7,10 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
 
+app.get('/', function (req, res) {
+  res.render('index', {});
+});
+
 //app.use(express.static(path.join(__dirname, '/public'))); 
 app.use(express.static(path.join(__dirname + '/')));
 
