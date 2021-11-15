@@ -1,4 +1,21 @@
-const express = require('express');
+var express = require('express');
+var app = express();
+var path = require('path');
+
+app.get('/', function (req, res) {
+    //res.sendFile(path.join(__dirname, '/'));
+    res.sendFile(path.join(__dirname, '/'));
+});
+
+app.listen(process.env.PORT || 5000, function () {
+    console.log('Node app is working!');
+});
+
+
+
+
+
+/*const express = require('express');
 const request = require('request');
 const app = express();
 const http = require('http');
@@ -8,8 +25,11 @@ const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
 
 
-app.use(express.static(path.join(__dirname, '/public'))); 
-//app.use(express.static(path.join(__dirname + '/')));
+app.use(express.static(path.join(__dirname, 'index.html'))); 
+
+app.get('/', function(req, res){
+  res.sendFile(process.cwd() + 'index.html');
+});
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
