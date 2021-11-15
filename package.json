@@ -14,10 +14,11 @@
     "express": "^4.16.4",
     "form-data": "^4.0.0",
     "jquery": "^3.6.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "tough-cookie": "^4.0.0"
   },
   "engines": {
     "node": "v16.13.0",
-    "npm": "8.1.0"  
+    "npm": "8.1.0"
   }
 }
