@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
 
 app.use(express.static(__dirname + "/public"));
 
-app.listen(process.env.PORT || 8888, function () {
+app.listen(process.env.PORT || 5000, function () {
     console.log('Good Day Dashboard has successfully loaded!');
 });
 
