@@ -942,6 +942,7 @@
   "homepage": "https://github.com/akndesign/gooddaydashboard#readme",
   "description": "",
   "dependencies": {
+    "dayjs": "^1.10.7",
     "express": "^4.17.1",
     "request": "^2.88.2"
   }

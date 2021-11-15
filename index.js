@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-
 const http = require('http');
 const path = require('path');
 const request = require('request');
@@ -10,9 +9,15 @@ app.use((req, res, next) => {
   next();
 });
 
+const asteroidUrl = 'https://ssd-api.jpl.nasa.gov/fireball.api?date-min=';
+const nasaAPIDay = new Date().toLocaleDateString('sv', {timeZone: 'America/Los_Angeles'});
+const nasaAPIURL = (asteroidUrl + nasaAPIDay); 
+
+console.log(nasaAPIURL);
+
 app.get('/nasa-asteriods/', (req, res) => {
   request(
-    {url: "https://ssd-api.jpl.nasa.gov/fireball.api?"},
+    {url: nasaAPIURL},
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: 'error', message: err.message });
@@ -28,8 +33,8 @@ app.get('/', function (req, res) {
 
 app.use(express.static(__dirname + "/public"));
 
-app.listen(process.env.PORT || 5000, function () {
-    console.log('Node app is working!');
+app.listen(process.env.PORT || 8888, function () {
+    console.log('Good Day Dashboard has successfully loaded!');
 });
 
 
