@@ -7,8 +7,8 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
 
-app.use(express.static(path.join(__dirname, '/public'))); 
-//app.use(express.static(path.join(__dirname + '/')));
+//app.use(express.static(path.join(__dirname, '/public'))); 
+app.use(express.static(path.join(__dirname + '/')));
 
 /*app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
