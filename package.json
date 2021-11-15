@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./"
+  "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,9 +15,5 @@
     "jquery": "^3.6.0",
     "request": "^2.88.0"
   },
-  "scripts": {
-   "start": "node index.js"
-}
 
 }
-.
