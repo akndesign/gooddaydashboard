@@ -8,13 +8,13 @@ const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone'); // dependent on utc plugin
 
 app.get('/', function (req, res) {
-  res.render('index', {});
+  res.render('index.html', {});
 });
 
 //app.use(express.static(path.join(__dirname, '/public'))); 
 app.use(express.static(path.join(__dirname + '/')));
 
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
@@ -36,10 +36,7 @@ app.get('/nasa-asteriods/', (req, res, next) => {
       res.json(JSON.parse(body));
     }
   )
-});*/
-
-//const cool = require('cool-ascii-faces');
-const PORT = process.env.PORT || 5000;
+});
 
 express().listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
